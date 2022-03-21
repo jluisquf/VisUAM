@@ -1,1 +1,524 @@
-/* You can add global styles to this file, and also import other style files */
+/*=============== GOOGLE FONTS ===============*/
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Open+Sans:wght@300;400&display=swap');
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+    /*========== Colors ==========*/
+    --primary-color: #6bd425;
+    --primary-color-alt: #618b25;  
+    --secondary-color: #42113c;
+    --secondary-color-alt: #42113c;  
+    --dark-color: #1c0118;
+    --light-color: #FFFFFF;
+    --body-color: var(--light-color);
+    --text-color: var(--dark-color);
+    --bg-gradient: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg stroke='%2342113C' stroke-width='66.7' stroke-opacity='0.05' %3E%3Ccircle fill='%231C0118' cx='0' cy='0' r='1800'/%3E%3Ccircle fill='%231d0219' cx='0' cy='0' r='1700'/%3E%3Ccircle fill='%231f031a' cx='0' cy='0' r='1600'/%3E%3Ccircle fill='%2320041b' cx='0' cy='0' r='1500'/%3E%3Ccircle fill='%2321051c' cx='0' cy='0' r='1400'/%3E%3Ccircle fill='%2323061d' cx='0' cy='0' r='1300'/%3E%3Ccircle fill='%2324071d' cx='0' cy='0' r='1200'/%3E%3Ccircle fill='%2326071e' cx='0' cy='0' r='1100'/%3E%3Ccircle fill='%2327081f' cx='0' cy='0' r='1000'/%3E%3Ccircle fill='%23290820' cx='0' cy='0' r='900'/%3E%3Ccircle fill='%232b0921' cx='0' cy='0' r='800'/%3E%3Ccircle fill='%232c0922' cx='0' cy='0' r='700'/%3E%3Ccircle fill='%232e0922' cx='0' cy='0' r='600'/%3E%3Ccircle fill='%23300923' cx='0' cy='0' r='500'/%3E%3Ccircle fill='%23320924' cx='0' cy='0' r='400'/%3E%3Ccircle fill='%23330925' cx='0' cy='0' r='300'/%3E%3Ccircle fill='%23350925' cx='0' cy='0' r='200'/%3E%3Ccircle fill='%23370926' cx='0' cy='0' r='100'/%3E%3C/g%3E%3C/svg%3E");
+
+    /*========== Font and typography ==========*/
+    /*.5rem = 8px | 1rem = 16px ...*/
+    --primary-font: 'Open Sans', sans-serif;
+    --secondary-font: 'Archivo', sans-serif;
+    --biggest-font-size: 2rem;
+    --h1-font-size: 1.5rem;
+    --h2-font-size: 1.25rem;
+    --h3-font-size: 1rem;
+    --normal-font-size: .838rem;
+    --small-font-size: .813rem;
+    --smaller-font-size: .75rem;
+    --tiny-font-size: .625rem;
+
+    /*========== Font weight ==========*/
+    --font-light: 300;
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-semi-bold: 600;
+    --font-bold: 700;
+    --font-extra-bold: 900;
+
+    /*========== z index ==========*/
+    --z-tooltip: 10;
+    --z-fixed: 100;
+    --z-modal: 1000;
+
+    --small-header: 5rem;
+    --big-header: 10rem;
+}
+
+/* Responsive typography */
+@media screen and (min-width: 968px) {
+    :root {
+        --biggest-font-size: 4rem;
+        --h1-font-size: 2rem;
+        --h2-font-size: 1.5rem;
+        --h3-font-size: 1.25rem;
+        --normal-font-size: 1rem;
+        --small-font-size: .875rem;
+        --smaller-font-size: .813rem;
+    }
+}
+
+/*=============== BASE ===============*/
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+    padding: 0;
+    margin: 0;
+}
+
+body,
+button,
+input,
+textarea {
+    font-family: var(--primary-font);
+    font-weight: var(--font-regular);
+    font-size: var(--normal-font-size);
+}
+
+body {
+    background-color: var(--body-color);
+    color: var(--text-color);
+    transition: .4s;
+}
+
+h1, h2, h3 {
+    font-family: var(--secondary-font);
+    font-weight: var(--font-extra-bold);
+}
+
+h1 {
+    font-weight: var(--h1-font-size);
+}
+
+h2 {
+    font-weight: var(--h2-font-size);
+}
+
+h3 {
+    font-weight: var(--h3-font-size);
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+    max-width: 968px;
+    margin: 0 auto;
+}
+
+.section {
+    padding: 4.5rem 0 1rem;
+}
+
+.section__title,
+.section__subtitle {
+    text-align: center;
+}
+
+.section__title {
+    font-family: var(--secondary-font);
+    font-size: var(--h1-font-size);
+    font-weight: var(--font-bold);
+    color: var(--secondary-color);
+    margin-bottom: 2rem;
+}
+
+.section__title::after {
+    content: '';
+    display: block;
+    position: relative;
+    border-radius: 2rem;
+    margin: 0 auto;
+    margin-top: .75rem;
+    width: 6rem;
+    height: .25rem;
+    background: var(--primary-color-alt);
+}
+
+.section__subtitle {
+    font-family: var(--primary-font);
+    font-size: var(--h2-font-size);
+    font-weight: var(--font-light);
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: .6rem 3rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    border: 3px solid var(--body-color);
+}
+
+.btn-group {
+    width: 30rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-primary {
+    color: var(--text-color);
+    background-color: var(--body-color);
+}
+
+.btn-secondary {
+    color: var(--body-color);
+}
+
+.btn-dark {
+    color: var(--body-color);
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.btn-primary:hover {
+    background: var(--secondary-color-alt);
+    color: var(--light-color)!important;
+    transition: .5s;
+}
+
+.btn-secondary:hover {
+    background: var(--primary-color-alt);
+    color: var(--light-color);
+    transition: .5s;
+}
+
+.btn-dark:hover {
+    background: var(--secondary-color-alt);
+    color: var(--light-color)!important;
+    transition: .5s;
+}
+
+/*=============== HEADER ===============*/
+.site-header.header{
+    height: var(--big-header);
+    background: none;
+}
+
+.header {
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    background-size: cover;
+    height: var(--small-header);
+    position: fixed;
+    width: 100%;
+    display: flex;
+    z-index: 1;
+}
+
+.header__content {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__logo {
+    width: 3.5rem;
+}
+
+/* Navbar */
+
+.navbar__menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar__item {
+    font-size: var(--small-font-size);
+    color: var(--body-color);
+    margin-left: 3rem;
+}
+
+.navbar__item a {
+    color: var(--light-color);
+}
+
+.navbar__item .btn {
+    color: var(--text-color);
+    padding: .4rem 1.5rem;
+}
+
+/*=============== HERO BANNER ===============*/
+.hero-banner {
+    height: 100vh;
+    background-color: var(--dark-color);
+    background-image: var(--bg-gradient);
+    background-attachment: fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+}
+
+.hero-banner__content {
+    width: 100%;
+    z-index: 1;
+}
+
+.hero-banner__text {
+    max-width: 65%;
+    color: var(--body-color);
+}
+
+.hero-banner__text h3 {
+    font-family: var(--primary-color);
+    font-weight: var(--font-light);
+}
+
+
+.hero-banner__text h3::after {
+    content: '';
+    display: block;
+    position: relative;
+    border-radius: 2rem;
+    margin-top: .35rem;
+    width: 20rem;
+    height: .1rem;
+    background: var(--light-color);
+}
+
+.hero-banner__text h1 {
+    font-size: var(--biggest-font-size);
+    font-weight: var(--font-bold);
+    line-height: 2;
+}
+
+.hero-banner__text p {
+    font-weight: var(--font-light);
+    line-height: 2;
+}
+
+.hero-banner__panther {
+    width: 35rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.hero-banner__waves {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+}
+
+
+/*=============== MAIN SECTION ===============*/
+
+.main__card {
+    text-align: center;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+.main__card-text p {
+    padding: 1rem 0;
+    line-height: 2;
+}
+
+.main__card-image img{
+    padding: 2rem;
+}
+
+@media screen and (min-width: 576px) {
+    .main__card {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .main__card-text,
+    .main__card-text h3 {
+        text-align: right;
+        flex-basis: calc(50% - 2rem);
+    }
+
+    .main__card-image {
+        flex-basis: calc(50% - 2rem);
+    }
+
+    .main__card:nth-child( even ) {
+        flex-direction: row;
+    }
+
+    .main__card:nth-child( even ) .main__card-text,
+    .main__card:nth-child( even ) .main__card-text h3 {
+        text-align: left;
+    }
+}
+
+/*=============== BANNER ===============*/
+
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    background-size: cover;
+    height: 50vh;
+}
+
+.banner__content,
+.banner__content h2 {
+    text-align: center;
+    color: var(--light-color);
+}
+
+.banner__content p {
+    line-height: 2;
+    max-width: 40rem;
+    margin-bottom: 2rem;
+}
+
+/*=============== GRUPO DE TRABAJO ===============*/
+.equipo-trabajo__header {
+    text-align: center;
+}
+
+.equipo-trabajo__body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-titles{
+    text-align: center;
+}
+
+#container-equipo {
+    margin-top: 7%;
+}
+
+#info-equipo {
+    align-items: center;
+    margin-top: 5%;
+}
+
+#linea {
+    align-items: center;
+    margin-left: 40%;
+}
+
+.img-integrante {
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 15px;
+    align-items: center;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.btn-redes {
+    display: flex;
+    border-radius: 15px;
+    padding: 0 2rem;
+}
+
+.redonda {
+    width:150px;
+    height:150px;
+    border-radius:100%;
+    border:3px solid #d3d3d3;
+}
+
+.btn-redes a {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin: 0 auto;
+    margin-top: 1rem;
+    transition: .4s;
+}
+
+.btn-redes a:hover {
+    color: var(--primary-color-alt);
+}
+
+/*=============== TECNOLOGIAS SECTION ===============*/
+.tecnologias__header {
+    text-align: center;
+}
+
+.tecnologias__body {
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tecnologias__item {
+    text-align: center;
+}
+
+.redonda {
+    width:150px;
+    height:150px;
+}
+
+/*=============== FOOTER ===============*/
+.footer {
+    margin-top: 4rem;
+    height: 40vh;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.footer__content {
+    padding-top: 4rem;
+    text-align: center;
+}
+
+.footer__content h2 {
+    color: var(--light-color);
+}
+
+.footer .navbar__menu {
+    flex-direction: row;
+}
+
+/*=============== VISUALIZADOR PAGE ===============*/
+.canvas__section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.canvas__section p {
+    text-align: center;
+    max-width: 40rem;
+}
+
+.canvas__section .btn {
+    margin-top: 2rem;
+}
