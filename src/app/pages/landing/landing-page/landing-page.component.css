@@ -1,0 +1,229 @@
+/*=============== HEADER ===============*/
+.site-header.header{
+    height: var(--small-header);
+    background: none;
+}
+
+.scroll-header {
+    height: var(--small-header)!important;
+    background: var(--bg-gradient)!important;
+    background-attachment: fixed!important;
+    background-size: cover!important;
+    transition: ease 0.5s;
+}
+
+@media screen and (min-width: 992px) {
+    .site-header.header {
+        height: var(--big-header);
+    } 
+}
+
+.header {
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    background-size: cover;
+    height: var(--small-header);
+    position: fixed;
+    width: 100%;
+    display: flex;
+    z-index: 2;
+    transition: ease 0.5s;
+}
+
+.header__content {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__logo {
+    width: 3rem;
+}
+
+/* Navbar */
+.header__navbar {
+    display: none;
+}
+
+@media screen and (min-width: 992px) {
+    .header__navbar {
+        display: block;
+    }
+    .header__navbar-mobile {
+        display: none;
+    }
+    .navbar__menu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.navbar__item {
+    font-size: var(--small-font-size);
+    color: var(--body-color);
+    margin-left: 3rem;
+}
+
+.navbar__item a {
+    color: var(--light-color);
+}
+
+.navbar__item i {
+    font-size: 16px;
+}
+
+.navbar__item .btn {
+    color: var(--text-color);
+    padding: .4rem 1.5rem;
+}
+
+/* Mobile navbar */
+.navbar-mobile__menu {
+    display: none;
+}
+
+.navbar-mobile__toggle {
+    font-size: 2rem;
+    color: var(--light-color);
+}
+
+/*=============== HERO BANNER ===============*/
+.hero-banner {
+    height: 100vh;
+    background-color: var(--dark-color);
+    background-image: var(--bg-gradient);
+    background-attachment: fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+}
+
+.hero-banner__content {
+    flex-basis: 100%;
+    z-index: 1;
+}
+
+@media screen and (min-width: 992px) {
+    .hero-banner__text {
+        max-width: 60%;
+    }
+}
+
+.hero-banner__text {
+    color: var(--body-color);
+}
+
+.hero-banner__text h3 {
+    font-family: var(--primary-color);
+    font-weight: var(--font-light);
+}
+
+
+.hero-banner__text h3::after {
+    content: '';
+    display: block;
+    position: relative;
+    border-radius: 2rem;
+    margin-top: .35rem;
+    width: 20rem;
+    height: .1rem;
+    background: var(--light-color);
+}
+
+.hero-banner__text h1 {
+    font-size: var(--biggest-font-size);
+    font-weight: var(--font-bold);
+    line-height: 2;
+}
+
+.hero-banner__text p {
+    font-weight: var(--font-light);
+    line-height: 2;
+}
+
+/* .hero-banner__panther {
+    width: 35rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+} */
+
+.hero-banner__waves {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    bottom: 0;
+}
+
+
+/*=============== MAIN SECTION ===============*/
+
+.main__card {
+    text-align: center;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+.main__card-text p {
+    padding: 1rem 0;
+    line-height: 2;
+}
+
+.main__card-image img{
+    padding: 2rem;
+}
+
+@media screen and (min-width: 992px) {
+    .main__card {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .main__card-text,
+    .main__card-text h3 {
+        text-align: right;
+        flex-basis: calc(50% - 2rem);
+    }
+
+    .main__card-image {
+        flex-basis: calc(50% - 2rem);
+    }
+
+    .main__card:nth-child( even ) {
+        flex-direction: row;
+    }
+
+    .main__card:nth-child( even ) .main__card-text,
+    .main__card:nth-child( even ) .main__card-text h3 {
+        text-align: left;
+    }
+}
+
+/*=============== BANNER ===============*/
+
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    background-size: cover;
+    height: 50vh;
+}
+
+.banner__content,
+.banner__content h2 {
+    text-align: center;
+    color: var(--light-color);
+}
+
+.banner__content p {
+    line-height: 2;
+    max-width: 40rem;
+    margin-bottom: 2rem;
+}
