@@ -1,0 +1,17 @@
+/*=============== VISUALIZADOR PAGE ===============*/
+.canvas__section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.canvas__section p {
+    text-align: center;
+    max-width: 40rem;
+}
+
+.canvas__section .btn {
+    margin-top: 2rem;
+}
