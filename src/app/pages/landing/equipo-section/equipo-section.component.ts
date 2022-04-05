@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as users from 'src/assets/json/team.config.json';
 
 @Component({
   selector: 'app-equipo-section',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EquipoSectionComponent implements OnInit {
 
+  Datos:any = users;
   constructor() { }
 
   ngOnInit(): void {
+    this.Datos = this.getDatos();
+  }
+
+  getDatos(){
+    return this.Datos.Integrantes;
   }
 
 }

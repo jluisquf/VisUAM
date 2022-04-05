@@ -1,0 +1,50 @@
+{
+    "name": "Integrantes del Equipo",
+    "Integrantes": [
+        {
+            "nombre": "David Moreno Gutierrez",
+            "rutaImg": "/assets/img/integrante1.jpg",
+            "redes": {
+                "instagram": "#",
+                "facebook": "#",
+                "twitter": "#"
+            }
+        },
+        {
+            "nombre": "Angel Pimentel Méndez",
+            "rutaImg": "/assets/img/integrante2.jpg",
+            "redes": {
+                "instagram": "#",
+                "facebook": "#",
+                "twitter": "#"
+            }
+        },
+        {
+            "nombre": "Luis Antonio Vadovinos",
+            "rutaImg": "/assets/img/integrante3.jpg",
+            "redes": {
+                "instagram": "#",
+                "facebook": "#",
+                "twitter": "#"
+            }
+        },
+        {
+            "nombre": "Pablo Flores Franco",
+            "rutaImg": "/assets/img/integrante4.jpg",
+            "redes": {
+                "instagram": "#",
+                "facebook": "#",
+                "twitter": "#"
+            }
+        },
+        {
+            "nombre": "Juan Perez Gonzales",
+            "rutaImg": "/assets/img/integrante5.jpg",
+            "redes": {
+                "instagram": "#",
+                "facebook": "#",
+                "twitter": "#"
+            }
+        }
+    ]
+}
