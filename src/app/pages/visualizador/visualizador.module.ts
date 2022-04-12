@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VisualizadorPageComponent } from './visualizador-page/visualizador-page.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-
+import {NgsRevealModule} from 'ngx-scrollreveal';
 
 
 @NgModule({
@@ -11,7 +11,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    NgsRevealModule
   ]
 })
 export class VisualizadorModule { }

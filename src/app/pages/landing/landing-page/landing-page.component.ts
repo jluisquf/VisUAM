@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgsRevealConfig } from 'ngx-scrollreveal';
 
 @Component({
   selector: 'app-landing-page',
@@ -7,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingPageComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(config: NgsRevealConfig) {
+    config.scale = 1; 
+    config.distance = '60px';
+    config.duration = 500;
+    config.delay = 500;
+  }
   ngOnInit(): void {
   }
 

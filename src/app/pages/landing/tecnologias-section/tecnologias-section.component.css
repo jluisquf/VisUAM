@@ -24,3 +24,29 @@
     height: 100%;
     min-width: 5rem;
 }
+/*=============== TECNOLOGIAS SECTION ===============*/
+.tecnologias__header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.tecnologias__body {
+    margin-top: 5%;
+}
+
+.tecnologias__body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tecnologias__item {
+    height: max-content;
+    flex-basis: calc(33.3% - 5rem);
+    text-align: center;
+}
+
+.redonda {
+    height: 100%;
+    min-width: 5rem;
+}

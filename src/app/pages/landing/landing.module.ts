@@ -4,7 +4,7 @@ import { EquipoSectionComponent } from './equipo-section/equipo-section.componen
 import { TecnologiasSectionComponent } from './tecnologias-section/tecnologias-section.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-
+import { NgsRevealModule } from 'ngx-scrollreveal';
 
 
 @NgModule({
@@ -15,7 +15,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    NgsRevealModule
   ]
 })
 export class LandingModule { }

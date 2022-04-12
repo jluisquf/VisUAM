@@ -7,11 +7,21 @@
     align-items: center;
 }
 
+.canvas__drag-drop {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: 8px dotted var(--primary-color); */
+    max-width: 40rem;
+    padding: 2rem 4rem;
+}
+
 .canvas__section p {
     text-align: center;
-    max-width: 40rem;
 }
 
 .canvas__section .btn {
+    margin: auto;
     margin-top: 2rem;
 }

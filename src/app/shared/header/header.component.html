@@ -1,55 +1,25 @@
 <!-- SITEHEADER -->
-<header class="site-header header" ngClass="scrollHeader ? 'scroll-header' : 'header'" id="header">
+<header id="header" ngClass="scrollHeader ? 'scroll-header' : 'header'" class="header">
     <div class="header__content container">
-        <div class="header__logo">
-            <a href="index.html">
-                <img src="assets/img/logo.png" alt="">
-            </a>
+        <div class="header-logo" [ngsReveal]="{ origin: 'left', distance: '60px', delay: 200, duration: 600 }">
+            Vis<span class="text-primary">UAM</span>
         </div>
         <div class="header__navbar">
-            <ul class="navbar__menu">
-                <li class="navbar__item">
-                    <a href="index.html"><i class='bx bxs-home'></i> Inicio </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="#main__section"><i class='bx bxs-info-circle' ></i> ¿Qué es? </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="#equipo-trabajo__section"><i class='bx bxs-user' ></i> Grupo de Trabajo </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="#">Esp <i class='bx bxs-down-arrow' ></i> </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="visualizador.html" class="btn btn-primary">
-                        Abrir Visualizador
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="header__navbar-mobile">
-            <a href="#" class="navbar-mobile__toggle">
-                <i class='bx bx-menu'></i>
-            </a>
-            <ul class="navbar-mobile__menu">
-                <li class="navbar__item">
-                    <a href="index.html"><i class='bx bxs-home'></i> Inicio </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="#main__section"><i class='bx bxs-info-circle' ></i> ¿Qué es? </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="#equipo-trabajo__section"><i class='bx bxs-user' ></i> Grupo de Trabajo </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="#">Esp <i class='bx bxs-down-arrow' ></i> </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="visualizador.html" class="btn btn-primary">
-                        Abrir Visualizador
-                    </a>
-                </li>
-            </ul>
+            <div class="navbar__item" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 400, duration: 600 }">
+                <a routerLink="/home" class="navbar__link active-link">Inicio</a>
+            </div>
+            <div class="navbar__item" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 500, duration: 600 }">
+                <a href="#main-section" class="navbar__link">¿Qué es?</a>
+            </div>
+            <div class="navbar__item" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 600, duration: 600 }">
+                <a href="#equipo-trabajo__section" class="navbar__link">Grupo Trabajo</a>
+            </div>
+            <div class="navbar__item" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 700, duration: 600 }">
+                <a href="#" class="navbar__link">Esp <i class='bx bxs-down-arrow' ></i></a>
+            </div>
+            <div class="navbar__item navbar-button" [ngsReveal]="{ origin: 'right', distance: '60px', delay: 200, duration: 600 }">
+                <a routerLink="/visualizador" class="btn btn-primary">Abrir visualizador!</a>
+            </div>
         </div>
     </div>
 </header>
