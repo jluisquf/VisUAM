@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EquipoSectionComponent } from './equipo-section/equipo-section.component';
 import { TecnologiasSectionComponent } from './tecnologias-section/tecnologias-section.component';
-import { LandingPageComponent } from './landing-page/landing-page.component';
+import { HomePageComponent } from './home-page/home-page.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgsRevealModule } from 'ngx-scrollreveal';
 
@@ -11,7 +11,7 @@ import { NgsRevealModule } from 'ngx-scrollreveal';
   declarations: [
     EquipoSectionComponent,
     TecnologiasSectionComponent,
-    LandingPageComponent
+    HomePageComponent
   ],
   imports: [
     CommonModule,
@@ -19,4 +19,4 @@ import { NgsRevealModule } from 'ngx-scrollreveal';
     NgsRevealModule
   ]
 })
-export class LandingModule { }
+export class HomeModule { }

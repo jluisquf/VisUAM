@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NgsRevealConfig } from 'ngx-scrollreveal';
 
 @Component({
-  selector: 'app-landing-page',
-  templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.css']
+  selector: 'app-home-page',
+  templateUrl: './home-page.component.html',
+  styleUrls: ['./home-page.component.css']
 })
-export class LandingPageComponent implements OnInit {
+export class HomePageComponent implements OnInit {
 
   constructor(config: NgsRevealConfig) {
     config.scale = 1; 

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LandingModule } from './pages/landing/landing.module';
+import { HomeModule } from './pages/home/home.module';
 import { SharedModule } from './shared/shared.module';
 import { VisualizadorModule } from './pages/visualizador/visualizador.module';
 
@@ -15,7 +15,7 @@ import { VisualizadorModule } from './pages/visualizador/visualizador.module';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    LandingModule,
+    HomeModule,
     VisualizadorModule
   ],
   providers: [],
