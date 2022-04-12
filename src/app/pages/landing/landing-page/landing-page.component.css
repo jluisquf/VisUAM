@@ -23,7 +23,7 @@
 
 .hero-banner__content {
     width: 100%;
-    z-index: var(--z-fixed);
+    z-index: 1;
 }
 
 .hero-banner__text {
