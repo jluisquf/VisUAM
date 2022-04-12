@@ -6,29 +6,31 @@
       <br />
       <p>Somos un grupo multidisciplinario de alumnos y académicos</p>
     </div>
-  </div>
-  <!--Contenedor donde se pondran las fotos del grupo de trabajo-->
-  <div class="equipo-trabajo__body" id="info-equipo">
-    <div class="card img-integrante integrante-1" style="width: 19rem">
-      <img
-        src="https://i.pinimg.com/originals/21/c2/16/21c216900bff3acaf8c3734e31c51da8.jpg"
-        class="redonda"
-        alt="Integrante 1"
-      />
-      <div class="card-body">
-        <h3 class="card-title">Integrante 1</h3>
-        <div class="btn-redes">
-          <a href="#">
-            <i class="bx bxl-facebook-circle"></i>
-          </a>
-          <a href="#">
-            <i class="bx bxl-instagram-alt"></i>
-          </a>
-          <a href="#">
-            <i class="bx bxl-twitter"></i>
-          </a>
+    <!--Contenedor donde se pondran las fotos del grupo de trabajo-->
+    <div class="equipo-trabajo__body" id="info-equipo">
+
+      <div class="card img-integrante" style="width: 19rem" *ngFor="let integrante of Datos; let i = index">
+        <img
+          src="{{integrante.rutaImg}}"
+          class="redonda"
+          alt="Integrante {{i+1}}"
+        />
+        <div class="card-body">
+          <h3 class="card-title">{{integrante.nombre}}</h3>
+          <div class="btn-redes">
+            <a href="#">
+              <i class="bx bxl-facebook-circle"></i>
+            </a>
+            <a href="#">
+              <i class="bx bxl-instagram-alt"></i>
+            </a>
+            <a href="#">
+              <i class="bx bxl-twitter"></i>
+            </a>
+          </div>
         </div>
       </div>
+      
     </div>
 
     <div class="card img-integrante integrante-2" style="width: 19rem">

@@ -1,0 +1,17 @@
+{
+    "name": "Tecnologias",
+    "Tecnologias": [
+        {
+            "nombre": "ThreeJS",
+            "rutaImg": "/assets/img/tecnologia1.png"
+        },
+        {
+            "nombre": "Angular",
+            "rutaImg": "/assets/img/tecnologia2.png"
+        },
+        {
+            "nombre": "ChartJS",
+            "rutaImg": "/assets/img/tecnologia3.png"
+        }
+    ]
+}
