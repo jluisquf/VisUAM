@@ -12,9 +12,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* border: 8px dotted var(--primary-color); */
     max-width: 40rem;
     padding: 2rem 4rem;
+    z-index: 1;
 }
 
 .canvas__section p {
@@ -24,4 +24,18 @@
 .canvas__section .btn {
     margin: auto;
     margin-top: 2rem;
+}
+
+.full-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+app-header::ng-deep .header {
+    background-color: var(--white-color);
+}
+
+app-header::ng-deep .header__content{
+    height: var(--small-header);
 }

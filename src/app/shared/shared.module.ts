@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { NgsRevealModule } from 'ngx-scrollreveal';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -17,7 +18,8 @@ import { NgsRevealModule } from 'ngx-scrollreveal';
   ],
   imports: [
     CommonModule,
-    NgsRevealModule
+    NgsRevealModule,
+    RouterModule
   ]
 })
 export class SharedModule { }
