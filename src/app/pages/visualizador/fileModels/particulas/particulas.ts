@@ -367,7 +367,7 @@ export class Particulas implements FileModelInterface{
 
         if(stringCanvas == 'myCanvas'){//Se coloca para el menuPrincipal
             //$('.div-canvas').append(contenedor);
-            $('#myCanvas').after(contenedor);
+            $('.menu__default').after(contenedor);
         }else{//si se aislo una particula
             //$('.'+stringCanvas).append(contenedor);
             $('.'+stringCanvas).after(contenedor);
@@ -375,7 +375,7 @@ export class Particulas implements FileModelInterface{
         
         var item = 
             "<div id = 'particulasMenu"+mySelf.idVisualizador + "' class='particulasMenuPrincipal' >" +
-                "<h3 class='align-text-top' id='tituloPrincipal'><span>Menu Particulas</span></h3>"+
+                "<h3 class='align-text-top section__subtitle' id='tituloPrincipal'><span>Menu Particulas</span></h3>"+
                 "<ul class='nav flex-column'>" +
                     "<li class='nav-item'>" +
                         "<div class='form-check'>" +

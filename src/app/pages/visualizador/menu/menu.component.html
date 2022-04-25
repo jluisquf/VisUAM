@@ -1,0 +1,17 @@
+<div class="menu__content">
+    <div class="menu__header">
+        <button class="close-btn" (click)="closeClick()">
+            <i class='bx bx-x'></i>
+        </button>
+    </div>
+    <div class="menu__body">
+        <div class="menu__default" *ngIf="!canvas">
+            <h2 class="section__subtitle">Bienvenido!</h2>
+            <p class="text-center mb-4">Para comenzar a utilizar el visualizador utiliza el botón "Abrir Archivo" y seleciona un archivo de formato JSON válido...</p>
+            <p class="text-center">Seleccione un archivo para continuar...</p>
+            <button class="btn btn-primary" (click)="openFile()">
+                Abrir Archivo
+            </button>
+        </div>
+    </div>
+</div>

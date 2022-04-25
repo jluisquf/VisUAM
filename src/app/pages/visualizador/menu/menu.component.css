@@ -1,0 +1,38 @@
+.menu__content {
+    height: 100vh;
+    width: 25rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu__header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu__header .close-btn {
+    background: transparent;
+}
+
+.menu__header .bx {
+    margin: 1rem;
+    font-size: var(--h2-font-size);
+    transition: .25s;
+}
+
+.menu__header .close-btn:hover .bx {
+    color: var(--primary-color);
+}
+
+.menu__body {
+    line-height: 1.5;
+    padding: 2rem 1.5rem;
+}
+
+
+.menu__default {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

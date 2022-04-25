@@ -1,6 +1,6 @@
-import { FileModelInterface } from '../file-model-interface';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { FileModelInterface } from '../file-model-interface';
 
 declare var $:any;
 
@@ -9,7 +9,7 @@ export class Voronoi implements FileModelInterface{
     mySelf = this;
     colors:any = {};//colores (hexa)
     puntosred:any = [];//puntos (objetos)
-    
+
 
     vdate = new Date();
     id = this.vdate.getTime();
@@ -23,7 +23,7 @@ export class Voronoi implements FileModelInterface{
     controls = new OrbitControls(this.camera, this.renderer.domElement);
 
     draw(json: any, c: any): void {
-        
+
         var mySelf = this;
         //var puntosred = [];
 
@@ -78,7 +78,7 @@ export class Voronoi implements FileModelInterface{
             group.add(puntomesh);
             mySelf.puntosred.push(puntomesh);
         });
-        
+
         function resizeCanvasToDisplaySize() {
             const canvas = mySelf.renderer.domElement;
             const width = canvas.clientWidth;
@@ -115,10 +115,10 @@ export class Voronoi implements FileModelInterface{
                         " <div class='container col-sm-10' id='"+ mySelf.id +"'"+"></div> " +
                          "<div class='d-none d-md-block bg-light sidebar col-sm-2' id='menu"+ mySelf.id +"'"+"></div>" +
                          "</div>";
-      
-        $('#myCanvas').after(contenedor);
 
-        var item = "<h3 class='align-text-top' id='titulo'><span>Menu Voronoi</span></h3>" +
+        $('.menu__default').after(contenedor);
+
+        var item = "<h3 class='align-text-top section__subtitle' id='titulo'><span>Menu Voronoi</span></h3>" +
             "<div id = 'particulasMenu' class='particulasMenu' >" + 
            " <ul class='nav flex-column' id='vor'>"+
               "<li class='nav-item'>"+
@@ -146,7 +146,7 @@ export class Voronoi implements FileModelInterface{
         $('#menu'+mySelf.id).append(item);
         $('#menu'+mySelf.id).css({ "visibility": "visible", "height": "600px", "width": "250" })
         /******************************************************************************** */
-        
+
         //EvenListeners: Se usa Jquery para capturar los eventos
         $('document').ready(
             // Al seleccionar el checkBox llamado Azul se pintara el diagrama de color azul
@@ -184,7 +184,7 @@ export class Voronoi implements FileModelInterface{
     setColor(checkbox:any, r:any, g:any, b:any):void {
         var mySelf = this;
         var coloraux, coloraux2, caux;
-            
+
         if (checkbox.checked == true) {     
             mySelf.puntosred.forEach(function (punto:any) {
                 coloraux = punto.material.color;
@@ -200,12 +200,12 @@ export class Voronoi implements FileModelInterface{
                 mySelf.colors[coloraux.getHex()] = coloraux2;
             });
         } else {
-        
+
             mySelf.puntosred.forEach(function (punto:any) {
                 coloraux = punto.material.color;
                 caux = mySelf.colors[coloraux.getHex()];              
                 punto.material.setValues({ color: caux });
-                
+
             });
             mySelf.colors = {};
         }
@@ -218,12 +218,12 @@ export class Voronoi implements FileModelInterface{
         var checkbox = document.getElementById("#checkAzul");            
         this.setColor(checkbox, r, g, b);
     } 
-        
+
     setGris(r:any, g:any, b:any):void {
         var checkbox = document.getElementById("#checkGris");    
         this.setColor(checkbox, r, g, b);
     }
-        
+
     autoRotar(checkbox:any):void {
         var mySelf = this;
         if (checkbox.checked == true) {

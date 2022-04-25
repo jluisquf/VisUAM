@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FileStorageService } from 'src/app/services/file-storage.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FileStorageService } from 'src/app/services/fileStorageService/file-storage.service';
 
 @Component({
   selector: 'app-visualizador-page',
@@ -8,10 +8,13 @@ import { FileStorageService } from 'src/app/services/file-storage.service';
 })
 export class VisualizadorPageComponent implements OnInit {
 
+  @ViewChild('uploader')
+  private uploader!: ElementRef;
+
   file: any | null = null;
   isFile: boolean = false;
   json: any | null = null;
-  // Inject service 
+  
   constructor(private fileStorageService: FileStorageService) { }
 
   ngOnInit(): void {
@@ -45,5 +48,25 @@ export class VisualizadorPageComponent implements OnInit {
       callback.json = json;
     };
     fileReader.readAsText(fileToLoad, "UTF-8");
+  }
+
+  openMenu(){
+    let menu = document.getElementsByClassName('menu') as HTMLCollectionOf<HTMLElement>;
+
+    if (menu.length != 0) {
+      menu[0].style.left = "0";
+    }
+  }
+
+  closeMenu(){
+    let menu = document.getElementsByClassName('menu') as HTMLCollectionOf<HTMLElement>;
+
+    if (menu.length != 0) {
+      menu[0].style.left = "-25rem";
+    }
+  }
+
+  openFile() {
+    this.uploader.nativeElement.click();
   }
 }
