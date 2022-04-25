@@ -1,15 +1,38 @@
+<!-- Header Start -->
 <app-header></app-header>
+<!-- Header End -->
+
+<!-- Canvas Section Start -->
 <section class="canvas__section">
-  <div class="canvas__drag-drop" *ngIf="!isFile" [ngsReveal]="{ origin: 'bottom', delay: 700 }">
+  <!-- Canvas DragAndDrop Start -->
+  <div
+    class="canvas__drag-drop"
+    *ngIf="!isFile"
+    [ngsReveal]="{ origin: 'bottom', delay: 700 }"
+  >
     <h2 class="section__title">VisualizadorUAM</h2>
     <p>
-      Eliga su archivo en formato JSON que desee visualizar.
+      Para comenzar a utilizar el visualizador utiliza el botón "Abrir Archivo" y seleciona un archivo de formato JSON válido para continuar...
     </p>
-    <!-- <a href="#" class="btn btn-primary"></a> -->
     <input hidden type="file" #uploader (change)="uploadFile($event)" />
     <button (click)="uploader.click()" class="btn btn-primary">
-        Abrir Archivo
+      Abrir Archivo
     </button>
   </div>
+  <!-- Canvas DragAndDrop End -->
+
+  <!-- Canvas Component Start -->
   <app-canvas class="full-screen"></app-canvas>
+  <!-- Canvas Component End -->
 </section>
+<!-- Canvas Section End -->
+
+<!-- Toogle Menu Start -->
+<div class="toogle-menu" [ngsReveal]="{ origin: 'bottom', delay: 900 }" (click)="openMenu()">
+  <i class="bx bx-menu"></i>
+</div>
+<!-- Toogle Menu End -->
+
+<!-- Menu Component Start -->
+<app-menu class="menu" (isClose)="closeMenu()" (isActive)="openFile()"></app-menu>
+<!-- Menu Component End -->

@@ -1,41 +1,79 @@
 /*=============== VISUALIZADOR PAGE ===============*/
 .canvas__section {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .canvas__drag-drop {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 40rem;
-    padding: 2rem 4rem;
-    z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 40rem;
+  padding: 2rem 4rem;
+  z-index: 1;
 }
 
 .canvas__section p {
-    text-align: center;
+  text-align: center;
 }
 
 .canvas__section .btn {
-    margin: auto;
-    margin-top: 2rem;
+  margin: auto;
+  margin-top: 2rem;
 }
 
 .full-screen {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 app-header::ng-deep .header {
-    background-color: var(--white-color);
+  background-color: var(--white-color);
 }
 
-app-header::ng-deep .header__content{
-    height: var(--small-header);
+app-header::ng-deep .header__content {
+  height: var(--small-header);
+}
+
+/* Toogle Menu */
+.toogle-menu {
+    background-color: var(--primary-color);
+    color: var(--body-color);
+    padding: 1.75rem;
+    border-radius: 50%;
+    position: absolute;
+    left: 2rem;
+    bottom: 2rem;
+    cursor: pointer;
+    box-shadow: 0px 9px 25px -14px rgba(0,0,0,0.35);
+    -webkit-box-shadow: 0px 9px 25px -14px rgba(0,0,0,0.35);
+    -moz-box-shadow: 0px 9px 25px -14px rgba(0,0,0,0.35);
+}
+
+.toogle-menu .bx{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: var(--h2-font-size);
+}
+
+/* Menu Component */
+.menu {
+    background-color: var(--secondary-color-alt);
+    position: absolute;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    z-index: var(--z-fixed);
+    left: -25rem;
+    top: 0;
+    transition: .5s ease-in-out;
+    box-shadow: 10px 0px 15px -15px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 0px 15px -15px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 0px 15px -15px rgba(0,0,0,0.75);
 }

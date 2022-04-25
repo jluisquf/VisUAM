@@ -4,12 +4,13 @@ import { VisualizadorPageComponent } from './visualizador-page/visualizador-page
 import { SharedModule } from 'src/app/shared/shared.module';
 import {NgsRevealModule} from 'ngx-scrollreveal';
 import { CanvasComponent } from './canvas/canvas.component';
-
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
     VisualizadorPageComponent,
-    CanvasComponent
+    CanvasComponent,
+    MenuComponent
   ],
   imports: [
     CommonModule,

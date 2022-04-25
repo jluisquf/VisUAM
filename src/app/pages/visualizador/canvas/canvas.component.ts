@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { FileStorageService } from 'src/app/services/file-storage.service';
+import { FileStorageService } from 'src/app/services/fileStorageService/file-storage.service';
 import { Particulas } from '../fileModels/particulas/particulas';
 import { RedPorosa } from '../fileModels/redPorosa/red-porosa';
 import { Voronoi } from '../fileModels/voronoi/voronoi';
@@ -14,7 +14,6 @@ import { Voronoi } from '../fileModels/voronoi/voronoi';
 export class CanvasComponent implements OnInit {
 
   muestraGrafica = false;
-
   idVisualizador = new Date();
   @ViewChild('myCanvas')
   private canvasRef!: ElementRef;
@@ -31,11 +30,11 @@ export class CanvasComponent implements OnInit {
   public load( json: any ) {
     const object = this.getConstructor(json);
     object.draw(json, this.canvas);
-    object.mostrarMenu(this.idVisualizador.getTime());//se manda a llamar al metodo para mostrar el menu
   }
 
   ngOnInit(): void {
     this.fileStorageService.getArchivoJson$().subscribe(archivo => {
+      this.fileStorageService.setCanvas(this.canvas);
       this.archivo = archivo;
       this.load( this.archivo );
     });
@@ -53,7 +52,8 @@ export class CanvasComponent implements OnInit {
         this.muestraGrafica = true;
         break;
       case "RedPorosa":
-        object = new RedPorosa();
+        object = new RedPorosa(json,this.canvas);
+        this.muestraGrafica = true;
         break;
       default:
         break;
