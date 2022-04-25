@@ -2,7 +2,29 @@ import { FileModelInterface } from '../file-model-interface';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-export class RedPorosa implements FileModelInterface{
+export class RedPorosa implements FileModelInterface {
+  menu: string =  '<div class="form-check mt-4">' +
+                      '<input class="form-check-input" type="checkbox" value="" id="azul-check">' +
+                      '<label class="form-check-label" for="azul-check">' +
+                        'Azul' +
+                      '</label>' +
+                  '</div>' +
+                  '<div class="form-check mt-4">' +
+                      '<input class="form-check-input" type="checkbox" value="" id="grises-check">' +
+                      '<label class="form-check-label" for="grises-check">' +
+                        'Grises' +
+                      '</label>' +
+                  '</div>' +
+                  '<div class="form-check mt-4">' +
+                      '<input class="form-check-input" type="checkbox" value="" id="auto-rotar-check">' +
+                      '<label class="form-check-label" for="auto-rotar-check">' +
+                        'Auto rotar' +
+                      '</label>' +
+                  '</div>' +
+                  '<div class="form-check mt-4">' +
+                    '<button type="submit" class="btn btn-primary btn-large">Aplicar</button>' +
+                  '</div>';
+                  
     redporosa:any = [];
 
     draw(json: any, c: any): void {
@@ -12,8 +34,6 @@ export class RedPorosa implements FileModelInterface{
         const renderer = new THREE.WebGLRenderer({ canvas: c });
         const controls = new OrbitControls(camera, renderer.domElement);
         camera.position.set(0, 0, 1);
-        //camera.position.setZ(5);
-        
         
         controls.enableDamping = true;
         controls.dampingFactor = 0.25;
@@ -21,7 +41,6 @@ export class RedPorosa implements FileModelInterface{
         controls.maxDistance = 100;
         var group = new THREE.Group();
         scene.add(group);
-        //var colores = json.sitiosColor;
         var puntos = json.sitios;
         var x,y,z,radio,rotacion,radiomax = -1;
         var mx=-1000,my=-1000,mz=-1000;
@@ -123,4 +142,5 @@ export class RedPorosa implements FileModelInterface{
         animate();
 
     }
+    
 }
