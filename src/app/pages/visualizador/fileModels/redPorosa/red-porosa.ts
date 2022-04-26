@@ -31,11 +31,11 @@ export class RedPorosa implements FileModelInterface {
     /**funcion llamada desde index.js recibe un arreglo con las posiciones y color de cada punto
     se crean en conjunto de cada color y se agregan a escena**/
     mySelf.scene.background = new THREE.Color(0xffffff);
-    mySelf.camera.position.set(0, 0, 1);
+    mySelf.camera.position.set(350, 350, 700);
     mySelf.controls.enableDamping = true;
     mySelf.controls.dampingFactor = 0.25;
     mySelf.controls.minDistance = 25;
-    mySelf.controls.maxDistance = 1000;
+    mySelf.controls.maxDistance = 100;
     var group = new THREE.Group();
     this.scene.add(group);
     //var colores = json.sitiosColor;
