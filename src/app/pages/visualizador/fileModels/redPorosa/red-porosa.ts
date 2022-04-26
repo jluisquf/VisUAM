@@ -141,6 +141,13 @@ export class RedPorosa implements FileModelInterface {
   }
 
   mostrarMenu(idVisualizador: any): void {
+    // Cambiar scope
+    var mySelf = this;
+    // ID del canvas del visualizador
+    mySelf.id = idVisualizador;
+
+    // JSON enviado
+    var objVoronoi = this.json;
     // "<h3 class='align-text-top' id='titulo'><span>Menu Red Porosa</span></h3>" +
     var contenedor = "<div class='row' id='visualizador" + idVisualizador + "'" + ">" +
       " <div class='container col-sm-10' id='" + idVisualizador + "'" + "></div> " +
@@ -156,20 +163,23 @@ export class RedPorosa implements FileModelInterface {
       "<li class='nav-item'>" +
       "<div class='form-check'>" +
       "<input type='checkbox' class='form-check-input' id='checkAzul'>" +
-      "<label class='form-check-label' for='exampleCheck1'>Azul</label>" +
+      "<label class='form-check-label' for='checkAzul'><span></span></label>" +
+      "<span> Color Azul </span>" +
       "</div>" +
       "</li>" +
 
       "<li class='nav-item'>" +
       "<div class='form-check'>" +
       "<input type='checkbox' class='form-check-input' id='checkGris' >" +
-      "<label class='form-check-label' for='exampleCheck1'>Grises</label>" +
+      "<label class='form-check-label' for='checkGris'><span></span></label>" +
+      "<span> Color Gris </span>" +
       "</div>" +
       "</li>" +
       "<li class='nav-item'>" +
       "<div class='form-check'>" +
       "<input type='checkbox' class='form-check-input' id='autoRotar'>" +
-      "<label class='form-check-label' for='exampleCheck1'>Auto Rotar</label>" +
+      "<label class='form-check-label' for='autoRotar'><span></span></label>" +
+      "<span> Auto Rotar </span>" +
       "</div>" +
       "</li>" +
       "</ul>" +
@@ -178,6 +188,38 @@ export class RedPorosa implements FileModelInterface {
     $('#menu' + idVisualizador).append(item);
     $('#menu' + idVisualizador).css({ "visibility": "visible", "height": "600px", "width": "250" })
     
+    //EvenListeners: Se usa Jquery para capturar los eventos
+    $('document').ready(
+      // Al seleccionar el checkBox llamado Azul se pintara el diagrama de color azul
+      $('#checkAzul').change(function(){
+          var check:any = document.getElementById('checkAzul');
+          if(check.checked) {
+              $('#checkGris').prop("checked",false);
+              mySelf.setBlue(check,0,0,1);
+          }else{
+              mySelf.setBlue(check,0,0,0);
+          }
+      }),
+      // Al seleccionar el checkBox llamado Gris se pintara el diagrama de color gris
+      $('#checkGris').change(function(){
+          var check:any = document.getElementById('checkGris');
+          if(check.checked) {
+              $('#checkAzul').prop("checked",false);
+              mySelf.setGris(check,1,1,1);
+          }else{
+              mySelf.setGris(check,0,0,0);
+          }
+      }),
+      // Al seleccionar el checkBox llamado Rotar el diagrama comenzará a girar
+      $('#autoRotar').change(function(){
+          var check:any = document.getElementById('autoRotar');
+          if(check.checked) {
+              mySelf.autoRotar(check);
+          }else{
+              mySelf.autoRotar(check);
+          }
+      })    
+  );
   }//FIN mostrarMenu()
 
   /**recibe desde index.html el RGB del color a convertir en este caso gris y

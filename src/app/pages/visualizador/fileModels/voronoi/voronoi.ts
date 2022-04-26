@@ -177,26 +177,30 @@ export class Voronoi implements FileModelInterface{
 
         $('.menu__default').after(contenedor);
 
-        var item = "<h3 class='align-text-top section__subtitle' id='titulo'><span>Menu Voronoi</span></h3>" +
+        var item = "<div id = 'particulasMenu'" + "class='particulasMenu' >" +
+        "<h3 class='align-text-top section__subtitle' id='titulo'><span>Menu Red Porosa</span></h3>" +
             "<div id = 'particulasMenu' class='particulasMenu' >" + 
            " <ul class='nav flex-column' id='vor'>"+
               "<li class='nav-item'>"+
                 "<div class='form-check'>"+
                   "<input type='checkbox' class='form-check-input' id='checkAzul'>"+
-                  "<label class='form-check-label' for='exampleCheck1'>Azul</label>"+
+                  "<label class='form-check-label' for='checkAzul'><span></span></label>" +
+                  "<span> Color Azul </span>" +
                 "</div>"+
               "</li>"+
 
              "<li class='nav-item'>"+
                "<div class='form-check'>"+
                  "<input type='checkbox' class='form-check-input' id='checkGris' >"+
-                 "<label class='form-check-label' for='exampleCheck1'>Grises</label>"+
+                 "<label class='form-check-label' for='checkGris'><span></span></label>" +
+                 "<span> Color Gris </span>" +
                "</div>"+
              "</li>"+
              "<li class='nav-item'>"+
                "<div class='form-check'>"+
                  "<input type='checkbox' class='form-check-input' id='autoRotar'>"+
-                 "<label class='form-check-label' for='exampleCheck1'>Auto Rotar</label>"+
+                 "<label class='form-check-label' for='autoRotar'><span></span></label>" +
+                 "<span> Auto Rotar </span>" +
                "</div>"+
              "</li>"+
            "</ul>"+

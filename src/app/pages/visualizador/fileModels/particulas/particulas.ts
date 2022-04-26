@@ -381,7 +381,8 @@ export class Particulas implements FileModelInterface{
                             "<button  type='button' class='btn btn-success button-espacio' id='avanzar" +mySelf.idVisualizador+ "'> >> </button>"+
                             "<div class='form-check'>" +
                                 "<input type='checkbox' class='form-check-input' id='Checkpt1"+mySelf.idVisualizador+"'>" +
-                                "<label class='form-check-label' for='exampleCheck1'> Ver Trayectorias</label>" +
+                                "<label class='form-check-label' for='Checkpt1'><span></span></label>" +
+                                "<span>Ver Trayectorias</span>" +
                             "</div>" +
                         "</div>" +
                     "</li><br>" +
