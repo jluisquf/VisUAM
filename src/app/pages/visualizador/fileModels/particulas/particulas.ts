@@ -376,22 +376,25 @@ export class Particulas implements FileModelInterface{
                 "<ul class='nav flex-column'>" +
                     "<li class='nav-item'>" +
                         "<div class='form-check'>" +
-                            "<button  type='button' class='btn  btn-success button-espacio' id='regresar" +mySelf.idVisualizador+ "'> << </button>"+
-                            "<button  type='button' class='btn btn-success button-espacio' id='pausa" +mySelf.idVisualizador+ "'> || </button>"+
-                            "<button  type='button' class='btn btn-success button-espacio' id='avanzar" +mySelf.idVisualizador+ "'> >> </button>"+
-                            "<div class='form-check'>" +
-                                "<input type='checkbox' class='form-check-input' id='Checkpt1"+mySelf.idVisualizador+"'>" +
-                                "<label class='form-check-label' for='Checkpt1'><span></span></label>" +
-                                "<span>Ver Trayectorias</span>" +
-                            "</div>" +
+                            "<button  type='button' class='btn  btn-success' id='regresar" +mySelf.idVisualizador+ "'> << </button>"+
+                            "<button  type='button' class='btn btn-success' id='pausa" +mySelf.idVisualizador+ "'> || </button>"+
+                            "<button  type='button' class='btn btn-success' id='avanzar" +mySelf.idVisualizador+ "'> >> </button>"+
                         "</div>" +
-                    "</li><br>" +
+                    "</li>" +
+                    
+                    "<li class='nav-item'>"+
+                        "<div class='form-check'>" +
+                            "<input type='checkbox' class='form-check-input' id='Checkpt1"+mySelf.idVisualizador+"'>" +
+                            "<label class='form-check-label' for='Checkpt1" + mySelf.idVisualizador + "'><span></span></label>" +
+                            "<span>Ver Trayectorias</span>"+
+                        "</div>" +
+                    "</li><br>"+
 
                     "<li class='nav-item'>" +
                         "<div class='aisla-particula' id='aislaParticula" +mySelf.idVisualizador+ "'>"+
-                            "<lable> <b>Aislar Particula</b></label>" +
-                            "<input type='number' min='0' max='4'  size='4' id='particula' placeholder='Elija particula'>" +
-                            "<button class = 'btn-success' type='submit' id='aceptar'>Aceptar</button>" +
+                            "<label><b>Aislar Particula</b></label><br>" +
+                            "<input type='number' min='0' max='4'  size='4' id='particula' placeholder='Elija particula' style='width:110px;'>" +
+                            "<button class='btn-success' type='submit' id='aceptar'>Aceptar</button>" +
                         "</div>" +
                     "</li><br>" +
         
@@ -641,22 +644,23 @@ export class Particulas implements FileModelInterface{
                             "<button  type='button' class='btn  btn-success button-espacio ' id='regresar" + numParticula + "'> << </button>"+
                             "<button  type='button' class='btn btn-success button-espacio ' id = 'pausa" + numParticula + "'> || </button>"+
                             "<button  type='button' class='btn btn-success button-espacio'  id='avanzar" + numParticula + "'> >> </button>"+
-                            "<div class='form-check'>" +
-                                "<input type='checkbox' class='form-check-input' id='Checkpt1" + object.idVisualizador + "'>" +
-                                "<label class='form-check-label' for='exampleCheck1'> Ver Trayectorias</label>" +
-                            "</div>" +
-                            "<div>"+
-                                "<button class='btn btn-danger btn-titulo ' id='quitar"+ numParticula +"'> Quitar </button>" +
-                            "</div>"+
                         "</div>" +
-                    "</li><br>" +
+                        "<div class='form-check'>" +
+                            "<input type='checkbox' class='form-check-input' id='Checkpt1" + object.idVisualizador + "'>" +
+                            "<label class='form-check-label' for='Checkpt1" + object.idVisualizador + "'><span></span></label>" +
+                            "<span>Ver Trayectorias</span>"+
+                        "</div>" +
+                        "<div>"+
+                            "<button class='btn btn-danger btn-titulo ' id='quitar"+ numParticula +"'> Quitar </button>" +
+                        "</div>"+
+                    "</li>" +
                 "</ul>" + 
             "</div>";
         //Agregamos el menu
         $("#menu"+ numParticula).append(item);
         $("#menu"+ numParticula).css({ "visibility": "visible", "width": "250" });
         /************************************************************************************************ */
-        var check = document.getElementById('Checkpt1'+ object.idVisualizador);
+        var check:any = document.getElementById('Checkpt1'+ object.idVisualizador);
         //Metodos para interactuar con el menu
         function pause(){
             if (object.play == true) {
@@ -698,6 +702,7 @@ export class Particulas implements FileModelInterface{
             $('#Checkpt1'+object.idVisualizador).change(function(){
                 console.log("Entre a muestraTray individual "+object.aislar)
                 if($(mySelf).is(":checked")){
+                //if(check.checked) {
                     mySelf.muestraTray(check, object.aislar);
                 }
             })
