@@ -23,7 +23,7 @@ export class Particulas implements FileModelInterface{
     numeroParticula: any = null; //Numero de particula que ha sido aislada
     // Se crea la escena sobre la que se pintaran las particulas, ademas de la camara
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
     renderer = new THREE.WebGLRenderer({ canvas: this.canvas });
     //variable que sera usada para identificar el menu principal e indivudual
     dateId = new Date();
@@ -41,7 +41,8 @@ export class Particulas implements FileModelInterface{
          * -> Las paredes del lugar de la visualizacion
          */
         function dibujaCanal() {
-            objParticulas.camera.position.set(0, 0, 0.95);
+            objParticulas.camera.position.set(0, 0, 1);//Si se desea que se observe mas grande el canal disminuir en z
+            objParticulas.renderer.setSize(window.innerWidth, window.innerHeight);
             objParticulas.play = true; //Si la escena se ha creado correctamente podemos comenzar la animacion
             objParticulas.funciones = json.canal;
             var barizq = objParticulas.funciones.LBarrier.value;//Estos valores se obtienen de particulas.json
@@ -69,7 +70,6 @@ export class Particulas implements FileModelInterface{
                 var y = tWall(x);
                 points.push(new THREE.Vector3(x, y, 0));
                 tgeometry.setFromPoints(points);
-                tgeometry.computeVertexNormals();//#######################
                 x += h;
                 if (x <= barder) { formaCanal.lineTo(x, y - h); } //menos h para que no tape la linea de la frontera
 
@@ -86,13 +86,13 @@ export class Particulas implements FileModelInterface{
             var rgeometry = new THREE.BufferGeometry();
             points.push(new THREE.Vector3(barder, y, 0));
             rgeometry.setFromPoints(points);
-            rgeometry.computeVertexNormals();//#######################
             formaCanal.lineTo(barder - h, y);
+            
             y = bWall(barder);
             points.push(new THREE.Vector3(barder, y, 0));
             rgeometry.setFromPoints(points);
-            rgeometry.computeVertexNormals();//#######################
             formaCanal.lineTo(barder - h, y);
+            
             if (objParticulas.funciones.RBarrier.isReflec) {
                 var barr = new THREE.Line(rgeometry, material);
             } else {
@@ -106,7 +106,6 @@ export class Particulas implements FileModelInterface{
                 var y = bWall(x);
                 points.push(new THREE.Vector3(x, y, 0));
                 bgeometry.setFromPoints(points);
-                bgeometry.computeVertexNormals();//#######################
                 x -= h;
                 if (x >= barizq) { formaCanal.lineTo(x, y + 3 * h); }// mas 3h para que no tape la linea del canal
             }
@@ -121,12 +120,11 @@ export class Particulas implements FileModelInterface{
             var lgeometry = new THREE.BufferGeometry();
             points.push(new THREE.Vector3(barizq, y, 0));
             lgeometry.setFromPoints(points);
-            lgeometry.computeVertexNormals();//#######################
             formaCanal.lineTo(barizq + h, y);
+            
             y = tWall(barizq);
             points.push(new THREE.Vector3(barizq, y, 0));
             lgeometry.setFromPoints(points);
-            lgeometry.computeVertexNormals();//#######################
             formaCanal.lineTo(barizq + h, y);
 
             if (objParticulas.funciones.LBarrier.isReflec) {
@@ -139,6 +137,7 @@ export class Particulas implements FileModelInterface{
             var cgeometry = new THREE.ShapeGeometry(formaCanal);
             var materialc = new THREE.MeshBasicMaterial({ color: 0x9B9B9B });
             var canal = new THREE.Mesh(cgeometry, materialc);
+
             objParticulas.scene.add(canal);
             objParticulas.scene.add(funt);
             objParticulas.scene.add(barr);
@@ -278,11 +277,10 @@ export class Particulas implements FileModelInterface{
         let xP = 1000;//Punto en el que la particula cambiara de color su trayectoria
         
         if (checkbox.checked == true) {//Posiciones de cada particula
-            //console.log("Entre al IF de muestraTray: "+aislar)
+
             for (var i = 0; i < this.trays.length; i++) {
                 
                 if(aislar == true && this.trays.length == 1) {
-                    //console.log("Entre al segundo IF de muestraTrayIndividual: "+aislar)
                     var geometry = new THREE.BufferGeometry();
                     var colorLinea = [];
                     for (var j = 0; j < this.trays[i].length; j++) {
@@ -303,6 +301,7 @@ export class Particulas implements FileModelInterface{
                     // Pasamos el color
                     var arrayColors = new Float32Array(colorLinea);
                     geometry.setAttribute('color',new THREE.BufferAttribute(arrayColors,3));
+
                     var material = new THREE.LineBasicMaterial({color: 0xffffff,vertexColors: true});
                     var tray = new THREE.Line(geometry, material);
                     this.scene.add(tray);
@@ -314,10 +313,8 @@ export class Particulas implements FileModelInterface{
                     for (var j = 0; j < this.trays[i].length; j++) {
                         var x = this.trays[i][j].x;
                         var y = this.trays[i][j].y;
-                        //geometry.vertices.push(new THREE.Vector3(x, y, 0));
                         points.push(new THREE.Vector3(x, y, 0));
                         geometry.setFromPoints(points);
-                        geometry.computeVertexNormals();//#######################
                     }
                     var tray = new THREE.Line(geometry, material);
                     this.scene.add(tray);
@@ -379,22 +376,25 @@ export class Particulas implements FileModelInterface{
                 "<ul class='nav flex-column'>" +
                     "<li class='nav-item'>" +
                         "<div class='form-check'>" +
-                            "<button  type='button' class='btn  btn-success button-espacio' id='regresar" +mySelf.idVisualizador+ "'> << </button>"+
-                            "<button  type='button' class='btn btn-success button-espacio' id='pausa" +mySelf.idVisualizador+ "'> || </button>"+
-                            "<button  type='button' class='btn btn-success button-espacio' id='avanzar" +mySelf.idVisualizador+ "'> >> </button>"+
-                            "<div class='form-check'>" +
-                                "<input type='checkbox' class='form-check-input' id='Checkpt1"+mySelf.idVisualizador+"'>" +
-                                "<label class='form-check-label' for='Checkpt1'><span></span></label>" +
-                                "<span>Ver Trayectorias</span>" +
-                            "</div>" +
+                            "<button  type='button' class='btn  btn-success' id='regresar" +mySelf.idVisualizador+ "'> << </button>"+
+                            "<button  type='button' class='btn btn-success' id='pausa" +mySelf.idVisualizador+ "'> || </button>"+
+                            "<button  type='button' class='btn btn-success' id='avanzar" +mySelf.idVisualizador+ "'> >> </button>"+
                         "</div>" +
-                    "</li><br>" +
+                    "</li>" +
+                    
+                    "<li class='nav-item'>"+
+                        "<div class='form-check'>" +
+                            "<input type='checkbox' class='form-check-input' id='Checkpt1"+mySelf.idVisualizador+"'>" +
+                            "<label class='form-check-label' for='Checkpt1" + mySelf.idVisualizador + "'><span></span></label>" +
+                            "<span>Ver Trayectorias</span>"+
+                        "</div>" +
+                    "</li><br>"+
 
                     "<li class='nav-item'>" +
                         "<div class='aisla-particula' id='aislaParticula" +mySelf.idVisualizador+ "'>"+
-                            "<lable> <b>Aislar Particula</b></label>" +
-                            "<input type='number' min='0' max='4'  size='4' id='particula' placeholder='Elija particula'>" +
-                            "<button class = 'btn-success' type='submit' id='aceptar'>Aceptar</button>" +
+                            "<label><b>Aislar Particula</b></label><br>" +
+                            "<input type='number' min='0' max='4'  size='4' id='particula' placeholder='Elija particula' style='width:110px;'>" +
+                            "<button class='btn-success' type='submit' id='aceptar'>Aceptar</button>" +
                         "</div>" +
                     "</li><br>" +
         
@@ -418,7 +418,7 @@ export class Particulas implements FileModelInterface{
             "</div>";
         //boton
         $("#menu" + mySelf.idVisualizador).append(item);
-        $("#menu" + mySelf.idVisualizador).css({ "visibility": "visible", "height": "600px", "width": "250" })
+        $("#menu" + mySelf.idVisualizador).css({ "visibility": "visible", "height": "600px", "width": "250", "display":"inline" })
         /************************************************************************************************ */
         var check = document.getElementById('Checkpt1'+ mySelf.idVisualizador);
         
@@ -596,7 +596,8 @@ export class Particulas implements FileModelInterface{
         //Pasamos el metodo draw() el archivo JSON que contiene la informacion de la particula aislada
         object.draw(this.json,canvas2);
         //Agregamos el nuevo visualizador al nevegador
-        $('.div-canvas').after(nuevoItem);
+        //$('.div-canvas').after(nuevoItem);
+        $('#myCanvas').after(nuevoItem);
         $('#particula'+particula).after(canvas2);
         this.mostrarMenuIndividual(particula, object);
         
@@ -643,22 +644,23 @@ export class Particulas implements FileModelInterface{
                             "<button  type='button' class='btn  btn-success button-espacio ' id='regresar" + numParticula + "'> << </button>"+
                             "<button  type='button' class='btn btn-success button-espacio ' id = 'pausa" + numParticula + "'> || </button>"+
                             "<button  type='button' class='btn btn-success button-espacio'  id='avanzar" + numParticula + "'> >> </button>"+
-                            "<div class='form-check'>" +
-                                "<input type='checkbox' class='form-check-input' id='Checkpt1" + object.idVisualizador + "'>" +
-                                "<label class='form-check-label' for='exampleCheck1'> Ver Trayectorias</label>" +
-                            "</div>" +
-                            "<div>"+
-                                "<button class='btn btn-danger btn-titulo ' id='quitar"+ numParticula +"'> Quitar </button>" +
-                            "</div>"+
                         "</div>" +
-                    "</li><br>" +
+                        "<div class='form-check'>" +
+                            "<input type='checkbox' class='form-check-input' id='Checkpt1" + object.idVisualizador + "'>" +
+                            "<label class='form-check-label' for='Checkpt1" + object.idVisualizador + "'><span></span></label>" +
+                            "<span>Ver Trayectorias</span>"+
+                        "</div>" +
+                        "<div>"+
+                            "<button class='btn btn-danger btn-titulo ' id='quitar"+ numParticula +"'> Quitar </button>" +
+                        "</div>"+
+                    "</li>" +
                 "</ul>" + 
             "</div>";
         //Agregamos el menu
         $("#menu"+ numParticula).append(item);
         $("#menu"+ numParticula).css({ "visibility": "visible", "width": "250" });
         /************************************************************************************************ */
-        var check = document.getElementById('Checkpt1'+ object.idVisualizador);
+        var check:any = document.getElementById('Checkpt1'+ object.idVisualizador);
         //Metodos para interactuar con el menu
         function pause(){
             if (object.play == true) {
@@ -700,6 +702,7 @@ export class Particulas implements FileModelInterface{
             $('#Checkpt1'+object.idVisualizador).change(function(){
                 console.log("Entre a muestraTray individual "+object.aislar)
                 if($(mySelf).is(":checked")){
+                //if(check.checked) {
                     mySelf.muestraTray(check, object.aislar);
                 }
             })
