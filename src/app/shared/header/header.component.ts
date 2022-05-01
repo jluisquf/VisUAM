@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class HeaderComponent implements OnInit {
+  public isMenuActive: boolean = true;
 
   constructor() { }
 
@@ -15,12 +16,22 @@ export class HeaderComponent implements OnInit {
 
     window.onscroll = function() {
       "use strict";
-      if (document.body.scrollTop >= 80 || document.documentElement.scrollTop >= 80) {
-        myNav.classList.add("scroll-header");
-      } else {
-        myNav.classList.remove("scroll-header");
+      if (window.innerWidth >= 765) {
+        if (document.body.scrollTop >= 80 || document.documentElement.scrollTop >= 80) {
+          myNav.classList.add("scroll-header");
+        } else {
+          myNav.classList.remove("scroll-header");
+        }
       }
     };
+
+    if (window.innerWidth < 765) {
+      this.isMenuActive = false;
+    }
+  }
+
+  showMenu() {
+    this.isMenuActive = !this.isMenuActive;
   }
 
 }
