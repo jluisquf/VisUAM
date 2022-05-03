@@ -1,0 +1,55 @@
+{
+    "header":{
+        "Inicio":"Home",
+        "Que":"What is it?",
+        "GrupoTrabajo":"Working Group",
+        "Abrir":"Open viewer!"
+    },
+    "homePage":{
+        "titulo":"Meet the new VSyM viewer",
+        "parrafo":"View some of the available formats: Porous Network, Particles and Voronoi.",
+        "link":"Start now!",
+        "main":{
+            "titulo":"What is VisUAM?",
+            "subtitulo":"View from a JSON",
+            "parrafo1":"Views the available formats by reading data from a JSON file.",
+            "parrafo2":"Having all the data in a json file makes it easy to read, and this format is well structured and easy to understand.",
+            "subtitulo2":"Modeling Results",
+            "parrafo3":"Obtaining results from your research and/or practice sometimes requires a visual interpretation to make it easier to understand.",
+            "parrafo4":"It is not enough to just look at graphs of your data, visual interpretation is important.",
+            "subtitulo3":"Do you need statistical graphs?",
+            "parrafo5":"If the format to be displayed allows it, graphs of some of your data can be observed.",
+            "parrafo6":"Our particle format has this ability to view bar charts and pie charts."
+        },
+        "banner":{
+            "titulo":"Start using the visualizer now!",
+            "parrafo":"UAM members can submit their results with the agreed JSON file structure in order to use the site.",
+            "link":"Open Visualizer"
+        }
+    },
+    "equipo":{
+        "titulo":"The working group",
+        "parrafo":"We are a multidisciplinary group of students and academics."
+    },
+    "tecnologias":{
+        "titulo":"Technologies Used",
+        "parrafo":"We are a multidisciplinary group of students and academics."
+    },
+    "footer":{
+        "Inicio":"Home",
+        "Que":"What is it?",
+        "GrupoTrabajo":"Working Group",
+        "Abrir":"Open viewer!"
+    },
+    "menu":{
+        "titulo":"Welcome!",
+        "parrafo":"To start using the viewer use the Open 'File' button and select a valid JSON format file...",
+        "parrafo2":"Select a file to continue...",
+        "boton":"Open file"
+    },
+    "visualizador":{
+        "titulo":"ViewerUAM",
+        "parrafo":"To start using the viewer use the Open 'File' button and select a valid JSON format file for continue...",
+        "boton":"Open File"
+    }
+}

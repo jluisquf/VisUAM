@@ -5,7 +5,14 @@ import { FooterComponent } from './footer/footer.component';
 import { NgsRevealModule } from 'ngx-scrollreveal';
 import { RouterModule } from '@angular/router';
 
+//PARA PODER HACER EL CAMBIO DE IDIOMA
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/','.json');
+}
 
 @NgModule({
   declarations: [
@@ -14,12 +21,21 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    TranslateModule//se necesita exportar para poder usarlo en los demas modulos
   ],
   imports: [
     CommonModule,
     NgsRevealModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),//(createTranslateLoader),
+        deps: [HttpClient]
+      }
+    })
   ]
 })
 export class SharedModule { }

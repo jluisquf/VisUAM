@@ -6,11 +6,11 @@
     </div>
     <div class="menu__body">
         <div class="menu__default" *ngIf="!canvas">
-            <h2 class="section__subtitle">Bienvenido!</h2>
-            <p class="text-center mb-4">Para comenzar a utilizar el visualizador utiliza el botón "Abrir Archivo" y seleciona un archivo de formato JSON válido...</p>
-            <p class="text-center">Seleccione un archivo para continuar...</p>
+            <h2 class="section__subtitle">{{"menu.titulo"|translate}}</h2>
+            <p class="text-center mb-4">{{"menu.parrafo"|translate}}</p>
+            <p class="text-center">{{"menu.parrafo2"|translate}}</p>
             <button class="btn btn-primary" (click)="openFile()">
-                Abrir Archivo
+                {{"menu.boton"|translate}}
             </button>
         </div>
     </div>

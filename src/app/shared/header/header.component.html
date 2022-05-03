@@ -6,19 +6,24 @@
         </div>
         <div class="header__navbar">
             <div class="navbar__item" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 400, duration: 600 }">
-                <a routerLink="/home" class="navbar__link active-link">Inicio</a>
+                <a routerLink="/home" class="navbar__link active-link">{{"header.Inicio"|translate}}</a>
             </div>
             <div class="navbar__item" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 500, duration: 600 }">
-                <a href="#main-section" class="navbar__link">¿Qué es?</a>
+                <a href="#main-section" class="navbar__link">{{"header.Que"|translate}}</a>
             </div>
             <div class="navbar__item" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 600, duration: 600 }">
-                <a href="#equipo-trabajo__section" class="navbar__link">Grupo Trabajo</a>
+                <a href="#equipo-trabajo__section" class="navbar__link">{{"header.GrupoTrabajo"|translate}}</a>
             </div>
             <div class="navbar__item" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 700, duration: 600 }">
-                <a href="#" class="navbar__link">Esp <i class='bx bxs-down-arrow' ></i></a>
+                <!--<a href="#" class="navbar__link">Esp <i class='bx bxs-down-arrow' ></i></a>-->
+                <select #langSelect class="navbar__link" (change)="translate.use(langSelect.value)">
+                    <option *ngFor="let lang of langs" [value]="lang" val="lang">
+                        {{lang}} <i class='bx bxs-down-arrow' ></i>
+                    </option>
+                </select>
             </div>
             <div class="navbar__item navbar-button" [ngsReveal]="{ origin: 'right', distance: '60px', delay: 200, duration: 600 }">
-                <a routerLink="/visualizador" class="btn btn-primary">Abrir visualizador!</a>
+                <a routerLink="/visualizador" class="btn btn-primary">{{"header.Abrir"|translate}}</a>
             </div>
         </div>
     </div>

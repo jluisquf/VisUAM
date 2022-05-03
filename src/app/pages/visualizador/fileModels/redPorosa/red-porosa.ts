@@ -30,7 +30,7 @@ export class RedPorosa implements FileModelInterface {
     var puntos = json.p;
     /**funcion llamada desde index.js recibe un arreglo con las posiciones y color de cada punto
     se crean en conjunto de cada color y se agregan a escena**/
-    mySelf.scene.background = new THREE.Color(0xffffff);
+    mySelf.scene.background = new THREE.Color(0xD3D3D3);
     mySelf.camera.position.set(0, 0, 1);
     mySelf.controls.enableDamping = true;
     mySelf.controls.dampingFactor = 0.25;

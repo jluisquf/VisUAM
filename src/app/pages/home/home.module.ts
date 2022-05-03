@@ -5,6 +5,7 @@ import { TecnologiasSectionComponent } from './tecnologias-section/tecnologias-s
 import { HomePageComponent } from './home-page/home-page.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgsRevealModule } from 'ngx-scrollreveal';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { NgsRevealModule } from 'ngx-scrollreveal';
   imports: [
     CommonModule,
     SharedModule,
-    NgsRevealModule
+    NgsRevealModule,
+    RouterModule
   ]
 })
 export class HomeModule { }

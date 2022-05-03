@@ -518,7 +518,6 @@ export class Particulas implements FileModelInterface{
                                     '</div>';
                 
                 $(".div-canvas").after(modalPrueba);
-                console.log("Fui presionado: ");
             }),
         );
 
@@ -530,7 +529,6 @@ export class Particulas implements FileModelInterface{
                 //Eliminamos las demas
                 $('#chart-2').removeClass('active');
                 $('#chart-3').removeClass('active');
-                console.log("BT-CHART1");
             }),
             $('#bt-char2').on("shown.bs.tab", function() {
                 console.log("voy a cambiar de grafica 2")
@@ -538,7 +536,6 @@ export class Particulas implements FileModelInterface{
                 //Eliminamos las demas
                 $('#chart-1').removeClass('active');
                 $('#chart-3').removeClass('active');
-                console.log("BT-CHART1");
             }),
             $('#bt-char3').on("shown.bs.tab", function() {
                 console.log("voy a cambiar de grafica 3")
@@ -549,7 +546,6 @@ export class Particulas implements FileModelInterface{
                 $('.modal-body').css('overflow-y', 'auto');
                 $('.modal-body').css('max-height', $(window).height() * 0.7);
                 $('.modal-body').css('height', $(window).height() * 0.7);
-                console.log("BT-CHART1");
             }),
             );
         }
@@ -700,7 +696,6 @@ export class Particulas implements FileModelInterface{
             }),
             //Si el checkbox esta marcado muestra las trayectorias
             $('#Checkpt1'+object.idVisualizador).change(function(){
-                console.log("Entre a muestraTray individual "+object.aislar)
                 if($(mySelf).is(":checked")){
                 //if(check.checked) {
                     mySelf.muestraTray(check, object.aislar);

@@ -10,13 +10,13 @@
     *ngIf="!isFile"
     [ngsReveal]="{ origin: 'bottom', delay: 700 }"
   >
-    <h2 class="section__title">VisualizadorUAM</h2>
+    <h2 class="section__title">{{"visualizador.titulo"|translate}}</h2>
     <p>
-      Para comenzar a utilizar el visualizador utiliza el botón "Abrir Archivo" y seleciona un archivo de formato JSON válido para continuar...
+      {{"visualizador.parrafo"|translate}}
     </p>
     <input hidden type="file" #uploader (change)="uploadFile($event)" />
     <button (click)="uploader.click()" class="btn btn-primary">
-      Abrir Archivo
+      {{"visualizador.boton"|translate}}
     </button>
   </div>
   <!-- Canvas DragAndDrop End -->

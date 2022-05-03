@@ -4,9 +4,9 @@
 <section id="hero-banner" class="hero-banner">
     <div class="hero-banner__content container" [ngsReveal]="{ origin: 'left', distance: '60px', delay: 500, duration: 800 }">
         <div class="hero-banner__text">
-            <h1 class="hero-banner__title" [ngsReveal]="{ origin: 'bottom', distance: '60px', delay: 700, duration: 800 }">Conoce el nuevo visualizador VSyM</h1>
-            <p>Visualiza algunos de los formatos disponibles: Red porosa, Particulas y Voronoi.</p>
-            <a routerLink="/visualizador" class="hero-banner__btn btn btn-primary" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 700, duration: 800 }">Comienza ahora!</a>
+            <h1 class="hero-banner__title" [ngsReveal]="{ origin: 'bottom', distance: '60px', delay: 700, duration: 800 }">{{"homePage.titulo"|translate}}</h1>
+            <p>{{"homePage.parrafo"|translate}}</p>
+            <a routerLink="/visualizador" class="hero-banner__btn btn btn-primary" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 700, duration: 800 }">{{"homePage.link"|translate}}</a>
         </div>
     </div>
     <canvas class="hero-banner__canvas" [ngsReveal]="{ origin: 'right', distance: '60px', delay: 800, duration: 800 }"></canvas>
@@ -56,7 +56,7 @@
 <main class="main-section section" id="main-section">
     <div class="main__content container">
         <div class="main__header">
-            <h2 class="section__title text-center" [ngsReveal]="{ origin: 'top', delay: 200, reset: true }">¿Qué es VisUAM?</h2>
+            <h2 class="section__title text-center" [ngsReveal]="{ origin: 'top', delay: 200, reset: true }">{{"homePage.main.titulo"|translate}}</h2>
         </div>
         <div class="main__body">
             <div class="main__card" [ngsReveal]="{ origin: 'left', distance: '60px', delay: 200, duration: 600, reset: true }">
@@ -64,9 +64,9 @@
                     <img src="assets/img/feature1.png" alt="Feature1 Image">
                 </div>
                 <div class="main__card-text">
-                    <h3 class="section__subtitle">Visualiza desde un JSON</h3>
-                    <p>Visualiza los formatos disponibles leyendo los datos desde un archivo JSON.</p>
-                    <p>Al tener todos los datos en un archivo json se facilita su lectura, ademas de que este formato está bien estructurado y facil de comprender.</p>
+                    <h3 class="section__subtitle">{{"homePage.main.subtitulo"|translate}}</h3>
+                    <p>{{"homePage.main.parrafo1"|translate}}</p>
+                    <p>{{"homePage.main.parrafo2"|translate}}</p>
                 </div>
             </div>
             <div class="main__card" [ngsReveal]="{ origin: 'left', distance: '60px', delay: 200, duration: 600, reset: true }">
@@ -74,9 +74,9 @@
                     <img src="assets/img/feature2.png" alt="Feature1 Image">
                 </div>
                 <div class="main__card-text">
-                    <h3 class="section__subtitle">Modelar Resultados</h3>
-                    <p>El obtener resultados de sus investigacions y/o practicas en ocasiones requiere de una interpretación visual para hacer más sencilla su comprensión.</p>
-                    <p>No basta con solo ver gráficas de sus datos, la interpretación visual es importante. </p>
+                    <h3 class="section__subtitle">{{"homePage.main.subtitulo2"|translate}}</h3>
+                    <p>{{"homePage.main.parrafo3"|translate}}</p>
+                    <p>{{"homePage.main.parrafo4"|translate}}</p>
                 </div>
             </div>
             <div class="main__card" [ngsReveal]="{ origin: 'left', distance: '60px', delay: 200, duration: 600, reset: true }">
@@ -84,9 +84,9 @@
                     <img src="assets/img/feature3.png" alt="Feature1 Image">
                 </div>
                 <div class="main__card-text">
-                    <h3 class="section__subtitle">¿Requieres gráficos estadísticos?</h3>
-                    <p>Si el formato a visualizar lo permite, se pueden observar gráficas de algunos de sus datos.</p>
-                    <p>Nuestro formato de particulas cuenta con esta posibilidad de ver graficos de barras y de pastel. </p>
+                    <h3 class="section__subtitle">{{"homePage.main.subtitulo3"|translate}}</h3>
+                    <p>{{"homePage.main.parrafo5"|translate}}</p>
+                    <p>{{"homePage.main.parrafo6"|translate}}</p>
                 </div>
             </div>
         </div>
@@ -96,10 +96,10 @@
 <!-- BANNER SECTION -->
 <section class="banner"s>
     <div class="banner__content container" [ngsReveal]="{ origin: 'bottom' }">
-        <h2 class="section__title">Empieza a usar el visualizador Ya!</h2>
-        <p>Los miembros de la UAM pueden enviar sus resultados con la estrustura del archivo JSON acordada para poder utilizar el sitio.</p>
-        <a href="visualizador.html" class="btn btn-primary">
-            Abrir Visualizador
+        <h2 class="section__title">{{"homePage.banner.titulo"|translate}}</h2>
+        <p>{{"homePage.banner.parrafo"|translate}}</p>
+        <a routerLink="/visualizador" class="btn btn-primary">
+            {{"homePage.banner.link"|translate}}
         </a>
     </div>
 </section>
