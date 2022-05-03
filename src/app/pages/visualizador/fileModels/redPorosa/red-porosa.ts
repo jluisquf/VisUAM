@@ -186,7 +186,7 @@ export class RedPorosa implements FileModelInterface {
       "</div>"
 
     $('#menu' + idVisualizador).append(item);
-    $('#menu' + idVisualizador).css({ "visibility": "visible", "height": "600px", "width": "250" })
+    $('#menu' + idVisualizador).css({ "visibility": "visible", "width": "250" })
     
     //EvenListeners: Se usa Jquery para capturar los eventos
     $('document').ready(

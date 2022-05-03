@@ -13,5 +13,10 @@
                 {{"menu.boton"|translate}}
             </button>
         </div>
+        <div class="text-center" *ngIf="canvas">
+            <button class="btn btn-primary" (click)="reloadPage()">
+                Abrir Otro Archivo
+            </button>
+        </div>
     </div>
 </div>

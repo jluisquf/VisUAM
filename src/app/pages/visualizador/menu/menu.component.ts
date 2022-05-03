@@ -95,4 +95,8 @@ export class MenuComponent implements OnInit {
     }
     return object;
   }
+
+  reloadPage(){
+    window.location.reload();
+  }
 }
