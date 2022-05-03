@@ -30,8 +30,8 @@ export class RedPorosa implements FileModelInterface {
     var puntos = json.p;
     /**funcion llamada desde index.js recibe un arreglo con las posiciones y color de cada punto
     se crean en conjunto de cada color y se agregan a escena**/
-    mySelf.scene.background = new THREE.Color(0xffffff);
     mySelf.camera.position.set(350, 350, 700);
+    mySelf.scene.background = new THREE.Color(0x000000);
     mySelf.controls.enableDamping = true;
     mySelf.controls.dampingFactor = 0.25;
     mySelf.controls.minDistance = 25;
@@ -186,7 +186,7 @@ export class RedPorosa implements FileModelInterface {
       "</div>"
 
     $('#menu' + idVisualizador).append(item);
-    $('#menu' + idVisualizador).css({ "visibility": "visible", "height": "600px", "width": "250" })
+    $('#menu' + idVisualizador).css({ "visibility": "visible", "width": "250" })
     
     //EvenListeners: Se usa Jquery para capturar los eventos
     $('document').ready(
