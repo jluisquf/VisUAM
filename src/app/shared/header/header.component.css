@@ -15,15 +15,46 @@
     box-shadow: 0px 0px 19px -4px rgba(0,0,0,0.75);
     transition: .25s ease;
 }
-.scroll-header .header__content{
-    height: var(--small-header);
+
+@media screen and (min-width: 767px) {
+    .scroll-header .header__content{
+        height: var(--small-header);
+    } 
 }
 
-.header__content {
-    height: var(--big-header);
+.header__menu {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.menu-toogle {
+    display: block;
+    background-color: transparent;
+    color: var(--primary-color);
+    font-size:var(--h1-font-size);
+}
+
+@media screen and (min-width: 767px) {
+    .menu-toogle {
+        display: none;
+    }
+}
+
+.header__content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
+@media screen and (min-width: 767px) {
+    .header__content {
+        height: var(--big-header);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0;
+    } 
 }
 
 .header-logo {
@@ -33,10 +64,16 @@
     font-weight: var(--font-bold);
 }
 
-.header__navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+@media screen and (min-width: 767px) {
+    .header__navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    } 
+}
+
+.navbar__item {
+    margin: .5rem auto;
 }
 
 .header__navbar .navbar__link {
@@ -44,7 +81,12 @@
     font-size: var(--normal-font-size);
     font-weight: var(--font-regular);
     color: var(--dark-color);
-    margin-right: 2rem;
+}
+
+@media screen and (min-width: 767px) {
+    .header__navbar .navbar__link {
+        margin-right: 2rem;
+    }
 }
 
 .header__navbar .navbar__link:hover {
@@ -54,11 +96,24 @@
 
 .active-link::after {
     content: '';
-    position: absolute;
     display: block;
     border-radius: 2rem;
-    margin-top: .25rem;
+    margin: auto;
     width: 2.5rem;
     height: .25rem;
     background: var(--primary-color);
 }
+
+@media screen and (min-width: 767px) {
+    .active-link::after {
+        content: '';
+        position: absolute;
+        display: block;
+        border-radius: 2rem;
+        margin-top: .25rem;
+        width: 2.5rem;
+        height: .25rem;
+        background: var(--primary-color);
+    } 
+}
+

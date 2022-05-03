@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';//para la traducción
 })
 
 export class HeaderComponent implements OnInit {
+  public isMenuActive: boolean = true;
 
   langs: string[] = ['es','en'];
   val: string = 'es';
@@ -23,12 +24,18 @@ export class HeaderComponent implements OnInit {
 
     window.onscroll = function() {
       "use strict";
-      if (document.body.scrollTop >= 80 || document.documentElement.scrollTop >= 80) {
-        myNav.classList.add("scroll-header");
-      } else {
-        myNav.classList.remove("scroll-header");
+      if (window.innerWidth >= 765) {
+        if (document.body.scrollTop >= 80 || document.documentElement.scrollTop >= 80) {
+          myNav.classList.add("scroll-header");
+        } else {
+          myNav.classList.remove("scroll-header");
+        }
       }
     };
+
+    if (window.innerWidth < 765) {
+      this.isMenuActive = false;
+    }
 
     console.log(this.val)
   }
@@ -38,6 +45,13 @@ export class HeaderComponent implements OnInit {
     this.translate.use(lang);
     console.log('cambie de indioma (val): ' + this.val)
     console.log('cambie de indioma (lang): ' + lang)
+    if (window.innerWidth < 765) {
+      this.isMenuActive = false;
+    }
+  }
+
+  showMenu() {
+    this.isMenuActive = !this.isMenuActive;
   }
 
 }

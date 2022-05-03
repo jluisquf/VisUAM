@@ -27,7 +27,14 @@
 }
 
 .hero-banner__text {
-    max-width: 50%;
+    text-align: center;
+}
+
+@media screen and (min-width: 767px) {
+    .hero-banner__text {
+        max-width: 50%;
+        text-align: left;
+    } 
 }
 
 .hero-banner__text h1 {
@@ -47,15 +54,19 @@
 }
 
 /*=============== FEATURES SECTION ===============*/
-.overflow-hidden {
+.features__content  {
     overflow: hidden;
 }
 
-.features__card-deck {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+
+
+@media screen and (min-width: 767px) {
+    .features__card-deck {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    } 
 }
 
 .feature__card {
@@ -64,15 +75,22 @@
     flex-direction: column;
     justify-content: space-between;
     flex-basis: calc(33.3% - 4rem);
-    min-height: 24rem;
     border-radius: .5rem;
     padding: 2.5rem 1.5rem;
+    margin-bottom: 2rem;
     text-align: center;
     color: #C8CACB;
     background-color: var(--white-color);
     -webkit-box-shadow: 0px 10px 39px -15px rgba(0,0,0,0.54);
     -moz-box-shadow: 0px 10px 39px -15px rgba(0,0,0,0.54);
     box-shadow: 0px 10px 39px -15px rgba(0,0,0,0.54);
+}
+
+@media screen and (min-width: 767px) {
+    .feature__card {   
+        min-height: 24rem;
+        margin-bottom: 0;
+    } 
 }
 
 .feature__card::before {
@@ -106,6 +124,10 @@
 
 .main__card-image img{
     padding: 2rem;
+}
+
+.main__card-text {
+    text-align: center;
 }
 
 @media screen and (min-width: 992px) {

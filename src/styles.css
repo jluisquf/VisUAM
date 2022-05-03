@@ -142,11 +142,19 @@ img {
   padding: 4.5rem 0;
 }
 
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
 .sidebar {
-    width: 100%!important;
-    display: flex;
-    justify-content: center;
-    align-items: start;
+  width: 100% !important;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .mb-1 {
@@ -258,17 +266,17 @@ img {
 
 /* Checkbox */
 .form-check {
-    width: 100%;
-    display: flex;
-    margin-bottom: 1rem;
+  width: 100%;
+  display: flex;
+  margin-bottom: 1rem;
 }
 
 .form-check-input {
-    display: none;
+  display: none;
 }
 
 .form-check-label {
-    margin-right: 1rem;
+  margin-right: 1rem;
   position: relative;
   display: block;
   width: 40px;
@@ -330,3 +338,42 @@ img {
   transition: all 0.4s ease;
 }
 
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  transition: .5s;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  background-color: transparent;
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

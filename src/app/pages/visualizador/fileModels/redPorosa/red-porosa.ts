@@ -35,7 +35,7 @@ export class RedPorosa implements FileModelInterface {
     mySelf.controls.enableDamping = true;
     mySelf.controls.dampingFactor = 0.25;
     mySelf.controls.minDistance = 25;
-    mySelf.controls.maxDistance = 1000;
+    mySelf.controls.maxDistance = 100;
     var group = new THREE.Group();
     this.scene.add(group);
     //var colores = json.sitiosColor;
