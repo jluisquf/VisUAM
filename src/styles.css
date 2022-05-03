@@ -154,7 +154,7 @@ img {
   width: 100% !important;
   display: flex;
   justify-content: center;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .mb-1 {
