@@ -17,7 +17,7 @@
             <div class="navbar__item" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 700, duration: 600 }">
                 <a href="#" class="navbar__link">Esp <i class='bx bxs-down-arrow' ></i></a>
             </div>
-            <div class="navbar__item navbar-button" [ngsReveal]="{ origin: 'right', distance: '60px', delay: 200, duration: 600 }">
+            <div class="navbar__item navbar-button" *ngIf="ruta != '/visualizador'" [ngsReveal]="{ origin: 'right', distance: '60px', delay: 200, duration: 600 }">
                 <a routerLink="/visualizador" class="btn btn-primary">Abrir visualizador!</a>
             </div>
         </div>

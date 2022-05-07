@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,16 @@ import { Component, OnInit } from '@angular/core';
 
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  // Variable que guarda la ruta actual
+  // Se usa para ocultar el botón "Abrir Visualizador" cuando se está 
+  // en la ruta /visualizador
+  ruta: String;
+
+  constructor(private router: Router) {
+    // Al momento de crear el componente en cualquier ruta leemos la ruta en la
+    // que se encuentra el usuario
+    this.ruta = router.url;
+  }
 
   ngOnInit(): void {
     let myNav:any = document.getElementById("header");
