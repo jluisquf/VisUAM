@@ -408,9 +408,9 @@ export class Particulas implements FileModelInterface{
                             "<label >Looping Time: </label>"+  
                             "<input type='text' id='LoopingTime'  readonly size='5' value='"+Loop+"'><br>"+
                             "<div class='btn-grafica'>" +
-                                /*"<button  type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter' id='btngrafica" +mySelf.idVisualizador+ "'>"+
+                                "<button  type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter' id='btngrafica" +mySelf.idVisualizador+ "'>"+
                                     "Generar grafica" +
-                                "</button>" +*/
+                                "</button>" +
                             "</div>"+
                         "</div>"+
                     "</li>" +
@@ -517,8 +517,10 @@ export class Particulas implements FileModelInterface{
                                         '</div>'+
                                     '</div>';
                 
-                $(".div-canvas").after(modalPrueba);
-                console.log("Fui presionado: ");
+                $(".particulasMenuPrincipal").after(modalPrueba);
+                $('.close').click(function(){
+                    $(".modal").hide();
+                });
             }),
         );
 

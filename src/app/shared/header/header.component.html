@@ -1,10 +1,13 @@
 <!-- SITEHEADER -->
 <header id="header" ngClass="scrollHeader ? 'scroll-header' : 'header'" class="header">
     <div class="header__content container">
-        <div class="header-logo" [ngsReveal]="{ origin: 'left', distance: '60px', delay: 200, duration: 600 }">
-            <a href="#"><span style="color: var(--dark-color);">Vis</span><span class="text-primary">UAM</span></a>
+        <div class="header__menu">
+            <div class="header-logo" [ngsReveal]="{ origin: 'left', distance: '60px', delay: 200, duration: 600 }">
+                Vis<span class="text-primary">UAM</span>
+            </div>
+            <button class="menu-toogle"><i class='bx bx-menu' (click)="showMenu()"></i></button>
         </div>
-        <div class="header__navbar">
+        <div class="header__navbar" *ngIf="isMenuActive">
             <div class="navbar__item" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 400, duration: 600 }">
                 <a routerLink="/home" class="navbar__link active-link">Inicio</a>
             </div>

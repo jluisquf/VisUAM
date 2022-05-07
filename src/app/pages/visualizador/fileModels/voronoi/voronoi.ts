@@ -207,7 +207,7 @@ export class Voronoi implements FileModelInterface{
          "</div>"
 
         $('#menu'+mySelf.id).append(item);
-        $('#menu'+mySelf.id).css({ "visibility": "visible", "height": "600px", "width": "250" })
+        $('#menu'+mySelf.id).css({ "visibility": "visible", "width": "250" })
         /******************************************************************************** */
 
         //EvenListeners: Se usa Jquery para capturar los eventos
