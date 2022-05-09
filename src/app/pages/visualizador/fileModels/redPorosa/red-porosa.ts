@@ -133,9 +133,9 @@ export class RedPorosa implements FileModelInterface {
     }
 
     var centro = new THREE.Vector3();
-    centro.x = mx / 2;
-    centro.y = my / 2;
-    centro.z = mz / 2;
+    centro.x = (mx+minx)/2;
+    centro.y = (my+miny)/2;
+    centro.z = (mz+minz)/2;
     mySelf.controls.target = centro;
     animate();
   }
