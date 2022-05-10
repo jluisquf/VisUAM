@@ -6,7 +6,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { FileModelInterface } from '../file-model-interface';
 
 // jQuery
-declare var Parser:any; // TODO: no usada
 declare var $:any;
 
 

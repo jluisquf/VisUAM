@@ -9,6 +9,17 @@
         "titulo":"Meet the new VSyM viewer",
         "parrafo":"View some of the available formats: Porous Network, Particles and Voronoi.",
         "link":"Start now!",
+        "features":{
+            "subtitulo1":"Visualize",
+            "parrafo1":"Getting a visualization of results is important because it helps to understand this complex data in a way that is easy for humans to understand.",
+            "boton1":"",
+            "subtitulo2":"Interpret",
+            "parrafo2":"Do not leave the interpretation of your data aside, as this explains the meaning of your results and on this basis draw conclusions.",
+            "boton2":"",
+            "subtitulo3":"Analyze",
+            "parrafo3":"Process the information collected to see how the elements involved are related.",
+            "boton3":""
+        },
         "main":{
             "titulo":"What is VisUAM?",
             "subtitulo":"View from a JSON",
@@ -45,11 +56,33 @@
         "titulo":"Welcome!",
         "parrafo":"To start using the viewer use the Open 'File' button and select a valid JSON format file...",
         "parrafo2":"Select a file to continue...",
-        "boton":"Open file"
+        "boton":"Open file",
+        "otroArchivo":"Open Other File"
     },
     "visualizador":{
         "titulo":"ViewerUAM",
         "parrafo":"To start using the viewer use the Open 'File' button and select a valid JSON format file for continue...",
         "boton":"Open File"
+    },
+    "voronoi":{
+        "titulo":"Voronoi Menu",
+        "colorAzul":"Color Blue",
+        "colorGris":"Gray Color",
+        "autoRotar":"Auto Rotate"
+    },
+    "porosa":{
+        "titulo":"Porous Network Menu",
+        "colorAzul":"Color Blue",
+        "colorGris":"Gray Color",
+        "autoRotar":"AAuto Rotate"
+    },
+    "particulas":{
+        "titulo":"Particles Menu",
+        "trayectorias":"View trajectories",
+        "aislar":"Isolate Particle",
+        "inputParticula":"Choose particle to isolate",
+        "btnAceptar":"Accept",
+        "subtitulo":"Times",
+        "btnGrafica":"Generate Chart"
     }
 }

@@ -9,6 +9,17 @@
         "titulo":"Conoce el nuevo visualizador VSyM",
         "parrafo":"Visualiza algunos de los formatos disponibles: Red porosa, Particulas y Voronoi.",
         "link":"Comienza ahora!",
+        "features":{
+            "subtitulo1":"Visualiza",
+            "parrafo1":"Conseguir una visualización de resultados es importante porque ayuda a comprender estos datos complejos en forma que es fácil de entender para el ser humano.",
+            "boton1":"",
+            "subtitulo2":"Interpreta",
+            "parrafo2":"No dejes la interpretación de tus datos a un lado, ya que esta explica el sentido de tus resultados y en base a esto sacar conclusiones.",
+            "boton2":"",
+            "subtitulo3":"Analiza",
+            "parrafo3":"Procesa la información recabada para ver como se relacionan los elementos involucrados.",
+            "boton3":""
+        },
         "main":{
             "titulo":"¿Qué es VisUAM?",
             "subtitulo":"Visualiza desde un JSON",
@@ -45,11 +56,33 @@
         "titulo":"Bienvenido!",
         "parrafo":"Para comenzar a utilizar el visualizador utiliza el botón Abrir 'Archivo' y selecciona un archivo de formato JSON válido...",
         "parrafo2":"Seleccione un archivo para continuar...",
-        "boton":"Abrir Archivo"
+        "boton":"Abrir Archivo",
+        "otroArchivo":"Abrir Otro archivo"
     },
     "visualizador":{
         "titulo":"VisualizadorUAM",
         "parrafo":"Para comenzar a utilizar el visualizador utiliza el botón 'Abrir Archivo' y seleciona un archivo de formato JSON válido para continuar...",
         "boton":"Abrir Archivo"
+    },
+    "voronoi":{
+        "titulo":"Menu Voronoi",
+        "colorAzul":"Color Azul",
+        "colorGris":"Color Gris",
+        "autoRotar":"Auto Rotar"
+    },
+    "porosa":{
+        "titulo":"Menu Red Porosa",
+        "colorAzul":"Color Azul",
+        "colorGris":"Color Gris",
+        "autoRotar":"Auto Rotar"
+    },
+    "particulas":{
+        "titulo":"Menu Particulas",
+        "trayectorias":"Ver trayectorias",
+        "aislar":"Aislar Particula",
+        "inputParticula":"Elija Particula a aislar",
+        "btnAceptar":"Aceptar",
+        "subtitulo":"Tiempos",
+        "btnGrafica":"Generar Gráfica"
     }
 }

@@ -1,13 +1,18 @@
 import { FileModelInterface } from '../file-model-interface';
 import * as THREE from 'three';
+import { Chart, ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+import DataLabelsPlugin from 'chartjs-plugin-datalabels';//BAR
+import DatalabelsPlugin from 'chartjs-plugin-datalabels';//PIE
+import { DomSanitizer, SafeResourceUrl, SafeHtml} from '@angular/platform-browser';
 
 declare var Parser:any;
 declare var $:any;
 
 export class Particulas implements FileModelInterface{
-    
-    constructor(public json:any, public canvas:any){}
 
+    constructor(public json:any, public canvas:any, private sanitizer?:DomSanitizer|any) {  }
+    
     // Variables que seran usadas para la creación de las particulas
     mySelf = this;
     paso: any = 1;
@@ -28,6 +33,21 @@ export class Particulas implements FileModelInterface{
     //variable que sera usada para identificar el menu principal e indivudual
     dateId = new Date();
     idVisualizador = this.dateId.getTime();
+
+    //Se leen los datos para las gráficas
+    canvasTiempos: SafeHtml|any;
+    private chartTiempos: any;
+    xValues:any = [this.json.tiempos[0].time, this.json.tiempos[1].time, this.json.tiempos[2].time];//["Tau", "Looping Time", "Direct Time"];
+    yValues:any = [this.json.tiempos[0].valor, this.json.tiempos[1].valor, this.json.tiempos[2].valor];//[36.86, 17.22, 19.64];
+    barColors:any = ["red", "green", "blue"];
+    tipo:any = "bar";
+
+    canvasGolpes: SafeHtml|any;
+    private chartGolpes: any;
+    xValuesGolpes:any = [this.json.golpes[0].nomPared, this.json.golpes[1].nomPared, this.json.golpes[2].nomPared];//["Barrera Superior", "Barrera Inferior", "Barrera Izquierda"];
+    yValuesGolpes:any = [this.json.golpes[0].valor, this.json.golpes[1].valor, this.json.golpes[2].valor];//[37.74, 38.48, 23.78];
+    barColorsGolpes:any = ["red", "green", "blue"];
+    tipoGolpes:any = "bar";
     
     draw(json: any, c: any): void {
 
@@ -455,6 +475,24 @@ export class Particulas implements FileModelInterface{
             }),
             //Envento click para el boton que genera la grafica
             $('#btngrafica' + mySelf.idVisualizador).click(function(){
+                /**variable que sera usada para crear la grafica */
+                //mySelf.canvasTiempos = mySelf.sanitizer?.bypassSecurityTrustHtml('<canvas id="barrasTiempos"></canvas>');
+                mySelf.canvasTiempos = mySelf.sanitizer.bypassSecurityTrustHtml('<canvas id="barrasTiempos"></canvas>');
+                var canvas1 : any = document.getElementById("myChart1");
+                //var ctx : any = canvas1.getContext("2d"); // 2d context
+                var temp = mySelf.canvasTiempos;
+                console.log(mySelf.canvasTiempos);
+                mySelf.chartTiempos = new Chart(canvas1, {
+                    type: "bar",
+                    data: {
+                      labels: mySelf.xValues,
+                      datasets: [{
+                        backgroundColor: mySelf.barColors,
+                        data: mySelf.yValues
+                      }]
+                    }
+                });
+                console.log(mySelf.chartTiempos);
                 //Variable que guarda la estructura del modal encargado de mostrar la grafica de la particula
                 var modalPrueba =   '<div class="modal h-100 d-flex flex-column justify-content-center" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: block">'+
                                         '<div class="modal-dialog modal-lg" role="document">'+
@@ -471,52 +509,30 @@ export class Particulas implements FileModelInterface{
                                                             '<li id="bt-char1" class="nav-item"> '+
                                                                 '<a class="nav-link active" data-target="#chart-1" data-toggle="tab" (click)="' +cambiaGrafica()+ '">Histograma de Tiempos</a>'+
                                                             '</li>'+
-                                                            '<li id="bt-char2" class="nav-item">'+
+                                                            /*'<li id="bt-char2" class="nav-item">'+
                                                                 '<a class="nav-link" data-target="#chart-2" data-toggle="tab" (click)="' +cambiaGrafica()+ '">Histograma de Golpes</a>'+
-                                                            '</li>'+
-                                                            '<li id="bt-char3" class="nav-item">'+
-                                                                '<a class="nav-link" data-target="#chart-3" data-toggle="tab" (click)="' +cambiaGrafica()+ '">Porcentaje de Golpes</a>'+
-                                                            '</li>'+
+                                                            '</li>'+*/
                                                         '</ul>'+
                                                         '<div class="tab-content">'+
                                                             '<div class="tab-pane active" id="chart-1">'+
-                                                                '<div class="myChart1" style="height: 300px; width: 100%;">'+
-                                                                    '<canvas baseChart'+
-                                                                            '[data]="mySelf.barChartDataTiempos"'+
-                                                                            '[options]="mySelf.barChartOptionsTiempos"'+
-                                                                            '[plugins]="mySelf.barChartPlugins"'+
-                                                                            '[type]="mySelf.barChartTypeTiempos"'+
-                                                                            '(chartHover)="mySelf.chartHovered($event)"'+'>'+
-                                                                    '</canvas>'+
+                                                                '<div class="myChart1" style="height: 300px; width: 100%;" [innerHtml]="'+temp+'">'+
+                                                                    /*'<canvas id="barrasTiempos">'+
+                                                                    '</canvas>'+*/
                                                                 '</div>'+
                                                             '</div>'+
-                                                            '<div class="tab-pane" id="chart-2">'+
+                                                            /*'<div class="tab-pane" id="chart-2">'+
                                                                 '<div class="myChart2" style="height: 300px; width: 100%;">'+
-                                                                    '<canvas baseChart'+
-                                                                            '[data]="barChartDataGolpes"'+
-                                                                            '[options]="barChartOptionsGolpes"'+
-                                                                            '[plugins]="barChartPluginsGolpes"'+
-                                                                            '[type]="barChartTypeGolpes"'+'>'+
+                                                                    '<canvas id="barrasGolpes">'+
                                                                     '</canvas>'+
                                                                 '</div>'+
-                                                            '</div>'+
-                                                            '<div class="tab-pane" id="chart-3">'+
-                                                                '<div class="myChart3" style="height: 300px; width: 100%;">'+
-                                                                    '<canvas baseChart'+
-                                                                            '[data]="pieChartData"'+
-                                                                            '[type]="pieChartType"'+
-                                                                            '[options]="pieChartOptions"'+
-                                                                            '[plugins]="pieChartPlugins" style="height: 300px; width: 100%;">'+
-                                                                    '</canvas>'+
-                                                                '</div>'+
-                                                            '</div>'+
+                                                            '</div>'+*/
                                                         '</div>'+
                                                     '</div>'+
                                                 '</div>'+
                                             '</div>'+
                                         '</div>'+
                                     '</div>';
-                
+
                 $(".particulasMenuPrincipal").after(modalPrueba);
                 $('.close').click(function(){
                     $(".modal").hide();
@@ -526,30 +542,20 @@ export class Particulas implements FileModelInterface{
 
         function cambiaGrafica(): void {
             $("document").ready(
-            $('#bt-char1').on("shown.bs.tab",function() {
-                //activamos la grafica
-                $('#chart-1').addClass('active');
-                //Eliminamos las demas
-                $('#chart-2').removeClass('active');
-                $('#chart-3').removeClass('active');
-            }),
-            $('#bt-char2').on("shown.bs.tab", function() {
-                console.log("voy a cambiar de grafica 2")
-                $('#chart-2').addClass('active');
-                //Eliminamos las demas
-                $('#chart-1').removeClass('active');
-                $('#chart-3').removeClass('active');
-            }),
-            $('#bt-char3').on("shown.bs.tab", function() {
-                console.log("voy a cambiar de grafica 3")
-                $('#chart-3').addClass('active');
-                //Eliminamos las demas
-                $('#chart-2').removeClass('active');
-                $('#chart-1').removeClass('active');
-                $('.modal-body').css('overflow-y', 'auto');
-                $('.modal-body').css('max-height', $(window).height() * 0.7);
-                $('.modal-body').css('height', $(window).height() * 0.7);
-            }),
+                $('#bt-char1').on("shown.bs.tab",function() {
+                    //activamos la grafica
+                    $('#chart-1').addClass('active');
+                    //Eliminamos las demas
+                    $('#chart-2').removeClass('active');
+                    $('#chart-3').removeClass('active');
+                }),
+                $('#bt-char2').on("shown.bs.tab", function() {
+                    console.log("voy a cambiar de grafica 2")
+                    $('#chart-2').addClass('active');
+                    //Eliminamos las demas
+                    $('#chart-1').removeClass('active');
+                    $('#chart-3').removeClass('active');
+                }),
             );
         }
     }//Fin funcion mostrar menu
