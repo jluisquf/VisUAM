@@ -456,68 +456,92 @@ export class Particulas implements FileModelInterface{
             //Envento click para el boton que genera la grafica
             $('#btngrafica' + mySelf.idVisualizador).click(function(){
                 //Variable que guarda la estructura del modal encargado de mostrar la grafica de la particula
-                var modalPrueba =   '<div class="modal h-100 d-flex flex-column justify-content-center" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: block">'+
-                                        '<div class="modal-dialog modal-lg" role="document">'+
-                                            '<div class="modal-content">'+
-                                                '<div class="modal-header">'+
-                                                    '<h5 class="modal-title" id="exampleModalLabel">Datos estadisticos</h5>'+
-                                                    '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
-                                                        '<span aria-hidden="true">&times;</span>'+
-                                                    '</button>'+
-                                                '</div>'+
-                                                '<div class="modal-body">'+
-                                                    '<div style="display: block">'+
-                                                        '<ul class="nav nav-tabs" id="myTab" role="tablist">'+
-                                                            '<li id="bt-char1" class="nav-item"> '+
-                                                                '<a class="nav-link active" data-target="#chart-1" data-toggle="tab" (click)="' +cambiaGrafica()+ '">Histograma de Tiempos</a>'+
-                                                            '</li>'+
-                                                            '<li id="bt-char2" class="nav-item">'+
-                                                                '<a class="nav-link" data-target="#chart-2" data-toggle="tab" (click)="' +cambiaGrafica()+ '">Histograma de Golpes</a>'+
-                                                            '</li>'+
-                                                            '<li id="bt-char3" class="nav-item">'+
-                                                                '<a class="nav-link" data-target="#chart-3" data-toggle="tab" (click)="' +cambiaGrafica()+ '">Porcentaje de Golpes</a>'+
-                                                            '</li>'+
-                                                        '</ul>'+
-                                                        '<div class="tab-content">'+
-                                                            '<div class="tab-pane active" id="chart-1">'+
-                                                                '<div class="myChart1" style="height: 300px; width: 100%;">'+
-                                                                    '<canvas baseChart'+
-                                                                            '[data]="mySelf.barChartDataTiempos"'+
-                                                                            '[options]="mySelf.barChartOptionsTiempos"'+
-                                                                            '[plugins]="mySelf.barChartPlugins"'+
-                                                                            '[type]="mySelf.barChartTypeTiempos"'+
-                                                                            '(chartHover)="mySelf.chartHovered($event)"'+'>'+
-                                                                    '</canvas>'+
-                                                                '</div>'+
-                                                            '</div>'+
-                                                            '<div class="tab-pane" id="chart-2">'+
-                                                                '<div class="myChart2" style="height: 300px; width: 100%;">'+
-                                                                    '<canvas baseChart'+
-                                                                            '[data]="barChartDataGolpes"'+
-                                                                            '[options]="barChartOptionsGolpes"'+
-                                                                            '[plugins]="barChartPluginsGolpes"'+
-                                                                            '[type]="barChartTypeGolpes"'+'>'+
-                                                                    '</canvas>'+
-                                                                '</div>'+
-                                                            '</div>'+
-                                                            '<div class="tab-pane" id="chart-3">'+
-                                                                '<div class="myChart3" style="height: 300px; width: 100%;">'+
-                                                                    '<canvas baseChart'+
-                                                                            '[data]="pieChartData"'+
-                                                                            '[type]="pieChartType"'+
-                                                                            '[options]="pieChartOptions"'+
-                                                                            '[plugins]="pieChartPlugins" style="height: 300px; width: 100%;">'+
-                                                                    '</canvas>'+
-                                                                '</div>'+
-                                                            '</div>'+
-                                                        '</div>'+
-                                                    '</div>'+
-                                                '</div>'+
-                                            '</div>'+
-                                        '</div>'+
-                                    '</div>';
+                // var modalPrueba =   '<div class="modal h-100 d-flex flex-column justify-content-center" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: block">'+
+                //                         '<div class="modal-dialog modal-lg" role="document">'+
+                //                             '<div class="modal-content">'+
+                //                                 '<div class="modal-header">'+
+                //                                     '<h5 class="modal-title" id="exampleModalLabel">Datos estadisticos</h5>'+
+                //                                     '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+                //                                         '<span aria-hidden="true">&times;</span>'+
+                //                                     '</button>'+
+                //                                 '</div>'+
+                //                                 '<div class="modal-body">'+
+                //                                     '<div style="display: block">'+
+                //                                         '<ul class="nav nav-tabs" id="myTab" role="tablist">'+
+                //                                             '<li id="bt-char1" class="nav-item"> '+
+                //                                                 '<a class="nav-link active" data-target="#chart-1" data-toggle="tab" (click)="' +cambiaGrafica()+ '">Histograma de Tiempos</a>'+
+                //                                             '</li>'+
+                //                                             '<li id="bt-char2" class="nav-item">'+
+                //                                                 '<a class="nav-link" data-target="#chart-2" data-toggle="tab" (click)="' +cambiaGrafica()+ '">Histograma de Golpes</a>'+
+                //                                             '</li>'+
+                //                                             '<li id="bt-char3" class="nav-item">'+
+                //                                                 '<a class="nav-link" data-target="#chart-3" data-toggle="tab" (click)="' +cambiaGrafica()+ '">Porcentaje de Golpes</a>'+
+                //                                             '</li>'+
+                //                                         '</ul>'+
+                //                                         '<div class="tab-content">'+
+                //                                             '<div class="tab-pane active" id="chart-1">'+
+                //                                                 '<div class="myChart1" style="height: 300px; width: 100%;">'+
+                //                                                     '<canvas baseChart'+
+                //                                                             '[data]="mySelf.barChartDataTiempos"'+
+                //                                                             '[options]="mySelf.barChartOptionsTiempos"'+
+                //                                                             '[plugins]="mySelf.barChartPlugins"'+
+                //                                                             '[type]="mySelf.barChartTypeTiempos"'+
+                //                                                             '(chartHover)="mySelf.chartHovered($event)"'+'>'+
+                //                                                     '</canvas>'+
+                //                                                 '</div>'+
+                //                                             '</div>'+
+                //                                             '<div class="tab-pane" id="chart-2">'+
+                //                                                 '<div class="myChart2" style="height: 300px; width: 100%;">'+
+                //                                                     '<canvas baseChart'+
+                //                                                             '[data]="barChartDataGolpes"'+
+                //                                                             '[options]="barChartOptionsGolpes"'+
+                //                                                             '[plugins]="barChartPluginsGolpes"'+
+                //                                                             '[type]="barChartTypeGolpes"'+'>'+
+                //                                                     '</canvas>'+
+                //                                                 '</div>'+
+                //                                             '</div>'+
+                //                                             '<div class="tab-pane" id="chart-3">'+
+                //                                                 '<div class="myChart3" style="height: 300px; width: 100%;">'+
+                //                                                     '<canvas baseChart'+
+                //                                                             '[data]="pieChartData"'+
+                //                                                             '[type]="pieChartType"'+
+                //                                                             '[options]="pieChartOptions"'+
+                //                                                             '[plugins]="pieChartPlugins" style="height: 300px; width: 100%;">'+
+                //                                                     '</canvas>'+
+                //                                                 '</div>'+
+                //                                             '</div>'+
+                //                                         '</div>'+
+                //                                     '</div>'+
+                //                                 '</div>'+
+                //                             '</div>'+
+                //                         '</div>'+
+                //                     '</div>';
+                var modalPrueba = '<div class="modal">'+
+                '<div class="modal__content">'+
+                '<div class="modal__header">'+
+                '<h2 class="section__title text-center">Datos Estadisticos</h2>'+
+                '<button class="close-btn close" data-dismiss="modal" aria-label="Close">'+
+                '<i class="bx bx-x"></i>'+
+                '</button>'+
+                '</div>'+
+                '<div class="modal__body">'+
+                '<div class="modal__buttons">'+
+                '<button class="btn btn-primary" data-target="#chart-1" (click)="' +cambiaGrafica()+ '">Histograma de Tiempos</button>'+
+                '<button class="btn btn-primary" data-target="#chart-2" (click)="' +cambiaGrafica()+ '">Histograma de Golpes</button>'+
+                '<button class="btn btn-primary" data-target="#chart-3" (click)="' +cambiaGrafica()+ '">Porcentaje de Golpes</button>'+
+                '</div>' +
+                    '<canvas baseChart'+
+                            '[data]="mySelf.barChartDataTiempos"'+
+                            '[options]="mySelf.barChartOptionsTiempos"'+
+                            '[plugins]="mySelf.barChartPlugins"'+
+                            '[type]="mySelf.barChartTypeTiempos"'+
+                            '(chartHover)="mySelf.chartHovered($event)"'+'>'+
+                    '</canvas>'+
+                    '</div>'+
+                    '</div>'+
+                    '</div>';
                 
-                $(".particulasMenuPrincipal").after(modalPrueba);
+                $("#menu").after(modalPrueba);
                 $('.close').click(function(){
                     $(".modal").hide();
                 });
