@@ -1,17 +1,13 @@
 import { FileModelInterface } from '../file-model-interface';
 import * as THREE from 'three';
-import { Chart, ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
-import DataLabelsPlugin from 'chartjs-plugin-datalabels';//BAR
-import DatalabelsPlugin from 'chartjs-plugin-datalabels';//PIE
-import { DomSanitizer, SafeResourceUrl, SafeHtml} from '@angular/platform-browser';
+import Chart from 'chart.js/auto';
 
 declare var Parser:any;
 declare var $:any;
 
 export class Particulas implements FileModelInterface{
 
-    constructor(public json:any, public canvas:any, private sanitizer?:DomSanitizer|any) {  }
+    constructor(public json:any, public canvas:any) {  }
     
     // Variables que seran usadas para la creación de las particulas
     mySelf = this;
@@ -33,21 +29,6 @@ export class Particulas implements FileModelInterface{
     //variable que sera usada para identificar el menu principal e indivudual
     dateId = new Date();
     idVisualizador = this.dateId.getTime();
-
-    //Se leen los datos para las gráficas
-    canvasTiempos: SafeHtml|any;
-    private chartTiempos: any;
-    xValues:any = [this.json.tiempos[0].time, this.json.tiempos[1].time, this.json.tiempos[2].time];//["Tau", "Looping Time", "Direct Time"];
-    yValues:any = [this.json.tiempos[0].valor, this.json.tiempos[1].valor, this.json.tiempos[2].valor];//[36.86, 17.22, 19.64];
-    barColors:any = ["red", "green", "blue"];
-    tipo:any = "bar";
-
-    canvasGolpes: SafeHtml|any;
-    private chartGolpes: any;
-    xValuesGolpes:any = [this.json.golpes[0].nomPared, this.json.golpes[1].nomPared, this.json.golpes[2].nomPared];//["Barrera Superior", "Barrera Inferior", "Barrera Izquierda"];
-    yValuesGolpes:any = [this.json.golpes[0].valor, this.json.golpes[1].valor, this.json.golpes[2].valor];//[37.74, 38.48, 23.78];
-    barColorsGolpes:any = ["red", "green", "blue"];
-    tipoGolpes:any = "bar";
     
     draw(json: any, c: any): void {
 
@@ -474,90 +455,103 @@ export class Particulas implements FileModelInterface{
                 }
             }),
             //Envento click para el boton que genera la grafica
-            $('#btngrafica' + mySelf.idVisualizador).click(function(){
-                /**variable que sera usada para crear la grafica */
-                //mySelf.canvasTiempos = mySelf.sanitizer?.bypassSecurityTrustHtml('<canvas id="barrasTiempos"></canvas>');
-                mySelf.canvasTiempos = mySelf.sanitizer.bypassSecurityTrustHtml('<canvas id="barrasTiempos"></canvas>');
-                var canvas1 : any = document.getElementById("myChart1");
-                //var ctx : any = canvas1.getContext("2d"); // 2d context
-                var temp = mySelf.canvasTiempos;
-                console.log(mySelf.canvasTiempos);
-                mySelf.chartTiempos = new Chart(canvas1, {
-                    type: "bar",
-                    data: {
-                      labels: mySelf.xValues,
-                      datasets: [{
-                        backgroundColor: mySelf.barColors,
-                        data: mySelf.yValues
-                      }]
-                    }
-                });
-                console.log(mySelf.chartTiempos);
-                //Variable que guarda la estructura del modal encargado de mostrar la grafica de la particula
-                var modalPrueba =   '<div class="modal h-100 d-flex flex-column justify-content-center" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: block">'+
-                                        '<div class="modal-dialog modal-lg" role="document">'+
-                                            '<div class="modal-content">'+
-                                                '<div class="modal-header">'+
-                                                    '<h5 class="modal-title" id="exampleModalLabel">Datos estadisticos</h5>'+
-                                                    '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
-                                                        '<span aria-hidden="true">&times;</span>'+
-                                                    '</button>'+
-                                                '</div>'+
-                                                '<div class="modal-body">'+
-                                                    '<div style="display: block">'+
-                                                        '<ul class="nav nav-tabs" id="myTab" role="tablist">'+
-                                                            '<li id="bt-char1" class="nav-item"> '+
-                                                                '<a class="nav-link active" data-target="#chart-1" data-toggle="tab" (click)="' +cambiaGrafica()+ '">Histograma de Tiempos</a>'+
-                                                            '</li>'+
-                                                            /*'<li id="bt-char2" class="nav-item">'+
-                                                                '<a class="nav-link" data-target="#chart-2" data-toggle="tab" (click)="' +cambiaGrafica()+ '">Histograma de Golpes</a>'+
-                                                            '</li>'+*/
-                                                        '</ul>'+
-                                                        '<div class="tab-content">'+
-                                                            '<div class="tab-pane active" id="chart-1">'+
-                                                                '<div class="myChart1" style="height: 300px; width: 100%;" [innerHtml]="'+temp+'">'+
-                                                                    /*'<canvas id="barrasTiempos">'+
-                                                                    '</canvas>'+*/
-                                                                '</div>'+
-                                                            '</div>'+
-                                                            /*'<div class="tab-pane" id="chart-2">'+
-                                                                '<div class="myChart2" style="height: 300px; width: 100%;">'+
-                                                                    '<canvas id="barrasGolpes">'+
-                                                                    '</canvas>'+
-                                                                '</div>'+
-                                                            '</div>'+*/
-                                                        '</div>'+
-                                                    '</div>'+
-                                                '</div>'+
-                                            '</div>'+
-                                        '</div>'+
-                                    '</div>';
+            $('#btngrafica' + mySelf.idVisualizador).click(() =>{
 
-                $(".particulasMenuPrincipal").after(modalPrueba);
+                var modalPrueba = '<div class="modal">'+
+                '<div class="modal__content">'+
+                '<div class="modal__header">'+
+                '<h2 class="section__title text-center">Datos Estadisticos</h2>'+
+                '<button class="close-btn close" data-dismiss="modal" aria-label="Close">'+
+                '<i class="bx bx-x"></i>'+
+                '</button>'+
+                '</div>'+
+                '<div class="modal__body">'+
+                '<div class="modal__buttons">'+
+                '<button class="btn btn-primary" id="bt-char1">Histograma de Tiempos</button>'+
+                '<button class="btn btn-primary" id="bt-char2">Histograma de Golpes</button>'+
+                '<button class="btn btn-primary" id="bt-char3">Porcentaje de Golpes</button>'+
+                '</div>' +
+                    '<canvas class="modal-canvas" id="chart-1"></canvas>'+
+                    '<canvas class="modal-canvas" id="chart-2"></canvas>'+
+                    '<canvas class="modal-canvas" id="chart-3"></canvas>'+
+                    '</div>'+
+                    '</div>'+
+                    '</div>';
+                
+                $("#menu").after(modalPrueba);
                 $('.close').click(function(){
                     $(".modal").hide();
                 });
-            }),
-        );
+                $('#bt-char1').click(function() {
+                    $('#chart-1').css("display","block");
+                    $('#chart-2').css("display","none");
+                    $('#chart-3').css("display","none");
+                    console.log("BT-CHART1");
+                });
+                $('#bt-char2').click(function() {
+                    $('#chart-2').css("display","block");
+                    $('#chart-1').css("display","none");
+                    $('#chart-3').css("display","none");
+                    console.log("BT-CHART2");
+                });
+                $('#bt-char3').click(function() {
+                    $('#chart-3').css("display","block");
+                    $('#chart-1').css("display","none");
+                    $('#chart-2').css("display","none");
+                    console.log("BT-CHART3");
+                });
+                let TiemposData= [];
+                let TiemposLabel= [];
+                let GolpesData= [];
+                let GolpesLabel= [];
+                
+                for (var index = 0; index < this.json.golpes.length; index++) {
+                    GolpesData.push( this.json.golpes[index].valor );
+                    GolpesLabel.push( this.json.golpes[index].nomPared );
+                }
+                
+                for (var index = 0; index < this.json.tiempos.length; index++) {
+                        TiemposData.push( this.json.tiempos[index].valor );
+                        TiemposLabel.push( this.json.tiempos[index].time );
+                }
 
-        function cambiaGrafica(): void {
-            $("document").ready(
-                $('#bt-char1').on("shown.bs.tab",function() {
-                    //activamos la grafica
-                    $('#chart-1').addClass('active');
-                    //Eliminamos las demas
-                    $('#chart-2').removeClass('active');
-                    $('#chart-3').removeClass('active');
-                }),
-                $('#bt-char2').on("shown.bs.tab", function() {
-                    console.log("voy a cambiar de grafica 2")
-                    $('#chart-2').addClass('active');
-                    //Eliminamos las demas
-                    $('#chart-1').removeClass('active');
-                    $('#chart-3').removeClass('active');
-                }),
-            );
-        }
+                const ctx1 = $('#chart-1')[0].getContext('2d');
+                new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                    labels: GolpesLabel,
+                    datasets: [{
+                        label: "Histograma  de tiempos",
+                        data: GolpesData,
+                    }]
+                    },
+                });
+
+                const ctx2 = $('#chart-2')[0].getContext('2d');
+                new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                    labels: TiemposLabel,
+                    datasets: [{
+                        label: "Histograma de golpes en fronteras reflejantes",
+                        data: TiemposData,
+                    }]
+                    },
+                });
+
+                const ctx3 = $('#chart-3')[0].getContext('2d');
+                new Chart(ctx3, {
+                    type: 'pie',
+                    data: {
+                    labels: GolpesLabel,
+                    datasets: [{
+                        label: "Porcentaje en fronteras reflejantes",
+                        data: GolpesData,
+                    }]
+                    },
+                });
+            }),
+        );        
     }//Fin funcion mostrar menu
 
     /**
