@@ -455,17 +455,17 @@ export class Particulas implements FileModelInterface{
             }),
             //Envento click para el boton que genera la grafica
             $('#btngrafica' + mySelf.idVisualizador).click(function(){
-                //Variable que guarda la estructura del modal encargado de mostrar la grafica de la particula
+                // Variable que guarda la estructura del modal encargado de mostrar la grafica de la particula
                 // var modalPrueba =   '<div class="modal h-100 d-flex flex-column justify-content-center" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: block">'+
-                //                         '<div class="modal-dialog modal-lg" role="document">'+
-                //                             '<div class="modal-content">'+
-                //                                 '<div class="modal-header">'+
-                //                                     '<h5 class="modal-title" id="exampleModalLabel">Datos estadisticos</h5>'+
-                //                                     '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+                //                         '<div class="modal-lg" role="document">'+
+                //                             '<div class="modal__content">'+
+                //                                 '<div class="modal__header">'+
+                //                                     '<h5 class="section__title text-center" id="exampleModalLabel">Datos estadisticos</h5>'+
+                //                                     '<button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">'+
                 //                                         '<span aria-hidden="true">&times;</span>'+
                 //                                     '</button>'+
                 //                                 '</div>'+
-                //                                 '<div class="modal-body">'+
+                //                                 '<div class="modal__body">'+
                 //                                     '<div style="display: block">'+
                 //                                         '<ul class="nav nav-tabs" id="myTab" role="tablist">'+
                 //                                             '<li id="bt-char1" class="nav-item"> '+
@@ -526,9 +526,9 @@ export class Particulas implements FileModelInterface{
                 '</div>'+
                 '<div class="modal__body">'+
                 '<div class="modal__buttons">'+
-                '<button class="btn btn-primary" data-target="#chart-1" (click)="' +cambiaGrafica()+ '">Histograma de Tiempos</button>'+
-                '<button class="btn btn-primary" data-target="#chart-2" (click)="' +cambiaGrafica()+ '">Histograma de Golpes</button>'+
-                '<button class="btn btn-primary" data-target="#chart-3" (click)="' +cambiaGrafica()+ '">Porcentaje de Golpes</button>'+
+                '<button class="btn btn-primary" id="bt-char1">Histograma de Tiempos</button>'+
+                '<button class="btn btn-primary" id="bt-char2">Histograma de Golpes</button>'+
+                '<button class="btn btn-primary" id="bt-char3">Porcentaje de Golpes</button>'+
                 '</div>' +
                     '<canvas baseChart'+
                             '[data]="mySelf.barChartDataTiempos"'+
@@ -545,40 +545,20 @@ export class Particulas implements FileModelInterface{
                 $('.close').click(function(){
                     $(".modal").hide();
                 });
+                $('#bt-char1').click(function() {
+                    console.log("BT-CHART1");
+                });
+                $('#bt-char2').click(function() {
+                    console.log("BT-CHART2");
+                });
+                $('#bt-char3').click(function() {
+                    console.log("BT-CHART3");
+                });
             }),
         );
 
-        function cambiaGrafica(): void {
-            $("document").ready(
-            $('#bt-char1').on("shown.bs.tab",function() {
-                //activamos la grafica
-                $('#chart-1').addClass('active');
-                //Eliminamos las demas
-                $('#chart-2').removeClass('active');
-                $('#chart-3').removeClass('active');
-                console.log("BT-CHART1");
-            }),
-            $('#bt-char2').on("shown.bs.tab", function() {
-                console.log("voy a cambiar de grafica 2")
-                $('#chart-2').addClass('active');
-                //Eliminamos las demas
-                $('#chart-1').removeClass('active');
-                $('#chart-3').removeClass('active');
-                console.log("BT-CHART1");
-            }),
-            $('#bt-char3').on("shown.bs.tab", function() {
-                console.log("voy a cambiar de grafica 3")
-                $('#chart-3').addClass('active');
-                //Eliminamos las demas
-                $('#chart-2').removeClass('active');
-                $('#chart-1').removeClass('active');
-                $('.modal-body').css('overflow-y', 'auto');
-                $('.modal-body').css('max-height', $(window).height() * 0.7);
-                $('.modal-body').css('height', $(window).height() * 0.7);
-                console.log("BT-CHART1");
-            }),
-            );
-        }
+        
+        
     }//Fin funcion mostrar menu
 
     /**
