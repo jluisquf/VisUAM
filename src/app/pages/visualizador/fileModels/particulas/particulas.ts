@@ -1,5 +1,6 @@
 import { FileModelInterface } from '../file-model-interface';
 import * as THREE from 'three';
+import Chart from 'chart.js/auto';
 
 declare var Parser:any;
 declare var $:any;
@@ -454,7 +455,7 @@ export class Particulas implements FileModelInterface{
                 }
             }),
             //Envento click para el boton que genera la grafica
-            $('#btngrafica' + mySelf.idVisualizador).click(function(){
+            $('#btngrafica' + mySelf.idVisualizador).click(() =>{
 
                 var modalPrueba = '<div class="modal">'+
                 '<div class="modal__content">'+
@@ -485,25 +486,70 @@ export class Particulas implements FileModelInterface{
                     $('#chart-1').css("display","block");
                     $('#chart-2').css("display","none");
                     $('#chart-3').css("display","none");
-                    $('#chart-1').css("background-color","cyan");
                     console.log("BT-CHART1");
                 });
                 $('#bt-char2').click(function() {
                     $('#chart-2').css("display","block");
                     $('#chart-1').css("display","none");
                     $('#chart-3').css("display","none");
-                    $('#chart-2').css("background-color","orange");
                     console.log("BT-CHART2");
                 });
                 $('#bt-char3').click(function() {
                     $('#chart-3').css("display","block");
                     $('#chart-1').css("display","none");
                     $('#chart-2').css("display","none");
-                    $('#chart-3').css("background-color","lime");
                     console.log("BT-CHART3");
                 });
-                // var myCharts = <HTMLCanvasElement>document.getElementById("chart-1");
+                let TiemposData= [];
+                let TiemposLabel= [];
+                let GolpesData= [];
+                let GolpesLabel= [];
                 
+                for (var index = 0; index < this.json.golpes.length; index++) {
+                    GolpesData.push( this.json.golpes[index].valor );
+                    GolpesLabel.push( this.json.golpes[index].nomPared );
+                }
+                
+                for (var index = 0; index < this.json.tiempos.length; index++) {
+                        TiemposData.push( this.json.tiempos[index].valor );
+                        TiemposLabel.push( this.json.tiempos[index].time );
+                }
+
+                const ctx1 = $('#chart-1')[0].getContext('2d');
+                new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                    labels: GolpesLabel,
+                    datasets: [{
+                        label: "Histograma  de tiempos",
+                        data: GolpesData,
+                    }]
+                    },
+                });
+
+                const ctx2 = $('#chart-2')[0].getContext('2d');
+                new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                    labels: TiemposLabel,
+                    datasets: [{
+                        label: "Histograma de golpes en fronteras reflejantes",
+                        data: TiemposData,
+                    }]
+                    },
+                });
+
+                const ctx3 = $('#chart-3')[0].getContext('2d');
+                new Chart(ctx3, {
+                    type: 'pie',
+                    data: {
+                    labels: GolpesLabel,
+                    datasets: [{
+                        label: "Porcentaje en fronteras reflejantes",
+                        data: GolpesData,
+                    }]
+                    },
+                });
             }),
         );        
     }//Fin funcion mostrar menu
