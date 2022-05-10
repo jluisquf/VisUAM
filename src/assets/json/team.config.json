@@ -7,16 +7,16 @@
             "redes": {
                 "instagram": "#",
                 "facebook": "#",
-                "twitter": "#"
+                "github": "#"
             }
         },
         {
             "nombre": "Angel Pimentel Méndez",
-            "rutaImg": "/assets/img/integrante2.jpg",
+            "rutaImg": "/assets/img/angelpm.jpeg",
             "redes": {
                 "instagram": "#",
-                "facebook": "#",
-                "twitter": "#"
+                "facebook": "https://www.facebook.com/bocho.mendez.315/",
+                "github": "https://github.com/angel-pm"
             }
         },
         {
@@ -25,7 +25,7 @@
             "redes": {
                 "instagram": "#",
                 "facebook": "#",
-                "twitter": "#"
+                "github": "#"
             }
         },
         {
@@ -34,7 +34,7 @@
             "redes": {
                 "instagram": "#",
                 "facebook": "#",
-                "twitter": "#"
+                "github": "#"
             }
         },
         {
@@ -43,7 +43,7 @@
             "redes": {
                 "instagram": "#",
                 "facebook": "#",
-                "twitter": "#"
+                "github": "#"
             }
         }
     ]
