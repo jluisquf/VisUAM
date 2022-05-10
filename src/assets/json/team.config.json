@@ -21,11 +21,11 @@
         },
         {
             "nombre": "Luis Antonio Vadovinos",
-            "rutaImg": "/assets/img/integrante3.jpg",
+            "rutaImg": "/assets/img/luisbarrera.jpg",
             "redes": {
-                "instagram": "#",
-                "facebook": "#",
-                "github": "#"
+                "instagram": "https://www.instagram.com/luis_valbar/",
+                "facebook": "https://www.facebook.com/luisantonio.valdovinosbarrera/",
+                "github": "https://github.com/luis-barrera"
             }
         },
         {
