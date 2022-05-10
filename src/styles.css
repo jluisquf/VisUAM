@@ -370,6 +370,7 @@ img {
 }
 
 .modal-canvas {
+  display: none;
   width: 100%;
 }
 
