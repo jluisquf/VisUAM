@@ -13,7 +13,20 @@ export class HeaderComponent implements OnInit {
   langs: string[] = ['es','en'];
   val: string = 'es';
 
+  // Variable que va guardar el lenguaje seleccionado que puede estar en localStorage
+  // La variable la guardamos en la función cambiaIdioma()
+  valLocalStorage: string | null;
+
+
   constructor(public translate: TranslateService) {
+    // Tratamos de obtener el valor del localStorage, puede ser alguno de los dos o null
+    this.valLocalStorage = localStorage.getItem("lang");
+    // console.log("Languaje en el constructor", this.valLocalStorage);  // Ya no te necesito
+
+    // Actualizamos el lenguaje según el valor guardado en localStorage, si no
+    // hay nada en localStorage entonces usamos 'es'
+    this.val = this.valLocalStorage || 'es';
+
     translate.setDefaultLang(this.val);//la configuración por defecto es en español
     translate.use(this.val);//y va a usar esta config
     translate.addLangs(this.langs);
@@ -48,6 +61,10 @@ export class HeaderComponent implements OnInit {
     if (window.innerWidth < 765) {
       this.isMenuActive = false;
     }
+
+    // Guardamos en localStorage una variable llamada lang con el lenguaje
+    // seleccionado para poder mantenerlo entre las diferentes páginas
+    localStorage.setItem("lang", lang);
   }
 
   showMenu() {

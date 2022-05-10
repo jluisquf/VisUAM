@@ -19,7 +19,9 @@
             </div>
             <div class="navbar__item" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 700, duration: 600 }">
                 <!--<a href="#" class="navbar__link">Esp <i class='bx bxs-down-arrow' ></i></a>-->
-                <select #langSelect class="navbar__link" (change)="translate.use(langSelect.value)">
+                <!-- <select #langSelect class="navbar__link" (change)="translate.use(langSelect.value)"> -->
+                <!-- Al hacer click en alguna de las opciones se llama a la función cambia idioma -->
+                <select #langSelect class="navbar__link" (change)="cambiaIdioma(langSelect.value)">
                     <option *ngFor="let lang of langs" [value]="lang" val="lang">
                         {{lang}} <i class='bx bxs-down-arrow' ></i>
                     </option>
