@@ -2,25 +2,25 @@
 <header id="header" ngClass="scrollHeader ? 'scroll-header' : 'header'" class="header">
     <div class="header__content container">
         <div class="header__menu">
-            <div class="header-logo" [ngsReveal]="{ origin: 'left', distance: '60px', delay: 200, duration: 600 }">
+            <div class="header-logo">
                 <a href="#"><span style="color: var(--dark-color);">Vis</span><span class="text-primary">UAM</span></a>
             </div>
             <button class="menu-toogle"><i class='bx bx-menu' (click)="showMenu()"></i></button>
         </div>
         <div class="header__navbar" *ngIf="isMenuActive">
-            <div class="navbar__item" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 400, duration: 600 }">
+            <div class="navbar__item">
                 <a routerLink="/home" class="navbar__link active-link">Inicio</a>
             </div>
-            <div class="navbar__item" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 500, duration: 600 }">
+            <div class="navbar__item">
                 <a href="#main-section" class="navbar__link">¿Qué es?</a>
             </div>
-            <div class="navbar__item" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 600, duration: 600 }">
+            <div class="navbar__item">
                 <a href="#equipo-trabajo__section" class="navbar__link">Grupo Trabajo</a>
             </div>
-            <div class="navbar__item" [ngsReveal]="{ origin: 'top', distance: '60px', delay: 700, duration: 600 }">
+            <div class="navbar__item">
                 <a href="#" class="navbar__link">Esp <i class='bx bxs-down-arrow' ></i></a>
             </div>
-            <div class="navbar__item navbar-button" *ngIf="ruta != '/visualizador'" [ngsReveal]="{ origin: 'right', distance: '60px', delay: 200, duration: 600 }">
+            <div class="navbar__item navbar-button" *ngIf="ruta != '/visualizador'">
                 <a routerLink="/visualizador" class="btn btn-primary">Abrir visualizador!</a>
             </div>
         </div>
