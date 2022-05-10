@@ -458,7 +458,7 @@ export class Particulas implements FileModelInterface{
             $('#btngrafica' + mySelf.idVisualizador).click(() =>{
 
                 var modalPrueba = '<div class="modal">'+
-                '<div class="modal__content">'+
+                '<div class="modal__content" style="max-width:850px;">'+
                 '<div class="modal__header">'+
                 '<h2 class="section__title text-center">Datos Estadisticos</h2>'+
                 '<button class="close-btn close" data-dismiss="modal" aria-label="Close">'+
@@ -469,11 +469,11 @@ export class Particulas implements FileModelInterface{
                 '<div class="modal__buttons">'+
                 '<button class="btn btn-primary" id="bt-char1">Histograma de Tiempos</button>'+
                 '<button class="btn btn-primary" id="bt-char2">Histograma de Golpes</button>'+
-                '<button class="btn btn-primary" id="bt-char3">Porcentaje de Golpes</button>'+
+                //'<button class="btn btn-primary" id="bt-char3">Porcentaje de Golpes</button>'+
                 '</div>' +
                     '<canvas class="modal-canvas" id="chart-1"></canvas>'+
-                    '<canvas class="modal-canvas" id="chart-2"></canvas>'+
-                    '<canvas class="modal-canvas" id="chart-3"></canvas>'+
+                    '<canvas class="modal-canvas" id="chart-2" style="display:none;"></canvas>'+
+                    //'<canvas class="modal-canvas" id="chart-3"></canvas>'+
                     '</div>'+
                     '</div>'+
                     '</div>';
@@ -485,21 +485,21 @@ export class Particulas implements FileModelInterface{
                 $('#bt-char1').click(function() {
                     $('#chart-1').css("display","block");
                     $('#chart-2').css("display","none");
-                    $('#chart-3').css("display","none");
+                    //$('#chart-3').css("display","none");
                     console.log("BT-CHART1");
                 });
                 $('#bt-char2').click(function() {
                     $('#chart-2').css("display","block");
                     $('#chart-1').css("display","none");
-                    $('#chart-3').css("display","none");
+                    //$('#chart-3').css("display","none");
                     console.log("BT-CHART2");
                 });
-                $('#bt-char3').click(function() {
+                /*$('#bt-char3').click(function() {
                     $('#chart-3').css("display","block");
                     $('#chart-1').css("display","none");
                     $('#chart-2').css("display","none");
                     console.log("BT-CHART3");
-                });
+                });*/
                 let TiemposData= [];
                 let TiemposLabel= [];
                 let GolpesData= [];
@@ -539,7 +539,7 @@ export class Particulas implements FileModelInterface{
                     },
                 });
 
-                const ctx3 = $('#chart-3')[0].getContext('2d');
+                /*const ctx3 = $('#chart-3')[0].getContext('2d');
                 new Chart(ctx3, {
                     type: 'pie',
                     data: {
@@ -549,7 +549,7 @@ export class Particulas implements FileModelInterface{
                         data: GolpesData,
                     }]
                     },
-                });
+                });*/
             }),
         );        
     }//Fin funcion mostrar menu
