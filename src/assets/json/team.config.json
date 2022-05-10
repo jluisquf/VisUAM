@@ -3,11 +3,11 @@
     "Integrantes": [
         {
             "nombre": "David Moreno Gutierrez",
-            "rutaImg": "/assets/img/integrante1.jpg",
+            "rutaImg": "/assets/img/davidmg.png",
             "redes": {
-                "instagram": "#",
-                "facebook": "#",
-                "github": "#"
+                "instagram": "https://www.instagram.com/david_moreno_id/",
+                "facebook": "https://www.facebook.com/davidmorenogt",
+                "github": "https://github.com/AlmaDividida"
             }
         },
         {
