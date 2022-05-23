@@ -57,7 +57,7 @@
         "parrafo":"To start using the viewer use the Open 'File' button and select a valid JSON format file...",
         "parrafo2":"Select a file to continue...",
         "boton":"Open file",
-        "otroArchivo":"Open Other File"
+        "otroArchivo":"Close viewer"
     },
     "visualizador":{
         "titulo":"ViewerUAM",

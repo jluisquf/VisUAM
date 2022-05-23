@@ -177,7 +177,7 @@ export class Voronoi implements FileModelInterface{
         $('.menu__default').after(contenedor);
 
         var item = "<div id = 'particulasMenu'" + "class='particulasMenu' >" +
-        "<h3 class='align-text-top section__subtitle' id='titulo'><span>Menu Red Porosa</span></h3>" +
+        "<h3 class='align-text-top section__subtitle' id='titulo'><span>Menu Voronoi</span></h3>" +
             "<div id = 'particulasMenu' class='particulasMenu' >" + 
            " <ul class='nav flex-column' id='vor'>"+
               "<li class='nav-item'>"+

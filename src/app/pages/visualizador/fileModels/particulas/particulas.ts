@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import Chart from 'chart.js/auto';
 
 declare var Parser:any;
+declare var CanvasJS:any;
 declare var $:any;
 
 export class Particulas implements FileModelInterface{
@@ -29,6 +30,8 @@ export class Particulas implements FileModelInterface{
     //variable que sera usada para identificar el menu principal e indivudual
     dateId = new Date();
     idVisualizador = this.dateId.getTime();
+    //Varible usada para cambiar el icono de play a pause y viceversa
+    public pausaAnimacion: boolean = false; // Al inicio se pone en False pues no queremos que este pausada.
     
     draw(json: any, c: any): void {
 
@@ -355,7 +358,7 @@ export class Particulas implements FileModelInterface{
         var mySelf = this;
         mySelf.idVisualizador = nuevoId;
         var contenedor= "<div class='row' id='visualizador" + mySelf.idVisualizador + "'>"+
-                            "<div class='container col-sm-10' id='"+ mySelf.idVisualizador + "'></div> " +
+                            //"<div class='container col-sm-10' id='"+ mySelf.idVisualizador + "'></div> " +
                             "<div class='d-none d-md-block bg-light sidebar col-sm-2' id='menu"+ mySelf.idVisualizador + "'></div>" +
                         "</div>";
 
@@ -364,22 +367,20 @@ export class Particulas implements FileModelInterface{
         var Direct= this.json.tiempos[2].valor.toFixed(2);
 
         if(stringCanvas == 'myCanvas'){//Se coloca para el menuPrincipal
-            //$('.div-canvas').append(contenedor);
             $('.menu__default').after(contenedor);
         }else{//si se aislo una particula
-            //$('.'+stringCanvas).append(contenedor);
             $('.'+stringCanvas).after(contenedor);
         }
         
         var item = 
-            "<div id = 'particulasMenu"+mySelf.idVisualizador + "' class='particulasMenuPrincipal' >" +
+            "<div id = 'particulasMenu"+mySelf.idVisualizador + "' class='particulasMenuPrincipal'>" +
                 "<h3 class='align-text-top section__subtitle' id='tituloPrincipal'><span>Menu Particulas</span></h3>"+
                 "<ul class='nav flex-column'>" +
                     "<li class='nav-item'>" +
                         "<div class='form-check'>" +
-                            "<button  type='button' class='btn  btn-success' id='regresar" +mySelf.idVisualizador+ "'> << </button>"+
-                            "<button  type='button' class='btn btn-success' id='pausa" +mySelf.idVisualizador+ "'> || </button>"+
-                            "<button  type='button' class='btn btn-success' id='avanzar" +mySelf.idVisualizador+ "'> >> </button>"+
+                            "<button  type='button' class='btn btn-primary' id='regresar" +mySelf.idVisualizador+ "'> <i class='bx bx-skip-previous'></i> </button>"+
+                            "<button  type='button' class='btn btn-primary' id='pausa" +mySelf.idVisualizador+ "'> <i id='iconBtn' class='bx bx-pause'></i> </button>"+
+                            "<button  type='button' class='btn btn-primary' id='avanzar" +mySelf.idVisualizador+ "'> <i class='bx bx-skip-next'></i> </button>"+
                         "</div>" +
                     "</li>" +
                     
@@ -387,26 +388,26 @@ export class Particulas implements FileModelInterface{
                         "<div class='form-check'>" +
                             "<input type='checkbox' class='form-check-input' id='Checkpt1"+mySelf.idVisualizador+"'>" +
                             "<label class='form-check-label' for='Checkpt1" + mySelf.idVisualizador + "'><span></span></label>" +
-                            "<span>Ver Trayectorias</span>"+
+                            "<span>Ver Trayectorias</span>" +
                         "</div>" +
-                    "</li><br>"+
+                    "</li><br>" +
 
                     "<li class='nav-item'>" +
                         "<div class='aisla-particula' id='aislaParticula" +mySelf.idVisualizador+ "'>"+
                             "<label><b>Aislar Particula</b></label><br>" +
-                            "<input type='number' min='0' max='4'  size='4' id='particula' placeholder='Elija particula' style='width:110px;'>" +
-                            "<button class='btn-success' type='submit' id='aceptar'>Aceptar</button>" +
+                            "<input type='number' min='0' max='4'  size='4' id='particula' placeholder='Elija particula' style='width:115px;'>" +
+                            "<button class='btn-aceptar' type='submit' id='aceptar'>Aceptar</button>" + //BOTON ACEPTAR: AGREGAR HOVER Y ESTILOS
                         "</div>" +
-                    "</li><br>" +
+                    "</li>" +
         
                     "<li class='nav-item'  id='Resultado" +mySelf.idVisualizador+ "'>" +
                         "<div class='result'>"+ 
-                            "<h4>Tiempos</h4>"+
-                            "<label >Tau Time:</label>"+
+                            "<h4 class='subtitulo_particulas'>Tiempos</h4>"+
+                            "<label class='label-particula'>Tau Time: </label>"+
                             "<input type='text' id='Tau' name='fname' readonly size='5' value='"+Tau+"'><br><br>"+
-                            "<label >Direct Time:</label> "+
+                            "<label class='label-particula'>Direct Time: </label> "+
                             "<input type='text' id='direcTime'  readonly size='5' value='"+Direct+"'><br><br>"+
-                            "<label >Looping Time: </label>"+  
+                            "<label class='label-particula'>Looping Time: </label>"+  
                             "<input type='text' id='LoopingTime'  readonly size='5' value='"+Loop+"'><br>"+
                             "<div class='btn-grafica'>" +
                                 "<button  type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter' id='btngrafica" +mySelf.idVisualizador+ "'>"+
@@ -426,6 +427,15 @@ export class Particulas implements FileModelInterface{
         //EvenListeners: Se usa Jquery para capturar los eventos
         $('document').ready(
             $('#pausa' + mySelf.idVisualizador).click(function(){
+                if(mySelf.pausaAnimacion === true){
+                    $('#iconBtn').removeClass("bx-play");
+                    $('#iconBtn').addClass("bx-pause");
+                    mySelf.pausaAnimacion = false;
+                }else{
+                    $('#iconBtn').removeClass("bx-pause");
+                    $('#iconBtn').addClass("bx-play");
+                    mySelf.pausaAnimacion = true;
+                }
                 mySelf.pause();
             }),
 
@@ -456,27 +466,26 @@ export class Particulas implements FileModelInterface{
             }),
             //Envento click para el boton que genera la grafica
             $('#btngrafica' + mySelf.idVisualizador).click(() =>{
-
-                var modalPrueba = '<div class="modal">'+
-                '<div class="modal__content" style="max-width:850px;">'+
-                '<div class="modal__header">'+
-                '<h2 class="section__title text-center">Datos Estadisticos</h2>'+
-                '<button class="close-btn close" data-dismiss="modal" aria-label="Close">'+
-                '<i class="bx bx-x"></i>'+
-                '</button>'+
-                '</div>'+
-                '<div class="modal__body">'+
-                '<div class="modal__buttons">'+
-                '<button class="btn btn-primary" id="bt-char1">Histograma de Tiempos</button>'+
-                '<button class="btn btn-primary" id="bt-char2">Histograma de Golpes</button>'+
-                //'<button class="btn btn-primary" id="bt-char3">Porcentaje de Golpes</button>'+
-                '</div>' +
-                    '<canvas class="modal-canvas" id="chart-1"></canvas>'+
-                    '<canvas class="modal-canvas" id="chart-2" style="display:none;"></canvas>'+
-                    //'<canvas class="modal-canvas" id="chart-3"></canvas>'+
+                
+                var modalPrueba = 
+                '<div class="modal">'+
+                    '<div class="modal__content" style="max-width:850px;">'+
+                        '<div class="modal__header">'+
+                            '<h2 class="section__title text-center">Datos Estadisticos</h2>'+
+                            '<button class="close-btn close" data-dismiss="modal" aria-label="Close">'+
+                                '<i class="bx bx-x"></i>'+
+                            '</button>'+
+                        '</div>'+
+                        '<div class="modal__body">'+
+                            '<div class="modal__buttons">'+
+                                '<button class="btn btn-primary" id="bt-char1">Histograma de Tiempos</button>'+
+                                '<button class="btn btn-primary" id="bt-char2">Histograma de Golpes</button>'+
+                            '</div>' +
+                            '<div class="modal-canvas" id="chart-1" style="display: block; height: 300px; width: 100%;"></div>'+
+                            '<div class="modal-canvas" id="chart-2" style="height: 300px; width: 100%;"></div>'+
+                        '</div>'+
                     '</div>'+
-                    '</div>'+
-                    '</div>';
+                '</div>';
                 
                 $("#menu").after(modalPrueba);
                 $('.close').click(function(){
@@ -485,71 +494,63 @@ export class Particulas implements FileModelInterface{
                 $('#bt-char1').click(function() {
                     $('#chart-1').css("display","block");
                     $('#chart-2').css("display","none");
-                    //$('#chart-3').css("display","none");
-                    console.log("BT-CHART1");
+                    chart.render();
+                    //console.log("BT-CHART1");
                 });
                 $('#bt-char2').click(function() {
                     $('#chart-2').css("display","block");
                     $('#chart-1').css("display","none");
-                    //$('#chart-3').css("display","none");
-                    console.log("BT-CHART2");
+                    chart2.render();
+                    //console.log("BT-CHART2");
                 });
-                /*$('#bt-char3').click(function() {
-                    $('#chart-3').css("display","block");
-                    $('#chart-1').css("display","none");
-                    $('#chart-2').css("display","none");
-                    console.log("BT-CHART3");
-                });*/
-                let TiemposData= [];
-                let TiemposLabel= [];
-                let GolpesData= [];
-                let GolpesLabel= [];
                 
+                let TiemposNW = [];
+                let Golpes = [];
+
                 for (var index = 0; index < this.json.golpes.length; index++) {
-                    GolpesData.push( this.json.golpes[index].valor );
-                    GolpesLabel.push( this.json.golpes[index].nomPared );
+                    Golpes.push({ "y": this.json.golpes[index].valor, "label": this.json.golpes[index].nomPared});
                 }
                 
                 for (var index = 0; index < this.json.tiempos.length; index++) {
-                        TiemposData.push( this.json.tiempos[index].valor );
-                        TiemposLabel.push( this.json.tiempos[index].time );
+                        TiemposNW.push({ "y": this.json.tiempos[index].valor, "label": this.json.tiempos[index].time});
                 }
 
-                const ctx1 = $('#chart-1')[0].getContext('2d');
-                new Chart(ctx1, {
-                    type: 'bar',
-                    data: {
-                    labels: GolpesLabel,
-                    datasets: [{
-                        label: "Histograma  de tiempos",
-                        data: GolpesData,
-                    }]
+                var div1 = document.getElementById('chart-1');
+                let chart = new CanvasJS.Chart(div1, {
+                    animationEnabled: true,
+                    exportEnabled: true,
+                    theme: "light2",
+                    title: {
+                        text: "Histograma de Tiempos"
                     },
+                    axisY:{
+                        title:"Tiempos",
+                        includeZero:true,
+                    },
+                    data: [{
+                        type: "column",
+                        dataPoints: TiemposNW
+                    }]
+                });
+                chart.render();
+                var div2 = document.getElementById('chart-2');
+                let chart2 = new CanvasJS.Chart(div2, {
+                    animationEnabled: true,
+                    exportEnabled: true,
+                    theme: "light2",
+                    title: {
+                        text: "Histograma de golpes en fronteras reflejantes"
+                    },
+                    axisY:{
+                        title:"Número de golpes",
+                        includeZero:true,
+                    },
+                    data: [{
+                        type: "column",
+                        dataPoints: Golpes
+                    }]
                 });
 
-                const ctx2 = $('#chart-2')[0].getContext('2d');
-                new Chart(ctx2, {
-                    type: 'bar',
-                    data: {
-                    labels: TiemposLabel,
-                    datasets: [{
-                        label: "Histograma de golpes en fronteras reflejantes",
-                        data: TiemposData,
-                    }]
-                    },
-                });
-
-                /*const ctx3 = $('#chart-3')[0].getContext('2d');
-                new Chart(ctx3, {
-                    type: 'pie',
-                    data: {
-                    labels: GolpesLabel,
-                    datasets: [{
-                        label: "Porcentaje en fronteras reflejantes",
-                        data: GolpesData,
-                    }]
-                    },
-                });*/
             }),
         );        
     }//Fin funcion mostrar menu
@@ -577,9 +578,10 @@ export class Particulas implements FileModelInterface{
 
         //Se crea el menu de la particula
         var nuevoItem = "<div class='nuevo' id ='particula"+ particula +"'>"+
-                            "<div class='row'>"+
-                                "<button class='btn btn-block btn-info btn-titulo' disabled style='width: 100%;'>Particula " + particula + "</button>" +
-                            "</div>"           
+                            "<div class='text-center'>"+
+                                //"<div style='width: 100%; background: #57a519; border-radius: 0; text-color: #FDFEFE;'>Particula " + particula + "</div>" +
+                                "<button class='btn btn-titulo' disabled> <span class='titulo-particulas'>Particula " + particula + "</span> </button>" +
+                            "</div>" +
                         "</div>";       
         //Creamos las variebles para el nuevo canvas
         var canvas2:any = document.createElement('canvas');
@@ -595,7 +597,6 @@ export class Particulas implements FileModelInterface{
         //Pasamos el metodo draw() el archivo JSON que contiene la informacion de la particula aislada
         object.draw(this.json,canvas2);
         //Agregamos el nuevo visualizador al nevegador
-        //$('.div-canvas').after(nuevoItem);
         $('#myCanvas').after(nuevoItem);
         $('#particula'+particula).after(canvas2);
         this.mostrarMenuIndividual(particula, object);
@@ -604,10 +605,10 @@ export class Particulas implements FileModelInterface{
         /*var nuevoID = new Date();
         object.idVisualizador = nuevoID.getTime();
         object.mostrarMenu(object.idVisualizador, 'div-canvas');
-        $('.div-canvas').after(nuevoItem);//SI FUNCIONA
-        $('#particula'+particula).after(canvas2);//SI FUNCIONA
-        $('#aislaParticula'+object.idVisualizador).remove();//Quitamos los elementos que no deben estar en menus hijos visualizador1//SI FUNCIONA
-        $('#Resultado'+object.idVisualizador).remove();//SI FUNCIONA*/
+        $('.div-canvas').after(nuevoItem);
+        $('#particula'+particula).after(canvas2);
+        $('#aislaParticula'+object.idVisualizador).remove();//Quitamos los elementos que no deben estar en menus hijos visualizador1
+        $('#Resultado'+object.idVisualizador).remove();//*/
         //##########################FIN PARA USAR EL MENU PRINCIPAL#############################
 
         //Con ayuda de Jquery capturamos el evento cuando el usuario desee elminar el visualizador del navegador
@@ -627,8 +628,8 @@ export class Particulas implements FileModelInterface{
 
     mostrarMenuIndividual(numParticula:any, object:any){
         var mySelf = this;
+        var pausaAnimacionAislada = false;
         var contenedor= "<div class='row' id='visualizador" + numParticula + "'>" +
-                            //"<div class='container col-sm-10' id='visualizador" + numParticula + "'></div> " +
                             "<div class='d-none d-md-block bg-light sidebar col-sm-2' id='menu" + numParticula + "'></div>" +
                         "</div>";
         
@@ -640,9 +641,9 @@ export class Particulas implements FileModelInterface{
                 "<ul class='nav flex-column'>" +
                     "<li class='nav-item'>" +
                         "<div class='form-check'>" +
-                            "<button  type='button' class='btn  btn-success button-espacio ' id='regresar" + numParticula + "'> << </button>"+
-                            "<button  type='button' class='btn btn-success button-espacio ' id = 'pausa" + numParticula + "'> || </button>"+
-                            "<button  type='button' class='btn btn-success button-espacio'  id='avanzar" + numParticula + "'> >> </button>"+
+                            "<button  type='button' class='btn btn-primary' id='regresar" + numParticula + "'> <i class='bx bx-chevrons-left' ></i> </button>"+
+                            "<button  type='button' class='btn btn-primary ' id = 'pausa" + numParticula + "'> <i id='iconBtnAislado' class='bx bx-pause'></i> </button>"+
+                            "<button  type='button' class='btn btn-primary'  id='avanzar" + numParticula + "'> <i class='bx bx-chevrons-right'></i> </button>"+
                         "</div>" +
                         "<div class='form-check'>" +
                             "<input type='checkbox' class='form-check-input' id='Checkpt1" + object.idVisualizador + "'>" +
@@ -650,7 +651,7 @@ export class Particulas implements FileModelInterface{
                             "<span>Ver Trayectorias</span>"+
                         "</div>" +
                         "<div>"+
-                            "<button class='btn btn-danger btn-titulo ' id='quitar"+ numParticula +"'> Quitar </button>" +
+                            "<button class='btn btn-eliminar' id='quitar"+ numParticula +"'> Quitar </button>" +
                         "</div>"+
                     "</li>" +
                 "</ul>" + 
@@ -687,6 +688,15 @@ export class Particulas implements FileModelInterface{
         //EvenListeners: Se usa Jquery para capturar los eventos
         $('document').ready(
             $('#pausa' + numParticula).click(function(){
+                if(pausaAnimacionAislada === true){
+                    $('#iconBtnAislado').removeClass("bx-play");
+                    $('#iconBtnAislado').addClass("bx-pause");
+                    pausaAnimacionAislada = false;
+                }else{
+                    $('#iconBtnAislado').removeClass("bx-pause");
+                    $('#iconBtnAislado').addClass("bx-play");
+                    pausaAnimacionAislada = true;
+                }
                 pause();
             }),
 

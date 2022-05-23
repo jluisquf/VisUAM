@@ -390,3 +390,65 @@ img {
 .modal .close-btn:hover .bx {
   color: var(--primary-color);
 }
+
+/* ESTILOS DE LOS BOTONES DEL MENU PARTICULAS*/
+.btn-aceptar {
+  color: #fff;
+  background-color: #57a519;
+  font-size: 14px;
+  margin: 15px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.btn-aceptar:hover {
+  background: #f1b346;
+  transition: 0.5s;
+}
+
+.btn-titulo{
+  width: 100%;
+  background-color: #28a745;/*#00802b;*/
+  border-radius: 0;
+}
+
+.titulo-particulas{
+  color: #eeeeee;
+}
+
+.aisla-particula, #tituloPrincipal, .trayectorias, .btn-grafica {
+  text-align: center;
+}
+
+.result{
+  background-color: lightgrey;
+  border: 3px solid #57a519;
+  font-size: 16px;
+  margin-left: 3px;
+  text-align: center;
+  /*width: 300px;*/
+}
+
+.subtitulo_particulas{
+  font-weight: bold;
+  font-size: 18px;
+  color: #57a519;
+  text-align: center;
+}
+
+.label-particula{
+  font-weight: 500;
+  font-size: 14px;
+  color: black;
+  text-align: center;
+}
+/* ESTILOS DE LOS BOTONES DE REPRODUCCIÓN  */
+.btn-eliminar {
+  color: #fff;
+  background-color: #dc3545;
+}
+
+.btn-eliminar:hover {
+  background-color: #FA8072;
+  transition: 0.5s;
+}

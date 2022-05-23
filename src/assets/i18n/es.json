@@ -57,7 +57,7 @@
         "parrafo":"Para comenzar a utilizar el visualizador utiliza el botón Abrir 'Archivo' y selecciona un archivo de formato JSON válido...",
         "parrafo2":"Seleccione un archivo para continuar...",
         "boton":"Abrir Archivo",
-        "otroArchivo":"Abrir Otro archivo"
+        "otroArchivo":"Cerrar visualizador"
     },
     "visualizador":{
         "titulo":"VisualizadorUAM",
