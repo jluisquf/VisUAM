@@ -408,12 +408,9 @@ img {
 
 .btn-titulo{
   width: 100%;
-  background-color: #28a745;/*#00802b;*/
-  border-radius: 0;
-}
-
-.titulo-particulas{
+  background-color: #28a745;
   color: #eeeeee;
+  border-radius: 0;
 }
 
 .aisla-particula, #tituloPrincipal, .trayectorias, .btn-grafica {
@@ -426,7 +423,8 @@ img {
   font-size: 16px;
   margin-left: 3px;
   text-align: center;
-  /*width: 300px;*/
+  justify-content: center;
+  width: 250px;
 }
 
 .subtitulo_particulas{
@@ -451,4 +449,80 @@ img {
 .btn-eliminar:hover {
   background-color: #FA8072;
   transition: 0.5s;
+}
+
+/* CONTENEDOR CON TAB */
+table.tabs {
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: transparent;
+  font-size: 0.9em;
+  margin-left: 1em;
+}
+
+th.tabck {
+  border: gray solid 1px;
+  border-bottom: 0;
+  border-radius: 0.5em 0.5em 0 0;
+  background-color: transparent;
+  padding: 0.3em;
+  text-align: center;
+  cursor: pointer;
+}
+
+th.tabcks {
+  border: 0;
+  border-bottom: gray solid 1px;
+}
+
+th.tabcks:first-child {
+  border-left: gray solid 1px;
+}
+
+th.tabcks:last-child {
+  border-right: gray solid 1px;
+}
+
+table.tabs tr:first-child th.tabcks {
+  border-left: none;
+  border-right: none;
+}
+
+table.tabs[data-filas] th.tabck {
+  box-shadow: 0 -0.15em 0.1em 0 white;
+}
+
+table.tabs td.cont {
+  border: gray solid 1px;
+  border-top: 0;
+}
+
+tr.filadiv {
+  background-color: rgb(235, 235, 225);
+}
+
+/* El ancho y alto de los div.tabdiv se configuran en cada aplicación */
+div.tabdiv {
+  background-color: rgb(235, 235, 225);
+  border: 0;
+  padding: 0.5em;
+  overflow: auto;
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+table.resul {
+  border-collapse: collapse;
+  border-color: none;
+}
+
+tr.resul, td.resul, th.resul {
+  border: none;
+}
+
+.resultados {
+  justify-content: center;
+  text-align: center;
+  margin-left: 45px;
 }

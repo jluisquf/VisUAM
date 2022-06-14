@@ -1,6 +1,5 @@
 import { FileModelInterface } from '../file-model-interface';
 import * as THREE from 'three';
-import Chart from 'chart.js/auto';
 
 declare var Parser:any;
 declare var CanvasJS:any;
@@ -642,7 +641,7 @@ export class Particulas implements FileModelInterface{
                     "<li class='nav-item'>" +
                         "<div class='form-check'>" +
                             "<button  type='button' class='btn btn-primary' id='regresar" + numParticula + "'> <i class='bx bx-chevrons-left' ></i> </button>"+
-                            "<button  type='button' class='btn btn-primary ' id = 'pausa" + numParticula + "'> <i id='iconBtnAislado' class='bx bx-pause'></i> </button>"+
+                            "<button  type='button' class='btn btn-primary ' id = 'pausa" + numParticula + "'> <i id='iconBtnAislado" + numParticula + "' class='bx bx-pause'></i> </button>"+
                             "<button  type='button' class='btn btn-primary'  id='avanzar" + numParticula + "'> <i class='bx bx-chevrons-right'></i> </button>"+
                         "</div>" +
                         "<div class='form-check'>" +
@@ -689,12 +688,12 @@ export class Particulas implements FileModelInterface{
         $('document').ready(
             $('#pausa' + numParticula).click(function(){
                 if(pausaAnimacionAislada === true){
-                    $('#iconBtnAislado').removeClass("bx-play");
-                    $('#iconBtnAislado').addClass("bx-pause");
+                    $('#iconBtnAislado'+ numParticula).removeClass("bx-play");
+                    $('#iconBtnAislado'+ numParticula).addClass("bx-pause");
                     pausaAnimacionAislada = false;
                 }else{
-                    $('#iconBtnAislado').removeClass("bx-pause");
-                    $('#iconBtnAislado').addClass("bx-play");
+                    $('#iconBtnAislado'+ numParticula).removeClass("bx-pause");
+                    $('#iconBtnAislado'+ numParticula).addClass("bx-play");
                     pausaAnimacionAislada = true;
                 }
                 pause();

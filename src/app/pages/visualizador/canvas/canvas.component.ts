@@ -5,6 +5,7 @@ import { FileStorageService } from 'src/app/services/fileStorageService/file-sto
 import { Particulas } from '../fileModels/particulas/particulas';
 import { RedPorosa } from '../fileModels/redPorosa/red-porosa';
 import { Voronoi } from '../fileModels/voronoi/voronoi';
+import { ParticulasDosCanales } from '../fileModels/particulasDosCanales/particulas-dos-canales';
 
 @Component({
   selector: 'app-canvas',
@@ -47,8 +48,13 @@ export class CanvasComponent implements OnInit {
       case "Voronoi":
         object = new Voronoi(json,this.canvas);
         break;
-      case "Particulas":
+      // NOTA: si se requiere visualizar particulas con un solo canal comentar el caso de abajo y descomentar este
+      /*case "Particulas":
         object = new Particulas(json,this.canvas);
+        this.muestraGrafica = true;
+        break;*/
+      case "Particulas":
+        object = new ParticulasDosCanales(json,this.canvas);
         this.muestraGrafica = true;
         break;
       case "RedPorosa":
