@@ -665,9 +665,9 @@ export class ParticulasDosCanales implements FileModelInterface {
                 "<ul class='nav flex-column'>" +
                     "<li class='nav-item'>" +
                         "<div class='form-check'>" +
-                            "<button  type='button' class='btn btn-primary' id='regresar" +mySelf.idVisualizador+ "'> <i class='bx bx-skip-previous'></i> </button>"+
+                            "<button  type='button' class='btn btn-primary' id='regresar" +mySelf.idVisualizador+ "'> <i class='bx bx-chevrons-left'></i> </button>"+
                             "<button  type='button' class='btn btn-primary' id='pausa" +mySelf.idVisualizador+ "'> <i id='iconBtn' class='bx bx-pause'></i> </button>"+
-                            "<button  type='button' class='btn btn-primary' id='avanzar" +mySelf.idVisualizador+ "'> <i class='bx bx-skip-next'></i> </button>"+
+                            "<button  type='button' class='btn btn-primary' id='avanzar" +mySelf.idVisualizador+ "'> <i class='bx bx-chevrons-right'></i> </button>"+
                         "</div>" +
                     "</li>" +
                     

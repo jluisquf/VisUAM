@@ -60,7 +60,7 @@
         "otroArchivo":"Cerrar visualizador"
     },
     "visualizador":{
-        "titulo":"VisualizadorUAM",
+        "titulo":"VISUAM",
         "parrafo":"Para comenzar a utilizar el visualizador utiliza el botón 'Abrir Archivo' y seleciona un archivo de formato JSON válido para continuar...",
         "boton":"Abrir Archivo"
     },
