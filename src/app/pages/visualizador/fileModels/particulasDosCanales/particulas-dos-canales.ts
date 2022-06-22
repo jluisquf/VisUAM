@@ -99,8 +99,13 @@ export class ParticulasDosCanales implements FileModelInterface {
                 }
                 if (objParticulas.funciones.TWall.isReflec) {
                     var funt = new THREE.Line(tgeometry, material);//azul
+                    console.log('Entre al IF');
+                    console.log(objParticulas.funciones.TWall.isReflec);
+                    console.log(objParticulas.funciones.TWall);
                 } else {
                     var funt = new THREE.Line(tgeometry, mat2);//rojo
+                    console.log('Entre al ELSE');
+                    console.log(objParticulas.funciones.TWall.isReflec);
                 }
 
                 var y;
@@ -132,6 +137,9 @@ export class ParticulasDosCanales implements FileModelInterface {
                 }
                 if (objParticulas.funciones.BWall.isReflec) {
                     var funb = new THREE.Line(bgeometry, material);
+                    console.log('Entre al IF BWall');
+                    console.log(objParticulas.funciones.BWall.isReflec);
+                    console.log(objParticulas.funciones.BWall);
                 } else {
                     var funb = new THREE.Line(bgeometry, mat2);
                 }
@@ -661,7 +669,7 @@ export class ParticulasDosCanales implements FileModelInterface {
         
         var item = 
             "<div id = 'particulasMenu"+mySelf.idVisualizador + "' class='particulasMenuPrincipal'>" +
-                "<h3 class='align-text-top section__subtitle' id='tituloPrincipal'><span>Menu Particulas</span></h3>"+
+                "<h3 class='align-text-top section__subtitle' id='tituloPrincipal'><span>Menu Partículas</span></h3>"+
                 "<ul class='nav flex-column'>" +
                     "<li class='nav-item'>" +
                         "<div class='form-check'>" +
@@ -681,7 +689,7 @@ export class ParticulasDosCanales implements FileModelInterface {
 
                     "<li class='nav-item'>" +
                         "<div class='aisla-particula' id='aislaParticula" +mySelf.idVisualizador+ "'>"+
-                            "<label><b>Aislar Particula</b></label><br>" +
+                            "<label><b>Aislar Partícula</b></label><br>" +
                             "<input type='number' min='0' max='"+TotalParticulasNW+"' size='2' id='particula' placeholder='IDparticula' style='width:115px;'>" +
                             "<button class='btn-aceptar' type='submit' id='aceptar'>Aceptar</button>" + 
                         "</div>" +
@@ -749,7 +757,7 @@ export class ParticulasDosCanales implements FileModelInterface {
                                     "</div>"+
                                 "</tr>"+
                             "</table>"+
-                            "<button  type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter' id='btngrafica" +mySelf.idVisualizador+ "'>Generar grafica</button>" +
+                            "<button  type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter' id='btngrafica" +mySelf.idVisualizador+ "'>Generar gráfica</button>" +
                         "</div>"+
                     "</li>" +
                 "</ul>" + 
@@ -808,7 +816,7 @@ export class ParticulasDosCanales implements FileModelInterface {
                 '<div class="modal">'+
                     '<div class="modal__content" style="max-width:850px;">'+
                         '<div class="modal__header">'+
-                            '<h2 class="section__title text-center">Datos Estadisticos</h2>'+
+                            '<h2 class="section__title text-center">Datos Estadísticos</h2>'+
                             '<button class="close-btn close" data-dismiss="modal" aria-label="Close">'+
                                 '<i class="bx bx-x"></i>'+
                             '</button>'+
@@ -1081,7 +1089,7 @@ export class ParticulasDosCanales implements FileModelInterface {
         //Se crea el menu de la particula
         var nuevoItem = "<div class='nuevo' id ='particula"+ particula +"'>"+
                             "<div class='text-center'>"+
-                                "<button class='btn btn-titulo' disabled> <span>Particula " + particula + "</span> </button>" +
+                                "<button class='btn btn-titulo' disabled> <span>Partícula " + particula + "</span> </button>" +
                             "</div>" +
                         "</div>";       
         //Creamos las variebles para el nuevo canvas
@@ -1127,7 +1135,7 @@ export class ParticulasDosCanales implements FileModelInterface {
 
         var item = 
             "<div id = 'particulasMenu" + numParticula + "'"+ "class='particulasMenu' >" +
-                "<h3 class='align-text-top' id='titulo"+numParticula+"'><span>Menu Particula "+numParticula+"</span></h3>"+
+                "<h3 class='align-text-top' id='titulo"+numParticula+"'><span>Menu Partícula "+numParticula+"</span></h3>"+
                 "<ul class='nav flex-column'>" +
                     "<li class='nav-item'>" +
                         "<div class='form-check'>" +
@@ -1141,7 +1149,7 @@ export class ParticulasDosCanales implements FileModelInterface {
                             "<span>Ver Trayectorias</span>"+
                         "</div>" +
                         "<div>"+
-                            "<button class='btn btn-eliminar' id='quitar"+ numParticula +"'> Quitar </button>" +
+                            "<button class='btn btn-eliminar' id='quitar"+ numParticula +"'> Cerrar visualización </button>" +
                         "</div>"+
                     "</li>" +
                 "</ul>" + 
