@@ -40,7 +40,9 @@
     },
     "equipo":{
         "titulo":"The working group",
-        "parrafo":"We are a multidisciplinary group of students and academics."
+        "parrafo":"We are a multidisciplinary group of students and academics.",
+        "desarrolladores":"Developers",
+        "investigadores":"Researchers"
     },
     "tecnologias":{
         "titulo":"Technologies Used",

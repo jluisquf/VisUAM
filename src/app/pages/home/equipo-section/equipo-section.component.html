@@ -8,25 +8,70 @@
     </div>
     <!--Contenedor donde se pondran las fotos del grupo de trabajo-->
     <div class="equipo-trabajo__body" id="info-equipo">
+      <div id="equipo-trabajo__developers">
+        <h3 
+          class="section__subtitle black-subtitle"
+          [ngsReveal]="{ origin: 'top', delay: 300, reset: true }">
+          {{"equipo.desarrolladores"|translate}}
+        </h3>
+        <div class="cards-container">
+          <div 
+            class="card img-integrante" 
+            style="width: 19rem" *ngFor="let integrante of Datos; let i = index"
+            [ngsReveal]="{ origin: 'left', delay: 100 * i, reset: true }">
+            <img
+              src="{{integrante.rutaImg}}"
+              class="redonda"
+              alt="Integrante {{i+1}}"
+            />
+            <div class="card-body">
+              <h4 class="card-title">{{integrante.nombre}}</h4>
+              <div class="btn-redes">
+                <a href="{{integrante.redes.facebook}}" target="_blank">
+                  <i class="bx bxl-facebook-circle"></i>
+                </a>
+                <a href="{{integrante.redes.instagram}}" target="_blank">
+                  <i class="bx bxl-instagram-alt"></i>
+                </a>
+                <a href="{{integrante.redes.github}}" target="_blank">
+                  <i class="bx bxl-github"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <div class="card img-integrante" style="width: 19rem" *ngFor="let integrante of Datos; let i = index">
-        <img
-          src="{{integrante.rutaImg}}"
-          class="redonda"
-          alt="Integrante {{i+1}}"
-        />
-        <div class="card-body">
-          <h3 class="card-title">{{integrante.nombre}}</h3>
-          <div class="btn-redes">
-            <a href="{{integrante.redes.facebook}}" target="_blank">
-              <i class="bx bxl-facebook-circle"></i>
-            </a>
-            <a href="{{integrante.redes.instagram}}" target="_blank">
-              <i class="bx bxl-instagram-alt"></i>
-            </a>
-            <a href="{{integrante.redes.github}}" target="_blank">
-              <i class="bx bxl-github"></i>
-            </a>
+      <div id="equipo-trabajo__researchers">
+        <h3 
+          class="section__subtitle black-subtitle"
+          [ngsReveal]="{ origin: 'top', delay: 300, reset: true }">
+          {{"equipo.investigadores"|translate}}
+        </h3>
+        <div class="cards-container">
+          <div 
+            class="card img-integrante" 
+            style="width: 19rem" *ngFor="let integrante of Datos; let i = index"
+            [ngsReveal]="{ origin: 'left', delay: 100 * i + 200, reset: true }">
+            <img
+              src="{{integrante.rutaImg}}"
+              class="redonda"
+              alt="Integrante {{i+1}}"
+            />
+            <div class="card-body">
+              <h4 class="card-title">{{integrante.nombre}}</h4>
+              <div class="btn-redes">
+                <a href="{{integrante.redes.facebook}}" target="_blank">
+                  <i class="bx bxl-facebook-circle"></i>
+                </a>
+                <a href="{{integrante.redes.instagram}}" target="_blank">
+                  <i class="bx bxl-instagram-alt"></i>
+                </a>
+                <a href="{{integrante.redes.github}}" target="_blank">
+                  <i class="bx bxl-github"></i>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

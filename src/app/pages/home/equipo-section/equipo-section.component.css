@@ -8,15 +8,30 @@
     flex-direction: column;
 }
 
-@media screen and (min-width: 992px) {
+/* @media screen and (min-width: 992px) {
     .equipo-trabajo__body {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
     } 
+} */
+
+.section__subtitle {
+    margin: 1rem 0;
 }
 
-.card-titles{
+.black-subtitle {
+    color: black;
+}
+
+.cards-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.card-title {
+    display: inline;
     text-align: center;
 }
 
@@ -44,10 +59,13 @@
     border-color: transparent;
 }
 
+/* .card-body { } */
+
 .btn-redes {
     display: flex;
+    justify-content: center;
     border-radius: 15px;
-    padding: 0 2rem;
+    padding: 0;
 }
 
 .redonda {
@@ -60,7 +78,7 @@
 .btn-redes a {
     color: var(--primary-color);
     font-size: 1.5rem;
-    margin: 0 auto;
+    margin: 0 1rem;
     margin-top: 1rem;
     transition: .4s;
 }

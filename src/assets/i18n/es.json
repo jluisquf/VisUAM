@@ -40,7 +40,9 @@
     },
     "equipo":{
         "titulo":"El grupo de trabajo",
-        "parrafo":"Somos un grupo multidisciplinario de alumnos y académicos."
+        "parrafo":"Somos un grupo multidisciplinario de alumnos y académicos.",
+        "desarrolladores":"Desarrolladores",
+        "investigadores":"Investigadores"
     },
     "tecnologias":{
         "titulo":"Tecnologias Usadas",
