@@ -749,7 +749,7 @@ export class ParticulasDosCanales implements FileModelInterface {
                                                 "<td class='resul'><input type='text' id='InferiorWN'  readonly size='5' value='"+InferiorWN+"'><br></td>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>Origin</td>"+
+                                                "<td class='resul'>Left</td>"+
                                                 "<td class='resul'><input type='text' id='OrigenNW'  readonly size='5' value='"+OrigenNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='OrigenWN'  readonly size='5' value='"+OrigenWN+"'><br></td>"+
                                             "</tr>"+
@@ -824,7 +824,7 @@ export class ParticulasDosCanales implements FileModelInterface {
                         '<div class="modal__body">'+
                             '<div class="modal__buttons">'+
                                 '<button class="btn btn-primary" id="bt-char1">Histogram of times</button>'+
-                                '<button class="btn btn-primary" id="bt-char2">Histogram of hist</button>'+
+                                '<button class="btn btn-primary" id="bt-char2">Histogram of hits</button>'+
                             '</div>' +
                             '<div class="modal-canvas" id="chart-1" style="display: block; height: 300px; width: 100%;"></div>'+
                             '<div class="modal-canvas" id="chart-2" style="height: 300px; width: 100%;"></div>'+
