@@ -63,7 +63,7 @@
     },
     "visualizador":{
         "titulo":"VISUAM",
-        "parrafo":"To start using the viewer use the Open 'File' button and select a valid JSON format file for continue...",
+        "parrafo":"To start using the viewer use the Open 'File' button and select a valid JSON format file to continue...",
         "boton":"Open File"
     },
     "voronoi":{
