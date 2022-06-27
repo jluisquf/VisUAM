@@ -158,13 +158,13 @@ export class RedPorosa implements FileModelInterface {
 
     var item =
       "<div id = 'particulasMenu'" + "class='particulasMenu' >" +
-      "<h3 class='align-text-top section__subtitle' id='titulo'><span>Menu Red Porosa</span></h3>" +
+      "<h3 class='align-text-top section__subtitle' id='titulo'><span>Pore Network Menu</span></h3>" +
       " <ul class='nav flex-column' id='vor'>" +
       "<li class='nav-item'>" +
       "<div class='form-check'>" +
       "<input type='checkbox' class='form-check-input' id='checkAzul'>" +
       "<label class='form-check-label' for='checkAzul'><span></span></label>" +
-      "<span> Color Azul </span>" +
+      "<span> Blue Color </span>" +
       "</div>" +
       "</li>" +
 
@@ -172,14 +172,14 @@ export class RedPorosa implements FileModelInterface {
       "<div class='form-check'>" +
       "<input type='checkbox' class='form-check-input' id='checkGris' >" +
       "<label class='form-check-label' for='checkGris'><span></span></label>" +
-      "<span> Color Gris </span>" +
+      "<span> Gray Color </span>" +
       "</div>" +
       "</li>" +
       "<li class='nav-item'>" +
       "<div class='form-check'>" +
       "<input type='checkbox' class='form-check-input' id='autoRotar'>" +
       "<label class='form-check-label' for='autoRotar'><span></span></label>" +
-      "<span> Auto Rotar </span>" +
+      "<span> Auto Rotate </span>" +
       "</div>" +
       "</li>" +
       "</ul>" +

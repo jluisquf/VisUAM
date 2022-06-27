@@ -669,7 +669,7 @@ export class ParticulasDosCanales implements FileModelInterface {
         
         var item = 
             "<div id = 'particulasMenu"+mySelf.idVisualizador + "' class='particulasMenuPrincipal'>" +
-                "<h3 class='align-text-top section__subtitle' id='tituloPrincipal'><span>Menu Partículas</span></h3>"+
+                "<h3 class='align-text-top section__subtitle' id='tituloPrincipal'><span>Particles Menu</span></h3>"+
                 "<ul class='nav flex-column'>" +
                     "<li class='nav-item'>" +
                         "<div class='form-check'>" +
@@ -683,27 +683,27 @@ export class ParticulasDosCanales implements FileModelInterface {
                         "<div class='form-check'>" +
                             "<input type='checkbox' class='form-check-input' id='Checkpt1"+mySelf.idVisualizador+"'>" +
                             "<label class='form-check-label' for='Checkpt1" + mySelf.idVisualizador + "'><span></span></label>" +
-                            "<span>Ver Trayectorias</span>" +
+                            "<span>Show trajectories</span>" +
                         "</div>" +
                     "</li><br>" +
 
                     "<li class='nav-item'>" +
                         "<div class='aisla-particula' id='aislaParticula" +mySelf.idVisualizador+ "'>"+
-                            "<label><b>Aislar Partícula</b></label><br>" +
-                            "<input type='number' min='0' max='"+TotalParticulasNW+"' size='2' id='particula' placeholder='IDparticula' style='width:115px;'>" +
-                            "<button class='btn-aceptar' type='submit' id='aceptar'>Aceptar</button>" + 
+                            "<label><b>Isolate particle</b></label><br>" +
+                            "<input type='number' min='0' max='"+TotalParticulasNW+"' size='2' id='particula' placeholder='ID particle' style='width:115px;'>" +
+                            "<button class='btn-aceptar' type='submit' id='aceptar'>Acept</button>" + 
                         "</div>" +
                     "</li>" +
         
                     "<li class='nav-item resultados'  id='Resultado" +mySelf.idVisualizador+ "'>" +
                         "<div class='result' id='tabla-centrar'>"+ 
-                            "<h4 class='subtitulo_particulas'>Resultados</h4>"+
+                            "<h4 class='subtitulo_particulas'> Results </h4>"+
                             "<table class='tabs' data-min='0' data-max='2' style='margin:0 auto;'>"+
                                 "<tr>"+
                                     "<th class='tabcks'>&nbsp;</th>"+
-                                    "<th class='tabck' id='tabck-0'>Tiempos</th>"+
+                                    "<th class='tabck' id='tabck-0'> Times </th>"+
                                     "<th class='tabcks'>&nbsp;</th>"+
-                                    "<th class='tabck' id='tabck-1'>Golpes</th>"+
+                                    "<th class='tabck' id='tabck-1'> Hits </th>"+
                                 "</tr>"+
                                 "<tr class='filadiv'>"+
                                     "<td  class='cont'colspan='6' id='tab-0'>"+
@@ -739,17 +739,17 @@ export class ParticulasDosCanales implements FileModelInterface {
                                                 "<th class='resul'>WtoN</th>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>Superior</td>"+
+                                                "<td class='resul'>Top</td>"+
                                                 "<td class='resul'><input type='text' id='SuperiorNW' name='fname' readonly size='5' value='"+SuperiorNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='SuperiorWN' name='fname' readonly size='5' value='"+SuperiorWN+"'><br></td>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>Inferior</td>"+
+                                                "<td class='resul'>Bottom</td>"+
                                                 "<td class='resul'><input type='text' id='InferiorNW'  readonly size='5' value='"+InferiorNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='InferiorWN'  readonly size='5' value='"+InferiorWN+"'><br></td>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>Origen</td>"+
+                                                "<td class='resul'>Origin</td>"+
                                                 "<td class='resul'><input type='text' id='OrigenNW'  readonly size='5' value='"+OrigenNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='OrigenWN'  readonly size='5' value='"+OrigenWN+"'><br></td>"+
                                             "</tr>"+
@@ -757,7 +757,7 @@ export class ParticulasDosCanales implements FileModelInterface {
                                     "</div>"+
                                 "</tr>"+
                             "</table>"+
-                            "<button  type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter' id='btngrafica" +mySelf.idVisualizador+ "'>Generar gráfica</button>" +
+                            "<button  type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter' id='btngrafica" +mySelf.idVisualizador+ "'> Generate plot </button>" +
                         "</div>"+
                     "</li>" +
                 "</ul>" + 
@@ -816,15 +816,15 @@ export class ParticulasDosCanales implements FileModelInterface {
                 '<div class="modal">'+
                     '<div class="modal__content" style="max-width:850px;">'+
                         '<div class="modal__header">'+
-                            '<h2 class="section__title text-center">Datos Estadísticos</h2>'+
+                            '<h2 class="section__title text-center">Statistics</h2>'+
                             '<button class="close-btn close" data-dismiss="modal" aria-label="Close">'+
                                 '<i class="bx bx-x"></i>'+
                             '</button>'+
                         '</div>'+
                         '<div class="modal__body">'+
                             '<div class="modal__buttons">'+
-                                '<button class="btn btn-primary" id="bt-char1">Histograma de Tiempos</button>'+
-                                '<button class="btn btn-primary" id="bt-char2">Histograma de Golpes</button>'+
+                                '<button class="btn btn-primary" id="bt-char1">Histogram of times</button>'+
+                                '<button class="btn btn-primary" id="bt-char2">Histogram of hist</button>'+
                             '</div>' +
                             '<div class="modal-canvas" id="chart-1" style="display: block; height: 300px; width: 100%;"></div>'+
                             '<div class="modal-canvas" id="chart-2" style="height: 300px; width: 100%;"></div>'+
@@ -870,7 +870,7 @@ export class ParticulasDosCanales implements FileModelInterface {
                     exportEnabled: true,
                     theme: "light2",
                     title: {
-                        text: "Tiempos"
+                        text: "Times"
                     },
                     axisY:{
                         includeZero:true
@@ -907,7 +907,7 @@ export class ParticulasDosCanales implements FileModelInterface {
                     exportEnabled: true,
                     theme: "light2",
                     title: {
-                        text: "Golpes"
+                        text: "Hits"
                     },
                     axisY:{
                         inludeZero:true,
@@ -1089,7 +1089,7 @@ export class ParticulasDosCanales implements FileModelInterface {
         //Se crea el menu de la particula
         var nuevoItem = "<div class='nuevo' id ='particula"+ particula +"'>"+
                             "<div class='text-center'>"+
-                                "<button class='btn btn-titulo' disabled> <span>Partícula " + particula + "</span> </button>" +
+                                "<button class='btn btn-titulo' disabled> <span>Particle " + particula + "</span> </button>" +
                             "</div>" +
                         "</div>";       
         //Creamos las variebles para el nuevo canvas
@@ -1112,7 +1112,7 @@ export class ParticulasDosCanales implements FileModelInterface {
 
         //Con ayuda de Jquery capturamos el evento cuando el usuario desee elminar el visualizador del navegador
         $('#quitar'+ particula ).click(function():any{
-            var respuesta = confirm("Desea eliminar el visualizador de particula #" + particula);
+            var respuesta = confirm("Do you want to remove the particle display? ");
             if( respuesta ) {//Si se recibe una respuesta
                 object = {};
                 $('#particula'+ particula ).remove();
@@ -1135,7 +1135,7 @@ export class ParticulasDosCanales implements FileModelInterface {
 
         var item = 
             "<div id = 'particulasMenu" + numParticula + "'"+ "class='particulasMenu' >" +
-                "<h3 class='align-text-top' id='titulo"+numParticula+"'><span>Menu Partícula "+numParticula+"</span></h3>"+
+                "<h3 class='align-text-top' id='titulo"+numParticula+"'><span> Menu Particle ID: "+numParticula+"</span></h3>"+
                 "<ul class='nav flex-column'>" +
                     "<li class='nav-item'>" +
                         "<div class='form-check'>" +
@@ -1146,10 +1146,10 @@ export class ParticulasDosCanales implements FileModelInterface {
                         "<div class='form-check'>" +
                             "<input type='checkbox' class='form-check-input' id='Checkpt1" + object.idVisualizador + "'>" +
                             "<label class='form-check-label' for='Checkpt1" + object.idVisualizador + "'><span></span></label>" +
-                            "<span>Ver Trayectorias</span>"+
+                            "<span>Show trajectories</span>"+
                         "</div>" +
                         "<div>"+
-                            "<button class='btn btn-eliminar' id='quitar"+ numParticula +"'> Cerrar visualización </button>" +
+                            "<button class='btn btn-eliminar' id='quitar"+ numParticula +"'> Close viewer </button>" +
                         "</div>"+
                     "</li>" +
                 "</ul>" + 
