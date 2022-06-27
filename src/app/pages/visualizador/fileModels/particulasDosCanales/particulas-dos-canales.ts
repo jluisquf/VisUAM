@@ -1,6 +1,7 @@
 import { FileModelInterface } from '../file-model-interface';
 import * as THREE from 'three';
 
+//declare var THREE:any;
 declare var Parser:any;
 declare var CanvasJS:any;
 declare var $:any;
@@ -88,23 +89,26 @@ export class ParticulasDosCanales implements FileModelInterface {
 
                 //TWALL es la pared superior del canal
                 var tgeometry = new THREE.BufferGeometry();
+                //var tgeometry = new THREE.Geometry();
                 var p0 = tWall(x);//evalua la función twall en el punto x = 0
                 formaCanal.moveTo(x + h - desplazamiento, p0); // punto inicial de la forma del canal
                 while (x < barder) {
                     var y = tWall(x);
                     points.push(new THREE.Vector3(x-desplazamiento, y, 0));
-                    tgeometry.setFromPoints(points);
+                    /*tgeometry.setFromPoints(points);
+                    tgeometry.computeVertexNormals();*/
+                    //tgeometry.vertices.push(new THREE.Vector3(x-desplazamiento, y, 0));
                     x += h;
                     if (x <= barder) { formaCanal.lineTo(x-desplazamiento, y - h); }//menos h para que no tape la linea de la frontera
                 }
                 if (objParticulas.funciones.TWall.isReflec) {
                     var funt = new THREE.Line(tgeometry, material);//azul
-                    console.log('Entre al IF');
+                    console.log('Entre al IF de TWALL');
                     console.log(objParticulas.funciones.TWall.isReflec);
                     console.log(objParticulas.funciones.TWall);
                 } else {
                     var funt = new THREE.Line(tgeometry, mat2);//rojo
-                    console.log('Entre al ELSE');
+                    console.log('Entre al ELSE de TWALL');
                     console.log(objParticulas.funciones.TWall.isReflec);
                 }
 

@@ -30,7 +30,7 @@
             "parrafo4":"No basta con solo ver gráficas de sus datos, la interpretación visual es importante.",
             "subtitulo3":"¿Requieres gráficos estadísticos?",
             "parrafo5":"Si el formato a visualizar lo permite, se pueden observar gráficas de algunos de sus datos.",
-            "parrafo6":"Nuestro formato de particulas cuenta con esta posibilidad de ver graficos de barras y de pastel."
+            "parrafo6":"Nuestro formato de particulas cuenta con esta posibilidad de ver gráficos de barras y de pastel."
         },
         "banner":{
             "titulo":"Empieza a usar el visualizador Ya!",
@@ -43,7 +43,7 @@
         "parrafo":"Somos un grupo multidisciplinario de alumnos y académicos."
     },
     "tecnologias":{
-        "titulo":"Tecnologias Usadas",
+        "titulo":"Tecnologías Usadas",
         "parrafo":"Somos un grupo multidisciplinario de alumnos y académicos."
     },
     "footer":{
