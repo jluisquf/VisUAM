@@ -1,7 +1,7 @@
 import { FileModelInterface } from '../file-model-interface';
-import * as THREE from 'three';
+//import * as THREE from 'three';
 
-//declare var THREE:any;
+declare var THREE:any;
 declare var Parser:any;
 declare var CanvasJS:any;
 declare var $:any;
@@ -88,28 +88,22 @@ export class ParticulasDosCanales implements FileModelInterface {
                 var bWall = objParticulas.texttoFunction(funcionb);
 
                 //TWALL es la pared superior del canal
-                var tgeometry = new THREE.BufferGeometry();
-                //var tgeometry = new THREE.Geometry();
+                //var tgeometry = new THREE.BufferGeometry();
+                var tgeometry = new THREE.Geometry();
                 var p0 = tWall(x);//evalua la función twall en el punto x = 0
                 formaCanal.moveTo(x + h - desplazamiento, p0); // punto inicial de la forma del canal
                 while (x < barder) {
                     var y = tWall(x);
-                    points.push(new THREE.Vector3(x-desplazamiento, y, 0));
-                    /*tgeometry.setFromPoints(points);
-                    tgeometry.computeVertexNormals();*/
-                    //tgeometry.vertices.push(new THREE.Vector3(x-desplazamiento, y, 0));
+                    //points.push(new THREE.Vector3(x-desplazamiento, y, 0));
+                    /*tgeometry.setFromPoints(points);*/
+                    tgeometry.vertices.push(new THREE.Vector3(x-desplazamiento, y, 0));
                     x += h;
                     if (x <= barder) { formaCanal.lineTo(x-desplazamiento, y - h); }//menos h para que no tape la linea de la frontera
                 }
                 if (objParticulas.funciones.TWall.isReflec) {
-                    var funt = new THREE.Line(tgeometry, material);//azul
-                    console.log('Entre al IF de TWALL');
-                    console.log(objParticulas.funciones.TWall.isReflec);
-                    console.log(objParticulas.funciones.TWall);
+                    var funt = new THREE.Line(tgeometry, material);
                 } else {
-                    var funt = new THREE.Line(tgeometry, mat2);//rojo
-                    console.log('Entre al ELSE de TWALL');
-                    console.log(objParticulas.funciones.TWall.isReflec);
+                    var funt = new THREE.Line(tgeometry, mat2);
                 }
 
                 var y;
@@ -141,9 +135,6 @@ export class ParticulasDosCanales implements FileModelInterface {
                 }
                 if (objParticulas.funciones.BWall.isReflec) {
                     var funb = new THREE.Line(bgeometry, material);
-                    console.log('Entre al IF BWall');
-                    console.log(objParticulas.funciones.BWall.isReflec);
-                    console.log(objParticulas.funciones.BWall);
                 } else {
                     var funb = new THREE.Line(bgeometry, mat2);
                 }
@@ -201,13 +192,15 @@ export class ParticulasDosCanales implements FileModelInterface {
                 var bWallW = objParticulas.texttoFunction(funcionbW);
 
                 //TWALL es la pared superior del canal
-                var tgeometryW = new THREE.BufferGeometry();
+                /*var tgeometryW = new THREE.BufferGeometry();*/
+                var tgeometryW = new THREE.Geometry();
                 var p0W = tWallW(xW);//evalua la función twall en el punto x = 0
                 formaCanalW.moveTo(xW + hW - desplazamientoW, p0W); // punto inicial de la forma del canal
                 while (xW < barderW) {
                     var yW = tWallW(xW);
-                    pointsW.push(new THREE.Vector3(xW-desplazamientoW, yW, 0));
-                    tgeometryW.setFromPoints(pointsW);
+                    /*pointsW.push(new THREE.Vector3(xW-desplazamientoW, yW, 0));
+                    tgeometryW.setFromPoints(pointsW);*/
+                    tgeometryW.vertices.push(new THREE.Vector3(xW-desplazamientoW, yW, 0));
                     xW += hW;
                     if (xW <= barderW) { formaCanalW.lineTo(xW-desplazamientoW, yW - hW); }//menos h para que no tape la linea de la frontera
                 }
@@ -529,12 +522,13 @@ export class ParticulasDosCanales implements FileModelInterface {
                         }
                     }
                     //Pasamos las posiciones
-                    var arrayVertices = new Float32Array(vertices);
-                    geometry.setAttribute('position',new THREE.BufferAttribute(arrayVertices,3));
+                    /*var arrayVertices = new Float32Array(vertices);
+                    geometry.setAttribute('position',new THREE.BufferAttribute(arrayVertices,3));*/
+                    geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
                     // Pasamos el color
-                    var arrayColors = new Float32Array(colorLinea);
-                    geometry.setAttribute('color',new THREE.BufferAttribute(arrayColors,3));
-
+                    /*var arrayColors = new Float32Array(colorLinea);
+                    geometry.setAttribute('color',new THREE.BufferAttribute(arrayColors,3));*/
+                    geometry.addAttribute('color', new THREE.Float32BufferAttribute(colorLinea, 3));
                     var material = new THREE.LineBasicMaterial({color: 0xffffff,vertexColors: true});
                     var tray = new THREE.Line(geometry, material);
                     this.scene.add(tray);
@@ -584,12 +578,13 @@ export class ParticulasDosCanales implements FileModelInterface {
                         }
                     }
                     //Pasamos las posiciones
-                    var arrayVerticesW = new Float32Array(verticesW);
-                    geometryW.setAttribute('position',new THREE.BufferAttribute(arrayVerticesW,3));
+                    /*var arrayVerticesW = new Float32Array(verticesW);
+                    geometryW.setAttribute('position',new THREE.BufferAttribute(arrayVerticesW,3));*/
+                    geometryW.addAttribute('position', new THREE.Float32BufferAttribute(verticesW, 3));
                     // Pasamos el color
-                    var arrayColorsW = new Float32Array(colorLineaW);
-                    geometryW.setAttribute('color',new THREE.BufferAttribute(arrayColorsW,3));
-
+                    /*var arrayColorsW = new Float32Array(colorLineaW);
+                    geometryW.setAttribute('color',new THREE.BufferAttribute(arrayColorsW,3));*/
+                    geometryW.addAttribute('color', new THREE.Float32BufferAttribute(colorLineaW, 3));
                     var materialW = new THREE.LineBasicMaterial({color: 0xffffff,vertexColors: true});
                     var trayW = new THREE.Line(geometryW, materialW);
                     this.scene.add(trayW);
@@ -625,6 +620,7 @@ export class ParticulasDosCanales implements FileModelInterface {
     regresar(){
         this.play = false;
         this.paso -= 5;
+        this.pasoW -= 5;
         this.setPos(this.aislar, this.mySelf);
         this.renderer.render(this.scene, this.camera);
     }
@@ -633,6 +629,7 @@ export class ParticulasDosCanales implements FileModelInterface {
     avanzar(){
         this.play = false;
         this.paso += 5;
+        this.pasoW += 5;
         this.setPos(this.aislar, this.mySelf);
         this.renderer.render(this.scene, this.camera);
     }
@@ -719,7 +716,7 @@ export class ParticulasDosCanales implements FileModelInterface {
                                                 "<th class='resul'>WtoN</th>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>Tau</td>"+
+                                                "<td class='resul'>Transition</td>"+
                                                 "<td class='resul'><input type='text' id='TauNW' name='fname' readonly size='5' value='"+TauNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='TauWN' name='fname' readonly size='5' value='"+TauWN+"'><br></td>"+
                                             "</tr>"+
@@ -743,12 +740,12 @@ export class ParticulasDosCanales implements FileModelInterface {
                                                 "<th class='resul'>WtoN</th>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>Top</td>"+
+                                                "<td class='resul'>Upper</td>"+
                                                 "<td class='resul'><input type='text' id='SuperiorNW' name='fname' readonly size='5' value='"+SuperiorNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='SuperiorWN' name='fname' readonly size='5' value='"+SuperiorWN+"'><br></td>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>Bottom</td>"+
+                                                "<td class='resul'>Lower</td>"+
                                                 "<td class='resul'><input type='text' id='InferiorNW'  readonly size='5' value='"+InferiorNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='InferiorWN'  readonly size='5' value='"+InferiorWN+"'><br></td>"+
                                             "</tr>"+
@@ -1211,8 +1208,10 @@ export class ParticulasDosCanales implements FileModelInterface {
             }),
             //Si el checkbox esta marcado muestra las trayectorias
             $('#Checkpt1'+object.idVisualizador).change(function(){
-                if($(mySelf).is(":checked")){
-                    mySelf.muestraTray(check, object.aislar);
+                console.log('#Checkpt1'+object.idVisualizador)
+                console.log(object);
+                if($(object).is(":checked")){//$(myself)
+                    object.muestraTray(check, object.aislar);//myself.muestra....
                 }
             })
         );
