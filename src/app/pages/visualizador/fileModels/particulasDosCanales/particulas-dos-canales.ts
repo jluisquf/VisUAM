@@ -716,17 +716,17 @@ export class ParticulasDosCanales implements FileModelInterface {
                                                 "<th class='resul'>WtoN</th>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>Transition</td>"+
+                                                "<td class='resul'>"+mySelf.json.NtoW.tiempos[0].time+"</td>"+//First-passing
                                                 "<td class='resul'><input type='text' id='TauNW' name='fname' readonly size='5' value='"+TauNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='TauWN' name='fname' readonly size='5' value='"+TauWN+"'><br></td>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>Direct</td>"+
+                                                "<td class='resul'>"+mySelf.json.NtoW.tiempos[2].time+"</td>"+//Transition
                                                 "<td class='resul'><input type='text' id='direcTimeNW'  readonly size='5' value='"+DirectNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='direcTimeWN'  readonly size='5' value='"+DirectWN+"'><br></td>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>Looping</td>"+
+                                                "<td class='resul'>"+mySelf.json.NtoW.tiempos[1].time+"</td>"+//Looping
                                                 "<td class='resul'><input type='text' id='LoopingTimeNW'  readonly size='5' value='"+LoopNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='LoopingTimeWN'  readonly size='5' value='"+LoopWN+"'><br></td>"+
                                             "</tr>"+
@@ -740,17 +740,17 @@ export class ParticulasDosCanales implements FileModelInterface {
                                                 "<th class='resul'>WtoN</th>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>Upper</td>"+
+                                                "<td class='resul'>"+mySelf.json.NtoW.golpes[0].nomPared+"</td>"+//Upper
                                                 "<td class='resul'><input type='text' id='SuperiorNW' name='fname' readonly size='5' value='"+SuperiorNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='SuperiorWN' name='fname' readonly size='5' value='"+SuperiorWN+"'><br></td>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>Lower</td>"+
+                                                "<td class='resul'>"+mySelf.json.NtoW.golpes[1].nomPared+"</td>"+//Lower
                                                 "<td class='resul'><input type='text' id='InferiorNW'  readonly size='5' value='"+InferiorNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='InferiorWN'  readonly size='5' value='"+InferiorWN+"'><br></td>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>Left</td>"+
+                                                "<td class='resul'>"+mySelf.json.NtoW.golpes[2].nomPared+"</td>"+//Left
                                                 "<td class='resul'><input type='text' id='OrigenNW'  readonly size='5' value='"+OrigenNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='OrigenWN'  readonly size='5' value='"+OrigenWN+"'><br></td>"+
                                             "</tr>"+

@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   ruta: String;
 
   langs: string[] = ['es','en'];
-  val: string = 'es';
+  val: string = 'en';
   
   // Variable que va guardar el lenguaje seleccionado que puede estar en localStorage
   // La variable la guardamos en la función cambiaIdioma()
@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
 
     // Actualizamos el lenguaje según el valor guardado en localStorage, si no
     // hay nada en localStorage entonces usamos 'es'
-    this.val = this.valSessionStorage || 'es';
+    this.val = this.valSessionStorage || 'en';
     
     translate.setDefaultLang(this.val);//la configuración por defecto es en español
     translate.use(this.val);//y va a usar esta config
