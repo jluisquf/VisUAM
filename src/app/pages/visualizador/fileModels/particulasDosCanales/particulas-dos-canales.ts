@@ -19,7 +19,7 @@ export class ParticulasDosCanales implements FileModelInterface {
     color: any = [];//colores
     trays: any = [];//posiciones de cada particula
     trayso: any = [];//lineas
-    colorTrayectoria: any = []; //rreglo para almacenar el color de la trayectoria de una particula aislada
+    colorTrayectoria: any = []; //arreglo para almacenar el color de la trayectoria de una particula aislada
     play: any = false; //Para detener o reanudar la simulacion
     aislar: any = false;//Guarda si la particula es aislada
     numeroParticula: any = null; //Numero de particula que ha sido aislada
@@ -32,7 +32,7 @@ export class ParticulasDosCanales implements FileModelInterface {
     colorW: any = [];//colores
     traysW: any = [];//posiciones de cada particula
     traysoW: any = [];//lineas
-    colorTrayectoriaW: any = []; //rreglo para almacenar el color de la trayectoria de una particula aislada
+    colorTrayectoriaW: any = []; //arreglo para almacenar el color de la trayectoria de una particula aislada
     aislarW: any = false;//Guarda si la particula es aislada
     numeroParticulaW: any = null; //Numero de particula que ha sido aislada
 
@@ -401,12 +401,28 @@ export class ParticulasDosCanales implements FileModelInterface {
                 objParticulas.pasoW++;
                 objParticulas.setPos(objParticulas.aislar, objParticulas);
             }
+            objParticulas.renderer.setSize(window.innerWidth, window.innerHeight);
             objParticulas.renderer.render(scene, objParticulas.camera);
             requestAnimationFrame(avanza);
         }
+        objParticulas.renderer.setSize(window.innerWidth, window.innerHeight);
+        objParticulas.renderer.render(scene, objParticulas.camera);
         requestAnimationFrame(avanza);
     }//FIN animate(escena,particulas)
     
+    animateTray(scene:any,objParticulas:any):void{
+        function avanza() {
+            if (objParticulas.play != false) {
+                objParticulas.setPos(objParticulas.aislar, objParticulas);
+            }
+            objParticulas.renderer.setSize(window.innerWidth, window.innerHeight);
+            objParticulas.renderer.render(scene, objParticulas.camera);
+            requestAnimationFrame(avanza);
+        }
+        objParticulas.renderer.setSize(window.innerWidth, window.innerHeight);
+        objParticulas.renderer.render(scene, objParticulas.camera);
+        requestAnimationFrame(avanza);
+    }//FIN animate(escena,particulas)
     /**
     * Metodo encargado de guardar cada una de la posiciones de las particulas
     * @params
@@ -472,8 +488,8 @@ export class ParticulasDosCanales implements FileModelInterface {
             
             /*********Esto es para WtoN***************************/
             if (objParticulas.pasoW < objParticulas.particulasW.pasos.length) {
-                var xW = parseFloat(objParticulas.particulasW.pasos[objParticulas.paso].x) - desplazamientoW;
-                var yW = parseFloat(objParticulas.particulasW.pasos[objParticulas.paso].y);
+                var xW = parseFloat(objParticulas.particulasW.pasos[objParticulas.pasoW].x) - desplazamientoW;
+                var yW = parseFloat(objParticulas.particulasW.pasos[objParticulas.pasoW].y);
                 objParticulas.parsW[0].position.setX(xW);
                 objParticulas.parsW[0].position.setY(yW);
                 objParticulas.traysW[0].push({ "x": xW, "y": yW });
@@ -487,9 +503,8 @@ export class ParticulasDosCanales implements FileModelInterface {
     }//FIN setPos(aislar,objParticulas)
 
     /**
-    * Metodo encargado de mostrar las trayectoria de cada una de las
-    * particulas, funciona para particula aislada y para todo el arreglo
-    * de particulas
+    * Metodo encargado de mostrar las trayectoria de cada una de las particulas, 
+    * funciona para particula aislada y para todo el arreglo de particulas
     */
     muestraTray(checkbox:any, aislar:any): void {
         /***********************Esto es para NtoW*******************************/
@@ -664,7 +679,6 @@ export class ParticulasDosCanales implements FileModelInterface {
  
         //Total numeroParticulas
         var TotalParticulasNW= mySelf.json.NtoW.particles.total;
-        var TotalParticulasWN= mySelf.json.WtoN.particles.total;
 
         $('.menu__default').after(contenedor);
         
@@ -762,13 +776,13 @@ export class ParticulasDosCanales implements FileModelInterface {
                         "</div>"+
                     "</li>" +
                 "</ul>" + 
-            "</div>";//+
-            //"<script>" + "activarTab(document.getElementById('tabck-0'));" + "</script>" ;
+            "</div>";
+            
         //boton
         $("#menu" + mySelf.idVisualizador).append(item);
         $("#menu" + mySelf.idVisualizador).css({ "visibility": "visible", "height": "600px", "width": "250", "display":"inline" })
         
-        var check = document.getElementById('Checkpt1'+ mySelf.idVisualizador);
+        var check:any = document.getElementById('Checkpt1'+ mySelf.idVisualizador);
         
         //EvenListeners: Se usa Jquery para capturar los eventos
         $('document').ready(
@@ -794,8 +808,15 @@ export class ParticulasDosCanales implements FileModelInterface {
             }),
             //Si el checkbox esta marcado muestra las trayectorias
             $('#Checkpt1'+mySelf.idVisualizador).change(function(){
-                if($(objParticulas).is(":checked")){
-                    mySelf.muestraTray(check,mySelf.aislar);
+                if(check.checked){                    
+                    mySelf.animateTray(mySelf.scene, mySelf);
+                    console.log('Entre al IF, ahora mostrare las trays');
+                } else {
+                    console.log('Eliminare trays')
+                    for( var i = mySelf.scene.children.length - 1; i >= 22; i--) { 
+                        let obj:any = mySelf.scene.children[i];
+                        mySelf.scene.remove(obj);
+                    }
                 }
             }),       
       
@@ -929,7 +950,7 @@ export class ParticulasDosCanales implements FileModelInterface {
                             dataPoints: GolpesNW
                         },{
                             type: "column",
-                            name: "WN",
+                            name: "WtoN",
                             indexLabel: "{y}",
                             yValueFormatString: "#0.##",
                             showInLegend: true,
@@ -1168,7 +1189,6 @@ export class ParticulasDosCanales implements FileModelInterface {
                 object.play = true;
             }
         }
-
         //regresa 5 pasos
         function regresar(){
             object.play = false;
@@ -1176,7 +1196,6 @@ export class ParticulasDosCanales implements FileModelInterface {
             object.setPos(object.aislar, object.mySelf);
             object.renderer.render(object.scene, object.camera);
         }
-
         //avanza 5 pasos
         function avanzar(){
             object.play = false;
@@ -1207,11 +1226,15 @@ export class ParticulasDosCanales implements FileModelInterface {
                 avanzar();
             }),
             //Si el checkbox esta marcado muestra las trayectorias
-            $('#Checkpt1'+object.idVisualizador).change(function(){
-                console.log('#Checkpt1'+object.idVisualizador)
-                console.log(object);
-                if($(object).is(":checked")){//$(myself)
-                    object.muestraTray(check, object.aislar);//myself.muestra....
+            $('#Checkpt1'+object.idVisualizador).change(function(event:any){
+                if($(mySelf).is(":checked")){
+                    mySelf.muestraTray(check, object.aislar);
+                }
+                if(check.checked == false){
+                    for( var i = object.scene.children.length - 1; i >= 12; i--) { 
+                        let obj:any = object.scene.children[i];
+                        object.scene.remove(obj);
+                   }
                 }
             })
         );
