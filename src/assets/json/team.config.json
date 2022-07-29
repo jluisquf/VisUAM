@@ -12,8 +12,7 @@
         },
         {
             "nombre": "Dr. Manuel Aguilar Cornejo",
-            "rutaImg1": "/assets/img/manuel-aguilar.png",
-            "rutaImg": "/assets/img/place-holder.png",
+            "rutaImg": "/assets/img/manuel-aguilar.jpg",
             "contacto": {
                 "correo": "mac@xanum.uam.mx",
                 "telefono": "58044600 ext 1169"
@@ -21,8 +20,7 @@
         },
         {
             "nombre": "Dr. Leonardo Dagdug Lima",
-            "rutaImg1": "/assets/img/dagdug.png",
-            "rutaImg": "/assets/img/place-holder.png",
+            "rutaImg": "/assets/img/dagdug.jpg",
             "contacto": {
                 "correo": "dll@xanum.uam.mx",
                 "telefono": "55 58044616"
@@ -30,8 +28,7 @@
         },
         {
             "nombre": "Dr. José Luis Quiroz Fabián",
-            "rutaImg1": "/assets/img/quiroz.png",
-            "rutaImg": "/assets/img/place-holder.png",
+            "rutaImg": "/assets/img/quiroz.jpg",
             "contacto": {
                 "correo": "jquiroz@izt.uam.mx",
                 "telefono": "58044600 ext 1169"
@@ -39,8 +36,7 @@
         },
         {
             "nombre": "Dra. Graciela Román Alonso",
-            "rutaImg1": "/assets/img/graciela.png",
-            "rutaImg": "/assets/img/place-holder.png",
+            "rutaImg": "/assets/img/graciela.jpg",
             "contacto": {
                 "correo": "grac@xanum.uam.mx",
                 "telefono": "58044600 ext 1215"
@@ -48,8 +44,7 @@
         },
         {
             "nombre": "Dr. Miguel Alfonso Castro García",
-            "rutaImg1": "/assets/img/miguel-castro.png",
-            "rutaImg": "/assets/img/place-holder.png",
+            "rutaImg": "/assets/img/miguel-castro.jpg",
             "contacto": {
                 "correo": "mcas@xanum.uam.mx",
                 "telefono": "58044600 ext. 1146"
