@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as users from 'src/assets/json/team.config.json';
+import * as team from 'src/assets/json/team.config.json';
 
 @Component({
   selector: 'app-equipo-section',
@@ -8,15 +8,21 @@ import * as users from 'src/assets/json/team.config.json';
 })
 export class EquipoSectionComponent implements OnInit {
 
-  Datos:any = users;
+  Team: any = team;
+  Researchers: any;
+  Developers: any;
+
+  showInfoStatus: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
-    this.Datos = this.getDatos();
+    this.Researchers = this.getDatos()[0];
+    this.Developers = this.getDatos()[1];
   }
 
   getDatos(){
-    return this.Datos.Integrantes;
+    return [this.Team.Researchers, this.Team.Developers];
   }
 
 }

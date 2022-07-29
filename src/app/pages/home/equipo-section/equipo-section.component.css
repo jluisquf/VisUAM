@@ -86,3 +86,17 @@
 .btn-redes a:hover {
     color: var(--primary-color-alt);
 }
+
+.accordion {
+    font-size: 0.8rem;
+}
+
+.accordion .accordion-info-container {
+    height: 0;
+    overflow: hidden;
+    transition: 0.5s;
+}
+/* 
+.accordion .accordion-info-container.active {
+    height: 40px;
+} */
