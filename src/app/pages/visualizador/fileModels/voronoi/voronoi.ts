@@ -190,6 +190,9 @@ export class Voronoi implements FileModelInterface{
         // p: {x: 0, y: 0, sb: 502}
         var puntos = json.p;
 
+        // Backgorund del fondo
+        this.scene.background = this.backgroundColor;
+
         // Posición inicial de la cámara
         this.camera.position.set(0, 0, 350);
 
