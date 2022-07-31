@@ -88,15 +88,39 @@
 }
 
 .accordion {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    padding: 0.8rem;
+    text-align: center;
+}
+
+.accordion-label {
+    color: var(--primary-color);
+    margin-top: 2rem;
+}
+
+.accordion-label:hover {
+    color: var(--primary-color-alt);
 }
 
 .accordion .accordion-info-container {
     height: 0;
     overflow: hidden;
-    transition: 0.5s;
+    transition: 1s;
 }
-/* 
+
+.accordion .accordion-info-container i {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
 .accordion .accordion-info-container.active {
-    height: 40px;
-} */
+    height: 3rem;
+}
+
+.accordion .accordion-info-container a {
+    color: var(--primary-color);
+}
+
+.accordion .accordion-info-container a:hover {
+    color: var(--primary-color-alt);
+}

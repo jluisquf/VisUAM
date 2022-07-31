@@ -30,18 +30,19 @@
             <div class="card-body">
               <h4 class="card-title">{{integrante.nombre}}</h4>
               <div class="accordion">
-                <span class="accordion-label">
+                <span class="accordion-label" (click)="toggleShowInfo(i)">
                   + Info
                 </span>
-                <div class="accordion-info-container">
-                  <p>
-                    <i class="bx bx-envelope"></i>
-                    <a href="mailto: {{integrante.contacto.correo}}">
-                     {{integrante.contacto.correo}}
-                    </a>
-                  </p>
-                  <p><i class="bx bx-phone"></i> {{integrante.contacto.telefono}}</p>
-                </div>
+                  <!-- <div *ngIf="getInfoStatus(i)" class="accordion-info-container"> -->
+                  <div [ngClass]="getClassInfo(i)">
+                    <p>
+                      <i class="bx bx-envelope"></i>
+                      <a href="mailto: {{integrante.contacto.correo}}">
+                       {{integrante.contacto.correo}}
+                      </a>
+                    </p>
+                    <p><i class="bx bx-phone"></i> {{integrante.contacto.telefono}}</p>
+                  </div>
               </div>
             </div>
           </div>
