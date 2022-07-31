@@ -1,24 +1,27 @@
 <div class="container">
   <!--Contenedor donde ira el titulo del grupo de trabajo-->
   <div class="equipo-trabajo__header">
+
     <div id="equipo-trabajo__header-section">
       <h2 class="section__title" [ngsReveal]="{ origin: 'top', delay: 200, reset: true }">{{"equipo.titulo"|translate}}</h2>
       <br />
       <p>{{"equipo.parrafo"|translate}}</p>
     </div>
+
     <!--Contenedor donde se pondran las fotos del grupo de trabajo-->
     <div class="equipo-trabajo__body" id="info-equipo">
-      <div id="equipo-trabajo__developers">
+
+      <div id="equipo-trabajo__researchers">
         <h3 
           class="section__subtitle black-subtitle"
-          [ngsReveal]="{ origin: 'top', delay: 300, reset: true }">
-          {{"equipo.desarrolladores"|translate}}
+          [ngsReveal]="{ origin: 'top', delay: 300, reset: false }">
+          {{"equipo.investigadores"|translate}}
         </h3>
         <div class="cards-container">
           <div 
             class="card img-integrante" 
-            style="width: 19rem" *ngFor="let integrante of Datos; let i = index"
-            [ngsReveal]="{ origin: 'left', delay: 100 * i, reset: true }">
+            style="width: 19rem" *ngFor="let integrante of Researchers; let i = index"
+            [ngsReveal]="{ origin: 'left', delay: 100 * i + 200, reset: false }">
             <img
               src="{{integrante.rutaImg}}"
               class="redonda"
@@ -26,33 +29,37 @@
             />
             <div class="card-body">
               <h4 class="card-title">{{integrante.nombre}}</h4>
-              <div class="btn-redes">
-                <a href="{{integrante.redes.facebook}}" target="_blank">
-                  <i class="bx bxl-facebook-circle"></i>
-                </a>
-                <a href="{{integrante.redes.instagram}}" target="_blank">
-                  <i class="bx bxl-instagram-alt"></i>
-                </a>
-                <a href="{{integrante.redes.github}}" target="_blank">
-                  <i class="bx bxl-github"></i>
-                </a>
+              <div class="accordion">
+                <span class="accordion-label" (click)="toggleShowInfo(i)">
+                  + Info
+                </span>
+                  <!-- <div *ngIf="getInfoStatus(i)" class="accordion-info-container"> -->
+                  <div [ngClass]="getClassInfo(i)">
+                    <p>
+                      <i class="bx bx-envelope"></i>
+                      <a href="mailto: {{integrante.contacto.correo}}">
+                       {{integrante.contacto.correo}}
+                      </a>
+                    </p>
+                    <p><i class="bx bx-phone"></i> {{integrante.contacto.telefono}}</p>
+                  </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div id="equipo-trabajo__researchers">
+      <div id="equipo-trabajo__developers">
         <h3 
           class="section__subtitle black-subtitle"
-          [ngsReveal]="{ origin: 'top', delay: 300, reset: true }">
-          {{"equipo.investigadores"|translate}}
+          [ngsReveal]="{ origin: 'top', delay: 300, reset: false }">
+          {{"equipo.desarrolladores"|translate}}
         </h3>
         <div class="cards-container">
           <div 
             class="card img-integrante" 
-            style="width: 19rem" *ngFor="let integrante of Datos; let i = index"
-            [ngsReveal]="{ origin: 'left', delay: 100 * i + 200, reset: true }">
+            style="width: 19rem" *ngFor="let integrante of Developers; let i = index"
+            [ngsReveal]="{ origin: 'left', delay: 100 * i, reset: false }">
             <img
               src="{{integrante.rutaImg}}"
               class="redonda"

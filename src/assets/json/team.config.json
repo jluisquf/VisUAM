@@ -1,6 +1,56 @@
 {
     "name": "Integrantes del Equipo",
-    "Integrantes": [
+    "Researchers": [
+        {
+            "nombre": "Mtra. Adriana Pérez Espinosa",
+            "rutaImg": "/assets/img/adriana.jpg",
+            "contacto": {
+                "correo": "pea@xanum.uam.mx",
+                "telefono": "58044600 ext 1169"
+            }
+        },
+        {
+            "nombre": "Dr. Manuel Aguilar Cornejo",
+            "rutaImg": "/assets/img/manuel-aguilar.jpg",
+            "contacto": {
+                "correo": "mac@xanum.uam.mx",
+                "telefono": "58044600 ext 1149"
+            }
+        },
+        {
+            "nombre": "Dr. Leonardo Dagdug Lima",
+            "rutaImg": "/assets/img/dagdug.jpg",
+            "contacto": {
+                "correo": "dll@xanum.uam.mx",
+                "telefono": "55 58044616"
+            }
+        },
+        {
+            "nombre": "Dr. José Luis Quiroz Fabián",
+            "rutaImg": "/assets/img/quiroz.jpg",
+            "contacto": {
+                "correo": "jquiroz@izt.uam.mx",
+                "telefono": "58044600 ext 1169"
+            }
+        },
+        {
+            "nombre": "Dra. Graciela Román Alonso",
+            "rutaImg": "/assets/img/graciela.jpg",
+            "contacto": {
+                "correo": "grac@xanum.uam.mx",
+                "telefono": "58044600 ext 1215"
+            }
+        },
+        {
+            "nombre": "Dr. Miguel Alfonso Castro García",
+            "rutaImg": "/assets/img/miguel-castro.jpg",
+            "contacto": {
+                "correo": "mcas@xanum.uam.mx",
+                "telefono": "58044600 ext. 1146"
+            }
+        }
+    ],
+    "Developers": [
         {
             "nombre": "David Moreno Gutiérrez",
             "rutaImg": "/assets/img/davidmg.png",
