@@ -10,6 +10,9 @@ declare var $:any;
 
 
 export class Voronoi implements FileModelInterface{
+    // El gran, tremendo, inmaculado, semental y poderosísimo constructor
+    constructor(public json:any, public canvas:any){}
+
     // El diagrama debería rotar automáticamente?
     private isAutoRotating : boolean = false;
 
@@ -21,14 +24,14 @@ export class Voronoi implements FileModelInterface{
     idVisualizador = this.dateId.getTime();
     id = this.dateId.getTime();
 
-    // El gran, tremendo, inmaculado, semental y poderosísimo constructor
-    constructor(public json:any, public canvas:any){}
-
     // Lista de elementos
     puntosRed: any[] = [];
     // Lista de colores
     colors: any = {};
-  
+    
+    // Color de fondo de la visualización
+    backgroundColor = new THREE.Color( 0xD3D3D3 );
+
     // Crear escena y cámara
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
@@ -46,6 +49,9 @@ export class Voronoi implements FileModelInterface{
         // Obtenemos los puntos del json
         // p: {x: 0, y: 0, z: 0, sb: 502}
         var puntos = json.p;
+
+        // Cambiar color de fondo de la escena
+        this.scene.background = this.backgroundColor;
 
         // Posición inicial de la cámara
         this.camera.position.set(350,350,350);
