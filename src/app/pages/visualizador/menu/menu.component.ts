@@ -28,7 +28,7 @@ export class MenuComponent implements OnInit {
   private drawMenu( json: any ) {
     const object = this.getConstructor(json);
     // TODO: Luis
-    // object.draw(json, this.canvas);
+    object.draw(json, this.canvas);
     object.mostrarMenu(this.idVisualizador.getTime());//se manda a llamar al metodo para mostrar el menu
   }
 
