@@ -13,6 +13,7 @@ declare var $:any;
 export class Voronoi implements FileModelInterface{
     // El diagrama debería rotar automáticamente?
     private isAutoRotating : boolean = false;
+    private dimension : number = 0;
 
     // Cambiar scope
     mySelf = this;
@@ -49,16 +50,16 @@ export class Voronoi implements FileModelInterface{
     // Middleware para saber si los puntos son en 3d o 2d
     draw(json: any, c: any){
         // Dimensión que indica el archivo
-        var dimension = json.d;
+        this.dimension = json.d;
         // Leemos un punto
         var punto = json.p[0];
 
         // Si el punto tiene la coordenada z o tiene la dimensión 3 indicada en
         // el archivo entonces pintar un cubo 3D
-        if (punto.z !== undefined || dimension == 3) {
+        if (punto.z !== undefined || this.dimension == 3) {
             this.draw3d(json, c);
         // En el caso contrario pintar un plano
-        } else if (dimension == 2) {
+        } else if (this.dimension == 2) {
             this.draw2d(json, c);
         } else {
             alert("Necesita indicar la dimensión con el campo 'd'");
@@ -354,16 +355,18 @@ export class Voronoi implements FileModelInterface{
                  "<label class='form-check-label' for='checkGris'><span></span></label>" +
                  "<span> Gray Color </span>" +
                "</div>"+
-             "</li>"+
+             "</li>"
+
+        if (this.dimension == 3) item = item +
              "<li class='nav-item'>"+
                "<div class='form-check'>"+
                  "<input type='checkbox' class='form-check-input' id='autoRotar'>"+
                  "<label class='form-check-label' for='autoRotar'><span></span></label>" +
                  "<span> Auto Rotate </span>" +
                "</div>"+
-             "</li>"+
-           "</ul>"+
-         "</div>"
+             "</li>"
+
+        item = item + "</ul>"+ "</div>"
 
         $('#menu'+mySelf.id).append(item);
         $('#menu'+mySelf.id).css({ "visibility": "visible", "width": "250" })
