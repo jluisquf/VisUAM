@@ -82,23 +82,32 @@ export class MenuComponent implements OnInit {
   getConstructor(json: any) {
     var object: any;
 
-    switch (json.name) {
-      case "Voronoi":
-        object = new Voronoi(json,this.canvas);
-        break;
-      // NOTA: si se requiere visualizar particulas con un solo canal comentar el caso de abajo y descomentar este
-      /*case "Particulas":
-        object = new Particulas(json,this.canvas);
-        break;*/
-      case "Particulas":
-        object = new ParticulasDosCanales(json,this.canvas);
-        break;
-      case "RedPorosa":
-        object = new RedPorosa(json,this.canvas);
-        break;
-      default:
-        break;
+    if (json.name == undefined){
+      alert("Falta campo 'name'");
+      window.location.reload();
+    } else {
+      switch (json.name) {
+        case "Voronoi":
+          object = new Voronoi(json,this.canvas);
+          break;
+        // NOTA: si se requiere visualizar particulas con un solo canal comentar el caso de abajo y descomentar este
+        /*case "Particulas":
+          object = new Particulas(json,this.canvas);
+          break;*/
+        case "Particulas":
+          object = new ParticulasDosCanales(json,this.canvas);
+          break;
+        case "RedPorosa":
+          object = new RedPorosa(json,this.canvas);
+          break;
+        default:
+          alert("No se puede reconocer '" + json.name + "' como un visualizador.\n" +
+                "Pruebe con Voronoi, Particulas o RedPorosa.");
+          window.location.reload();
+          break;
+      }
     }
+
     return object;
   }
 
