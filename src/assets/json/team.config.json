@@ -3,8 +3,7 @@
     "Researchers": [
         {
             "nombre": "Mtra. Adriana Pérez Espinosa",
-            "rutaImg1": "/assets/img/adriana.png",
-            "rutaImg": "/assets/img/place-holder.png",
+            "rutaImg": "/assets/img/adriana.jpg",
             "contacto": {
                 "correo": "pea@xanum.uam.mx",
                 "telefono": "58044600 ext 1169"
