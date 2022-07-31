@@ -42,8 +42,27 @@ export class Voronoi implements FileModelInterface{
     // El diagrama se mueve respecto al centro del cubo
     controls = new OrbitControls(this.camera, this.renderer.domElement);
 
+    // Middleware para saber si los puntos son en 3d o 2d
+    draw(json: any, c: any){
+        // Dimensión que indica el archivo
+        var dimension = json.d;
+        // Leemos un punto
+        var punto = json.p[0];
+
+        // Si el punto tiene la coordenada z o tiene la dimensión 3 indicada en
+        // el archivo entonces pintar un cubo 3D
+        if (punto.z !== undefined || dimension == 3) {
+            this.draw3d(json, c);
+        // En el caso contrario pintar un plano
+        } else if (dimension == 2) {
+            this.draw2d(json, c);
+        } else {
+            alert("Necesita indicar la dimensión con el campo 'd'")
+        }
+    }
+
     // Dibujar los puntos dados en el JSON
-    draw(json: any, c: any): void {
+    draw3d(json: any, c: any): void {
 
         var mySelf = this;
         // Obtenemos los puntos del json
@@ -66,13 +85,9 @@ export class Voronoi implements FileModelInterface{
         // Recorremos todos los puntos
         puntos.forEach(function (punto:any) {
             // Convertimos las coordenadas a enteros
-            var pz = parseInt(punto.z);
-
-            // Si el punto tiene coordenada z, no dibujarla
-            if (pz != 0) { return };
-
             var px = parseInt(punto.x);
             var py = parseInt(punto.y);
+            var pz = parseInt(punto.z);
 
             // Los puntos se agrupan con esta propiedad
             var sb = '' + punto.sb
@@ -162,45 +177,39 @@ export class Voronoi implements FileModelInterface{
         animate();
     } // Fin draw(json: any, c: any)
 
-    // Dibujar los puntos dados en el JSON
+    // Dibujar los puntos dados en el JSON en 2 Dimensiones
     draw2d(json: any, c: any): void {
-        console.log(json);
-
-        while(this.scene.children.length > 0){ 
-            this.scene.remove(this.scene.children[0]); 
-        }
-
         var mySelf = this;
         // Obtenemos los puntos del json
-        // p: {x: 0, y: 0, z: 0, sb: 502}
+        // p: {x: 0, y: 0, sb: 502}
         var puntos = json.p;
 
         // Posición inicial de la cámara
-        this.camera.position.set(350,350,350);
+        this.camera.position.set(0, 0, 350);
 
         // Aplicamos la propidad para auto rotar
         this.controls.autoRotate = this.isAutoRotating;
 
         // Lista de las posiciones de los puntos
         var posiciones: any = {};
-        var positions: any = {};
         // Lista de los grupos dados por el campo p.sb
         var cs: any[] = [];
         // Máximas coordenadas, se actualizan dependiendo los datos
         var mx = -10000, my = -10000, mz = -10000;
         
         // Recorremos todos los puntos
+        // TODO: optimizar esto usando un for simple y también quitando el if
         puntos.forEach(function (punto:any) {
             // Convertimos las coordenadas a enteros
             var px = parseInt(punto.x);
             var py = parseInt(punto.y);
-            // var pz = parseInt(punto.z);
             var pz = 0;
 
             // Los puntos se agrupan con esta propiedad
             var sb = '' + punto.sb
 
             // Guardamos las sb para saber los grupos que tenemos
+            // TODO: quitar este if y mejor crear la lista y agregar el primer elemento afuera del for
             if (!cs.includes(sb)){
                 cs.push(sb);
             }
@@ -215,7 +224,7 @@ export class Voronoi implements FileModelInterface{
             // Actualizamos las coordenadas máximas
             if (px > mx) mx = px;
             if (py > my) my = py;
-            // if (pz > mz) mz = pz;
+            if (pz > mz) mz = pz;
 
         }); // FIN puntos.forEach()
 
@@ -231,7 +240,8 @@ export class Voronoi implements FileModelInterface{
             // Le mandamos al BufferGeometry las coordenadas de los puntos
             // El objeto creado automáticamente convierte un Array en puntos de 3
             // coordenadas
-            geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            geometry.setAttribute('position',
+                                  new THREE.Float32BufferAttribute(positions, 3));
 
             // Creamos el color del area
             var pointColor = new THREE.Color( csColor * 111111);
@@ -239,7 +249,7 @@ export class Voronoi implements FileModelInterface{
             // Creamos un material para los puntos
             // TODO: El tamaño de los puntos lo puse a proposito para que se vea
             // bien, tal vez sea necesario que sea especificado desde el JSON
-            var material = new THREE.PointsMaterial( { size: 2, color: pointColor } );
+            var material = new THREE.PointsMaterial( { size: 1.5, color: pointColor } );
 
             // NOTE: LUIS: Si algún día surge un problema puede ser por esta función
             // geometry.computeBoundingSphere();
@@ -271,15 +281,24 @@ export class Voronoi implements FileModelInterface{
             mySelf.renderer.render(mySelf.scene, mySelf.camera);
         }
 
-        // Calcular el centro del cubo para la rotación
+        // Calcular el centro del cubo para la posición de la cámara
         var centro = new THREE.Vector3();
         centro.x = mx / 2;
         centro.y = my / 2;
-        centro.z = mz / 2;
+        centro.z = 0;
         mySelf.controls.target = centro;
 
+        // Cambia los botones para que en lugar de rotar se mueva la cámara
+        mySelf.controls.mouseButtons = {
+            LEFT: THREE.MOUSE.PAN,
+            MIDDLE: THREE.MOUSE.DOLLY,
+            RIGHT: THREE.MOUSE.ROTATE
+        }
+
+        this.camera.position.set(centro.x, centro.y, mx);
+
         // Zoom máximo y mínimo
-        mySelf.controls.minDistance = centro.length();
+        mySelf.controls.minDistance = centro.length() / 2;
         mySelf.controls.maxDistance = 1000;
 
         animate();
@@ -332,13 +351,6 @@ export class Voronoi implements FileModelInterface{
                  "<span> Auto Rotate </span>" +
                "</div>"+
              "</li>"+
-             "<li class='nav-item'>"+
-               "<div class='form-check'>"+
-                 "<input type='checkbox' class='form-check-input' id='dosDimension'>"+
-                 "<label class='form-check-label' for='dosDimension'><span></span></label>" +
-                 "<span> 2D </span>" +
-               "</div>"+
-             "</li>"+
            "</ul>"+
          "</div>"
 
@@ -379,14 +391,6 @@ export class Voronoi implements FileModelInterface{
                 // }else{
                 //     mySelf.autoRotar(check);
                 // }
-            }),
-            $('#dosDimension').change(function(){
-                var check:any = document.getElementById('autoRotar');
-                if(check.checked) {
-                    mySelf.draw2d(mySelf.json, mySelf.canvas);
-                }else{
-                    // mySelf.autoRotar(check);
-                }
             })
         );
     }// FIN mostrarMenu()
