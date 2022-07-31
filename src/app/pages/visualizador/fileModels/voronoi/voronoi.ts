@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 // segundos, después deja de mandar warnings
 // Interface que implementan todos los modelos
 import { FileModelInterface } from '../file-model-interface';
+import { Router } from '@angular/router';
 
 // jQuery
 declare var $:any;
@@ -60,7 +61,8 @@ export class Voronoi implements FileModelInterface{
         } else if (dimension == 2) {
             this.draw2d(json, c);
         } else {
-            alert("Necesita indicar la dimensión con el campo 'd'")
+            alert("Necesita indicar la dimensión con el campo 'd'");
+            window.location.reload();
         }
     }
 
