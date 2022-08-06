@@ -179,8 +179,8 @@ export class ParticulasDosCanales implements FileModelInterface {
                 var xRangeW = barderW - barizqW;
                 var hW = xRangeW / 1000; //si se requiere mas detalle en las funciones hacer mas pequeño este valor
                 var xW = barizqW;
-                var materialW = new THREE.LineBasicMaterial({ color: 0x0000ff, linewidth: 300 });//azul
-                var mat2W = new THREE.LineBasicMaterial({ color: 0xff0000, linewidth: 200 });//rojo
+                var materialW = new THREE.LineBasicMaterial({ color: 0x0000ff, linewidth: 1 });//azul
+                var mat2W = new THREE.LineBasicMaterial({ color: 0xff0000, linewidth: 1 });//rojo
 
                 var formaCanalW = new THREE.Shape();
 
