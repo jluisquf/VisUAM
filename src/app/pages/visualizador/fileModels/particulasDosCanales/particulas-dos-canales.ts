@@ -1,5 +1,4 @@
 import { FileModelInterface } from '../file-model-interface';
-//import * as THREE from 'three';
 
 declare var THREE:any;
 declare var Parser:any;
@@ -402,25 +401,9 @@ export class ParticulasDosCanales implements FileModelInterface {
                 objParticulas.setPos(objParticulas.aislar, objParticulas);
             }
             objParticulas.renderer.setSize(window.innerWidth, window.innerHeight);
-            objParticulas.renderer.render(scene, objParticulas.camera);
             requestAnimationFrame(avanza);
-        }
-        objParticulas.renderer.setSize(window.innerWidth, window.innerHeight);
-        objParticulas.renderer.render(scene, objParticulas.camera);
-        requestAnimationFrame(avanza);
-    }//FIN animate(escena,particulas)
-    
-    animateTray(scene:any,objParticulas:any):void{
-        function avanza() {
-            if (objParticulas.play != false) {
-                objParticulas.setPos(objParticulas.aislar, objParticulas);
-            }
-            objParticulas.renderer.setSize(window.innerWidth, window.innerHeight);
             objParticulas.renderer.render(scene, objParticulas.camera);
-            requestAnimationFrame(avanza);
         }
-        objParticulas.renderer.setSize(window.innerWidth, window.innerHeight);
-        objParticulas.renderer.render(scene, objParticulas.camera);
         requestAnimationFrame(avanza);
     }//FIN animate(escena,particulas)
     /**
@@ -430,13 +413,13 @@ export class ParticulasDosCanales implements FileModelInterface {
     * objParticulas: Es el objeto que contiene toda la informacion de la particula.
     */
     setPos(aislar = false, objParticulas:any): void {
+        var mySelf = this;
         var desplazamiento = 1;
         var desplazamientoW = -0.5;
+        
         //Si la particula NO es aislada
         if (aislar == false) {
             /*********Esto es para NtoW***************************/
-            var checkID = "Checkpt1"+this.idVisualizador;
-
             //Recorremos el arreglo de cada una de las particulas
             for (var i = 0; i < objParticulas.particulas.length; i++) {
                 if (objParticulas.paso < objParticulas.particulas[i].pasos.length) {
@@ -468,10 +451,15 @@ export class ParticulasDosCanales implements FileModelInterface {
                 }
             }
             var checkbox = document.getElementById(checkID);
-
             //Si Trayectoria esta marcado, se mostraran las traqyectorias de las particulas
             if (checkbox) {
                 objParticulas.muestraTray(checkbox, aislar);
+            } else {
+                for( var i = objParticulas.scene.children.length - 1; i >= 20; i--) { 
+                    console.log('voy a remover las trays' + objParticulas.scene.children[i]);
+                    let obj:any = objParticulas.scene.children[i];
+                    objParticulas.scene.remove(obj);
+                }
             }
 
         } else {//La particula es aislada, repetimos el procedimiento anterior pero solo para una particula
@@ -520,7 +508,7 @@ export class ParticulasDosCanales implements FileModelInterface {
         if (checkbox.checked == true) {//Posiciones de cada particula
             for (var i = 0; i < this.trays.length; i++) {
                 
-                if(this.trays.length == 1) {
+                if(this.trays.length == 1) {//Si la particula esta aislada
                     var geometry = new THREE.BufferGeometry();
                     
                     var colorLinea = [];
@@ -529,34 +517,26 @@ export class ParticulasDosCanales implements FileModelInterface {
                         var y = this.trays[i][j].y;
                         vertices.push(x, y, 0);
                         if (j < xP) {
-                            // Color de la linea: Rojo
-                            colorLinea.push(255, 0, 0);
+                            colorLinea.push(255, 0, 0); // Color de la linea: Rojo
                         } else {
-                            // Color de la linea: Blanco
-                            colorLinea.push(51, 255, 85);
+                            colorLinea.push(51, 255, 85); // Color de la linea: Blanco
                         }
                     }
                     //Pasamos las posiciones
-                    /*var arrayVertices = new Float32Array(vertices);
-                    geometry.setAttribute('position',new THREE.BufferAttribute(arrayVertices,3));*/
                     geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
                     // Pasamos el color
-                    /*var arrayColors = new Float32Array(colorLinea);
-                    geometry.setAttribute('color',new THREE.BufferAttribute(arrayColors,3));*/
                     geometry.addAttribute('color', new THREE.Float32BufferAttribute(colorLinea, 3));
                     var material = new THREE.LineBasicMaterial({color: 0xffffff,vertexColors: true});
                     var tray = new THREE.Line(geometry, material);
                     this.scene.add(tray);
 
                 } else { //Si la particula no esta aislada
-                    var points = [];
-                    var geometry = new THREE.BufferGeometry();
+                    var geometry = new THREE.Geometry();
                     var material = new THREE.LineBasicMaterial({ color: this.color[i] });
                     for (var j = 0; j < this.trays[i].length; j++) {
                         var x = this.trays[i][j].x;
                         var y = this.trays[i][j].y;
-                        points.push(new THREE.Vector3(x, y, 0));
-                        geometry.setFromPoints(points);
+                        geometry.vertices.push(new THREE.Vector3(x, y, 0));
                     }
                     var tray = new THREE.Line(geometry, material);
                     this.scene.add(tray);
@@ -576,7 +556,7 @@ export class ParticulasDosCanales implements FileModelInterface {
         if (checkbox.checked == true) {//Posiciones de cada particula
             for (var i = 0; i < this.traysW.length; i++) {
                 
-                if(this.traysW.length == 1) {
+                if(this.traysW.length == 1) {//Si la particula esta aislada
                     var geometryW = new THREE.BufferGeometry();
                     
                     var colorLineaW = [];
@@ -593,26 +573,20 @@ export class ParticulasDosCanales implements FileModelInterface {
                         }
                     }
                     //Pasamos las posiciones
-                    /*var arrayVerticesW = new Float32Array(verticesW);
-                    geometryW.setAttribute('position',new THREE.BufferAttribute(arrayVerticesW,3));*/
                     geometryW.addAttribute('position', new THREE.Float32BufferAttribute(verticesW, 3));
                     // Pasamos el color
-                    /*var arrayColorsW = new Float32Array(colorLineaW);
-                    geometryW.setAttribute('color',new THREE.BufferAttribute(arrayColorsW,3));*/
                     geometryW.addAttribute('color', new THREE.Float32BufferAttribute(colorLineaW, 3));
                     var materialW = new THREE.LineBasicMaterial({color: 0xffffff,vertexColors: true});
                     var trayW = new THREE.Line(geometryW, materialW);
                     this.scene.add(trayW);
 
                 } else { //Si la particula no esta aislada
-                    var pointsW = [];
-                    var geometryW = new THREE.BufferGeometry();
+                    var geometryW = new THREE.Geometry();
                     var materialW = new THREE.LineBasicMaterial({ color: this.colorW[i] });
                     for (var j = 0; j < this.traysW[i].length; j++) {
                         var xW = this.traysW[i][j].x;
                         var yW = this.traysW[i][j].y;
-                        pointsW.push(new THREE.Vector3(xW, yW, 0));
-                        geometryW.setFromPoints(pointsW);
+                        geometryW.vertices.push(new THREE.Vector3(xW, yW, 0));
                     }
                     var trayW = new THREE.Line(geometryW, materialW);
                     this.scene.add(trayW);
@@ -808,17 +782,24 @@ export class ParticulasDosCanales implements FileModelInterface {
             }),
             //Si el checkbox esta marcado muestra las trayectorias
             $('#Checkpt1'+mySelf.idVisualizador).change(function(){
-                if(check.checked){                    
-                    mySelf.animateTray(mySelf.scene, mySelf);
-                    console.log('Entre al IF, ahora mostrare las trays');
-                } else {
+                if(check.checked == false){                    
                     console.log('Eliminare trays')
-                    for( var i = mySelf.scene.children.length - 1; i >= 22; i--) { 
+                    for( var i = mySelf.scene.children.length - 1; i >= 20; i--) { 
                         let obj:any = mySelf.scene.children[i];
                         mySelf.scene.remove(obj);
                     }
+                    console.log(mySelf.scene.children.length);
+                    console.log("Geometries in Memory", mySelf.renderer.info.memory.geometries); // Numero de geometrias deberian ser 20
+                    console.log("Active Drawcalls:", mySelf.renderer.info.render.calls); // llamadas al render 30
+                    console.log("Memory Info:", mySelf.renderer.info);
+                } else {
+                    console.log('### Mostrare trays')
+                    console.log(mySelf.scene.children.length);
+                    console.log("Geometries in Memory", mySelf.renderer.info.memory.geometries); // Numero de geometrias = 20 DESPUES CAMBIA
+                    console.log("Active Drawcalls:", mySelf.renderer.info.render.calls); // 20
+                    console.log("Memory Info:", mySelf.renderer.info);
                 }
-            }),       
+            }),
       
             $('#aceptar').click(function(e:any){
                 var valor = $('#particula').val();
@@ -1193,6 +1174,7 @@ export class ParticulasDosCanales implements FileModelInterface {
         function regresar(){
             object.play = false;
             object.paso -= 5;
+            object.pasoW -= 5;
             object.setPos(object.aislar, object.mySelf);
             object.renderer.render(object.scene, object.camera);
         }
@@ -1200,6 +1182,7 @@ export class ParticulasDosCanales implements FileModelInterface {
         function avanzar(){
             object.play = false;
             object.paso += 5;
+            object.pasoW += 5;
             object.setPos(object.aislar, object.mySelf);
             object.renderer.render(object.scene, object.camera);
         }
