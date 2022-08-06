@@ -30,8 +30,7 @@ export class CanvasComponent implements OnInit {
    */
   public load( json: any ) {
     const object = this.getConstructor(json);
-    // TODO: Luis
-    object.draw(json, this.canvas);
+    //object.draw(json, this.canvas);
   }
 
   ngOnInit(): void {
