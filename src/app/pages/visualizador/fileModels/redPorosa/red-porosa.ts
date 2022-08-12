@@ -40,37 +40,52 @@ export class RedPorosa implements FileModelInterface {
     this.scene.add(group);
     //var colores = json.sitiosColor;
     var puntos = json.sitios;
-    var x,y,z,radio,rotacion,radiomax = -1;
+    var x = 0,y = 0,z = 0,radio = 0, color = 0, rotacion,radiomax = -1;
     var mx=-1000,my=-1000,mz=-1000;
     var minx=1000,miny=1000,minz=1000;
     for(var i = 0; i < puntos.length; i++){
-      x=puntos[i].x;
-      y=puntos[i].y;
-      z=puntos[i].z;
+      switch(i%5) {
+        case 0:
+          x = puntos[i];
+          break;
+        case 1:
+          y = puntos[i];
+          break;
+        case 2:
+          z = puntos[i];
+          break;
+        case 3:
+          radio = puntos[i];
+          break;
+        case 4:
+          color = puntos[i];
+          break;
+        default:
+          console.log("Error en el Indice del Punto");
+      }
       if(x>mx) mx=x;
       if(x<minx) minx=x;
       if(y>my) my=y;
       if(y<miny) miny=y;
       if(z>mz) mz=z;
       if(z<minz) minz=z;
-      radio=puntos[i].r;
       if(radio>radiomax){
         radiomax=radio;
       }
       rotacion=puntos[i*5+4];
       var p = new THREE.SphereGeometry(radio, 10,10);
       var material;
-      if(puntos[i].color==0){
+      if(color==0){
         material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
-      }else if(puntos[i].color==1){
+      }else if(color==1){
         material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-      }else if(puntos[i].color==2){
+      }else if(color==2){
         material = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
       }
       var sphere = new THREE.Mesh( p, material );
-      sphere.position.x = parseInt(x);
-      sphere.position.y = parseInt(y);
-      sphere.position.z = parseInt(z);
+      sphere.position.x = x;
+      sphere.position.y = y;
+      sphere.position.z = z;
       this.scene.add( sphere );
       mySelf.redporosa.push(sphere);
     }
@@ -79,23 +94,39 @@ export class RedPorosa implements FileModelInterface {
     if(json.hasOwnProperty('enlaces')){
       var enlaces = json.enlaces;
       for(var i = 0; i < enlaces.length; i++){
-        x=enlaces[i].x;
-        y=enlaces[i].y;
-        z=enlaces[i].z;
-        radio=enlaces[i].r;
-        rotacion=enlaces[i].eje;
+        switch(i%5) {
+          case 0:
+            x = enlaces[i];
+            break;
+          case 1:
+            y = enlaces[i];
+            break;
+          case 2:
+            z = enlaces[i];
+            break;
+          case 3:
+            radio = enlaces[i];
+            break;
+          case 4:
+            color = enlaces[i];
+            break;
+          default:
+            console.log("Error en el Indice del Enlace");
+        }
+        // rotacion=enlaces[i].eje;
+        rotacion=color;
         var q = new THREE.CylinderGeometry(radio,radio,radiomax*3,10);
-        if(enlaces[i].color==0){
+        if(color==0){
           material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
-        }else if(enlaces[i].color==1){
+        }else if(color==1){
           material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-        }else if(enlaces[i].color==2){
+        }else if(color==2){
           material = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
         }
         var cylinder = new THREE.Mesh( q, material );
-        cylinder.position.x = parseInt(x);
-        cylinder.position.y = parseInt(y);
-        cylinder.position.z = parseInt(z);
+        cylinder.position.x = x;
+        cylinder.position.y = y;
+        cylinder.position.z = z;
         if(rotacion==0){
           cylinder.rotation.x=Math.PI/2;
           cylinder.rotation.y=0;
