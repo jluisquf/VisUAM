@@ -38,110 +38,113 @@ export class RedPorosa implements FileModelInterface {
     mySelf.controls.maxDistance = 100;
     var group = new THREE.Group();
     this.scene.add(group);
-    //var colores = json.sitiosColor;
-    var puntos = json.sitios;
-    var x = 0,y = 0,z = 0,radio = 0, color = 0, rotacion,radiomax = -1;
+    //var colores = json.sitiesColor;
+    var puntos = json.sities;
+    var x,y,z,radio,rotacion,radiomax = -1;
     var mx=-1000,my=-1000,mz=-1000;
     var minx=1000,miny=1000,minz=1000;
     for(var i = 0; i < puntos.length; i++){
-      switch(i%5) {
-        case 0:
-          x = puntos[i];
-          break;
-        case 1:
-          y = puntos[i];
-          break;
-        case 2:
-          z = puntos[i];
-          break;
-        case 3:
-          radio = puntos[i];
-          break;
-        case 4:
-          color = puntos[i];
-          break;
-        default:
-          console.log("Error en el Indice del Punto");
-      }
+      x=puntos[i].x;
+      y=puntos[i].y;
+      z=puntos[i].z;
       if(x>mx) mx=x;
       if(x<minx) minx=x;
       if(y>my) my=y;
       if(y<miny) miny=y;
       if(z>mz) mz=z;
       if(z<minz) minz=z;
+      radio=puntos[i].r;
       if(radio>radiomax){
         radiomax=radio;
       }
       rotacion=puntos[i*5+4];
       var p = new THREE.SphereGeometry(radio, 10,10);
       var material;
-      if(color==0){
+      if(puntos[i].color==0){
         material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
-      }else if(color==1){
+      }else if(puntos[i].color==1){
         material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-      }else if(color==2){
+      }else if(puntos[i].color==2){
         material = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
       }
       var sphere = new THREE.Mesh( p, material );
-      sphere.position.x = x;
-      sphere.position.y = y;
-      sphere.position.z = z;
+      sphere.position.x = parseInt(x);
+      sphere.position.y = parseInt(y);
+      sphere.position.z = parseInt(z);
       this.scene.add( sphere );
       mySelf.redporosa.push(sphere);
     }
   
-    //var enlacescolores = json.enlacesColor;
-    if(json.hasOwnProperty('enlaces')){
-      var enlaces = json.enlaces;
-      for(var i = 0; i < enlaces.length; i++){
-        switch(i%5) {
-          case 0:
-            x = enlaces[i];
-            break;
-          case 1:
-            y = enlaces[i];
-            break;
-          case 2:
-            z = enlaces[i];
-            break;
-          case 3:
-            radio = enlaces[i];
-            break;
-          case 4:
-            color = enlaces[i];
-            break;
-          default:
-            console.log("Error en el Indice del Enlace");
+    //var bondscolores = json.bondsColor;
+    if(json.hasOwnProperty('bonds')){
+      var sities = json.sities;
+      var bonds = json.bonds;
+      for(var i = 0; i < sities.length; i++){
+        x=sities[i].x + 0.65;
+        y=sities[i].y + 0.65;
+        z=sities[i].z + 0.65;
+        radio=bonds[i].r;
+
+        // PRIMER ENLACE
+        if (bonds[i].x > 0) {
+          var qx = new THREE.CylinderGeometry(radio,radio,radiomax*2*bonds[i].x,10);
+          qx.rotateZ(-Math.PI * 0.5);
+          
+          if(bonds[i].color==0){
+            material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+          }else if(bonds[i].color==1){
+            material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+          }else if(bonds[i].color==2){
+            material = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
+          }
+          var cylinderx = new THREE.Mesh( qx, material );
+          cylinderx.position.x = x + 2*sities[i].r;
+          cylinderx.position.y = y;
+          cylinderx.position.z = z;
+          this.scene.add( cylinderx );
+          mySelf.redporosa.push(cylinderx);
         }
-        // rotacion=enlaces[i].eje;
-        rotacion=color;
-        var q = new THREE.CylinderGeometry(radio,radio,radiomax*3,10);
-        if(color==0){
-          material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
-        }else if(color==1){
-          material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-        }else if(color==2){
-          material = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
+        
+
+        // SEGUNDO ENLACE
+        if (bonds[i].y > 0) {
+          var qy = new THREE.CylinderGeometry(radio,radio,radiomax*2*bonds[i].y,10);
+          qy.rotateY(-Math.PI * 0.5);
+          
+          if(bonds[i].color==0){
+            material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+          }else if(bonds[i].color==1){
+            material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+          }else if(bonds[i].color==2){
+            material = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
+          }
+          var cylindery = new THREE.Mesh( qy, material );
+          cylindery.position.x = x;
+          cylindery.position.y = y + 2*sities[i].r;
+          cylindery.position.z = z;
+          this.scene.add( cylindery );
+          mySelf.redporosa.push(cylindery);
         }
-        var cylinder = new THREE.Mesh( q, material );
-        cylinder.position.x = x;
-        cylinder.position.y = y;
-        cylinder.position.z = z;
-        if(rotacion==0){
-          cylinder.rotation.x=Math.PI/2;
-          cylinder.rotation.y=0;
-          cylinder.rotation.z=0;
-        }else if(rotacion==1){
-          cylinder.rotation.x=0;
-          cylinder.rotation.y=Math.PI/2;
-          cylinder.rotation.z=0;
-        }else if(rotacion==2){
-          cylinder.rotation.x=0;
-          cylinder.rotation.y=0;
-          cylinder.rotation.z=Math.PI/2;
+
+        // TERCER ENLACE
+        if (bonds[i].z > 0) {
+          var qz = new THREE.CylinderGeometry(radio,radio,radiomax*2*bonds[i].z,10);
+          qz.rotateX(-Math.PI * 0.5);
+          
+          if(bonds[i].color==0){
+            material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+          }else if(bonds[i].color==1){
+            material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+          }else if(bonds[i].color==2){
+            material = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
+          }
+          var cylinderz = new THREE.Mesh( qz, material );
+          cylinderz.position.x = x;
+          cylinderz.position.y = y;
+          cylinderz.position.z = z - 2*sities[i].r;
+          this.scene.add( cylinderz );
+          mySelf.redporosa.push(cylinderz);
         }
-        this.scene.add( cylinder );
-        mySelf.redporosa.push(cylinder);
       }
     }
 

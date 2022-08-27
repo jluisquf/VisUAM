@@ -57,7 +57,7 @@ export class CanvasComponent implements OnInit {
         object = new ParticulasDosCanales(json,this.canvas);
         this.muestraGrafica = true;
         break;
-      case "RedPorosa":
+      case "PoreNetwork":
         object = new RedPorosa(json,this.canvas);
         this.muestraGrafica = true;
         break;
