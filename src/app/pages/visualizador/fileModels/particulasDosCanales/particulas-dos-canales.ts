@@ -7,7 +7,10 @@ declare var $:any;
 
 export class ParticulasDosCanales implements FileModelInterface {
 
-    constructor(public json:any, public canvas:any) {  }
+    constructor(public json:any, public canvas:any) { 
+        this.json = json;
+        this.canvas = canvas;
+    }
     
     mySelf = this;
     //Para NtoW
@@ -44,9 +47,36 @@ export class ParticulasDosCanales implements FileModelInterface {
     idVisualizador = this.dateId.getTime();
     //Varible usada para cambiar el icono de play a pause y viceversa
     public pausaAnimacion: boolean = false; // Al inicio se pone en False pues no queremos que este pausada.
+    public pasaValidacionTags: boolean = false;
     
     draw(json: any, c: any): void {
-
+        // Validamos que tenga las etiquetas "NtoW" y "WtoN" para ser visualizado el modelo
+        let NtoW = json.NtoW;
+        let WtoN = json.WtoN;
+        if(NtoW == undefined || WtoN == undefined){
+            console.log("ERROR_TAGS draw();")
+            console.log("NtoW: " + NtoW)
+            console.log("WtoN: " + WtoN)
+            alert("Missing labels required to display the model.");
+            window.location.reload();
+            //this.pasaValidacionTags = false;
+        } else {
+            if(json.NtoW.times == undefined || json.WtoN.times == undefined || json.NtoW.hits == undefined || json.WtoN.hits == undefined){
+                console.log("ERROR_TAGS_TIMES_HITS")
+                alert("Missing labels required to show the statistics.");
+                window.location.reload();
+                this.scene.remove.apply(this.scene, this.scene.children);
+                this.renderer.clear();
+                //this.pasaValidacionTags = false;
+            }else{
+                //this.pasaValidacionTags = true;
+                this.drawValidation();
+            }
+        }
+    }
+    
+    drawValidation(): void {
+        console.log("EJECUTANDO: drawValitation();")
         var points: any = [];
         var pointsW: any = [];
         var objParticulas = this.mySelf;
@@ -67,7 +97,7 @@ export class ParticulasDosCanales implements FileModelInterface {
 
                 objParticulas.play = true; //Si la escena se ha creado correctamente podemos comenzar la animacion
                 
-                objParticulas.funciones = objParticulas.json.NtoW.canal;
+                objParticulas.funciones = objParticulas.json.NtoW.channel;
                 
                 var barizq = objParticulas.funciones.LBarrier.value;
                 var barder = objParticulas.funciones.RBarrier.value;
@@ -87,14 +117,11 @@ export class ParticulasDosCanales implements FileModelInterface {
                 var bWall = objParticulas.texttoFunction(funcionb);
 
                 //TWALL es la pared superior del canal
-                //var tgeometry = new THREE.BufferGeometry();
                 var tgeometry = new THREE.Geometry();
                 var p0 = tWall(x);//evalua la función twall en el punto x = 0
                 formaCanal.moveTo(x + h - desplazamiento, p0); // punto inicial de la forma del canal
                 while (x < barder) {
                     var y = tWall(x);
-                    //points.push(new THREE.Vector3(x-desplazamiento, y, 0));
-                    /*tgeometry.setFromPoints(points);*/
                     tgeometry.vertices.push(new THREE.Vector3(x-desplazamiento, y, 0));
                     x += h;
                     if (x <= barder) { formaCanal.lineTo(x-desplazamiento, y - h); }//menos h para que no tape la linea de la frontera
@@ -171,7 +198,7 @@ export class ParticulasDosCanales implements FileModelInterface {
                 var desplazamientoW = -0.5;
                 objParticulas.play = true; //Si la escena se ha creado correctamente podemos comenzar la animacion
                 
-                objParticulas.funcionesW = objParticulas.json.WtoN.canal;
+                objParticulas.funcionesW = objParticulas.json.WtoN.channel;
                 
                 var barizqW = objParticulas.funcionesW.LBarrier.value;
                 var barderW = objParticulas.funcionesW.RBarrier.value;
@@ -191,14 +218,11 @@ export class ParticulasDosCanales implements FileModelInterface {
                 var bWallW = objParticulas.texttoFunction(funcionbW);
 
                 //TWALL es la pared superior del canal
-                /*var tgeometryW = new THREE.BufferGeometry();*/
                 var tgeometryW = new THREE.Geometry();
                 var p0W = tWallW(xW);//evalua la función twall en el punto x = 0
                 formaCanalW.moveTo(xW + hW - desplazamientoW, p0W); // punto inicial de la forma del canal
                 while (xW < barderW) {
                     var yW = tWallW(xW);
-                    /*pointsW.push(new THREE.Vector3(xW-desplazamientoW, yW, 0));
-                    tgeometryW.setFromPoints(pointsW);*/
                     tgeometryW.vertices.push(new THREE.Vector3(xW-desplazamientoW, yW, 0));
                     xW += hW;
                     if (xW <= barderW) { formaCanalW.lineTo(xW-desplazamientoW, yW - hW); }//menos h para que no tape la linea de la frontera
@@ -292,8 +316,8 @@ export class ParticulasDosCanales implements FileModelInterface {
                     //Leemos las propeidades de archivo JSON
                     objParticulas.particulas = objParticulas.json.NtoW.particles.particle[objParticulas.numeroParticula];
                     //Obtenemos solo los pasos de una particula
-                    var x = objParticulas.particulas.pasos[0].x;
-                    var y = objParticulas.particulas.pasos[0].y;
+                    var x = objParticulas.particulas.steps[0].x;
+                    var y = objParticulas.particulas.steps[0].y;
                     //Creamos las esferas
                     var p = new THREE.SphereGeometry(.01, 10, 10); //(radio, ..., ...)
                     var aux = color * 111111; //Generamos el color
@@ -317,8 +341,8 @@ export class ParticulasDosCanales implements FileModelInterface {
                     //Leemos las propeidades de archivo JSON
                     objParticulas.particulasW = objParticulas.json.WtoN.particles.particle[objParticulas.numeroParticula];
                     //Obtenemos solo los pasos de una particula
-                    var xW = objParticulas.particulasW.pasos[0].x;
-                    var yW = objParticulas.particulasW.pasos[0].y;
+                    var xW = objParticulas.particulasW.steps[0].x;
+                    var yW = objParticulas.particulasW.steps[0].y;
                     //Creamos las esferas
                     var pW = new THREE.SphereGeometry(.01, 10, 10); //(radio, ..., ...)
                     var auxW = color * 111115; //Generamos el color
@@ -344,8 +368,8 @@ export class ParticulasDosCanales implements FileModelInterface {
                     objParticulas.particulas = objParticulas.json.NtoW.particles.particle;//se guarda el arreglo de las particulas del json a la var particulas
                     //dibuja particulas y las coloca en la primer posicion
                     objParticulas.particulas.forEach(function (particula: any) {//para cada particula se realiza
-                        var x = particula.pasos[0].x;
-                        var y = particula.pasos[0].y;
+                        var x = particula.steps[0].x;
+                        var y = particula.steps[0].y;
 
                         var p = new THREE.SphereGeometry(.01, 10, 10); //(radio, ..., ...)
                         var aux = color * 111111;
@@ -369,8 +393,8 @@ export class ParticulasDosCanales implements FileModelInterface {
                     objParticulas.particulasW = objParticulas.json.WtoN.particles.particle;//se guarda el arreglo de las particulas del json a la var particulas
                     objParticulas.particulasW.forEach(function (particulaW: any) {//para cada particula se realiza
                         
-                        var xW = particulaW.pasos[0].x;
-                        var yW = particulaW.pasos[0].y;
+                        var xW = particulaW.steps[0].x;
+                        var yW = particulaW.steps[0].y;
                         var pW = new THREE.SphereGeometry(.01, 10, 10); //(radio, ..., ...)
                         var auxW = color * 111115;
 
@@ -422,10 +446,10 @@ export class ParticulasDosCanales implements FileModelInterface {
             /*********Esto es para NtoW***************************/
             //Recorremos el arreglo de cada una de las particulas
             for (var i = 0; i < objParticulas.particulas.length; i++) {
-                if (objParticulas.paso < objParticulas.particulas[i].pasos.length) {
+                if (objParticulas.paso < objParticulas.particulas[i].steps.length) {
                     //Guardamos cada posicion
-                    var x = parseFloat(objParticulas.particulas[i].pasos[objParticulas.paso].x) - desplazamiento;
-                    var y = parseFloat(objParticulas.particulas[i].pasos[objParticulas.paso].y);
+                    var x = parseFloat(objParticulas.particulas[i].steps[objParticulas.paso].x) - desplazamiento;
+                    var y = parseFloat(objParticulas.particulas[i].steps[objParticulas.paso].y);
                     //Metemos cada posicion en el arreglo pars 
                     objParticulas.pars[i].position.setX(x);
                     objParticulas.pars[i].position.setY(y);
@@ -439,10 +463,10 @@ export class ParticulasDosCanales implements FileModelInterface {
             /*********Esto es para WtoN***************************/
             //Recorremos el arreglo de cada una de las particulas
             for (var i = 0; i < objParticulas.particulasW.length; i++) {
-                if (objParticulas.pasoW < objParticulas.particulasW[i].pasos.length) {
+                if (objParticulas.pasoW < objParticulas.particulasW[i].steps.length) {
                     //Guardamos cada posicion
-                    var xW = parseFloat(objParticulas.particulasW[i].pasos[objParticulas.pasoW].x) - desplazamientoW;
-                    var yW = parseFloat(objParticulas.particulasW[i].pasos[objParticulas.pasoW].y);
+                    var xW = parseFloat(objParticulas.particulasW[i].steps[objParticulas.pasoW].x) - desplazamientoW;
+                    var yW = parseFloat(objParticulas.particulasW[i].steps[objParticulas.pasoW].y);
                     //Metemos cada posicion en el arreglo pars 
                     objParticulas.parsW[i].position.setX(xW);
                     objParticulas.parsW[i].position.setY(yW);
@@ -465,9 +489,9 @@ export class ParticulasDosCanales implements FileModelInterface {
         } else {//La particula es aislada, repetimos el procedimiento anterior pero solo para una particula
             
             /*********Esto es para NtoW***************************/
-            if (objParticulas.paso < objParticulas.particulas.pasos.length) {
-                var x = parseFloat(objParticulas.particulas.pasos[objParticulas.paso].x) - desplazamiento;
-                var y = parseFloat(objParticulas.particulas.pasos[objParticulas.paso].y);
+            if (objParticulas.paso < objParticulas.particulas.steps.length) {
+                var x = parseFloat(objParticulas.particulas.steps[objParticulas.paso].x) - desplazamiento;
+                var y = parseFloat(objParticulas.particulas.steps[objParticulas.paso].y);
                 objParticulas.pars[0].position.setX(x);
                 objParticulas.pars[0].position.setY(y);
                 objParticulas.trays[0].push({ "x": x, "y": y });
@@ -475,9 +499,9 @@ export class ParticulasDosCanales implements FileModelInterface {
             var checkID = "Checkpt1"+this.idVisualizador;
             
             /*********Esto es para WtoN***************************/
-            if (objParticulas.pasoW < objParticulas.particulasW.pasos.length) {
-                var xW = parseFloat(objParticulas.particulasW.pasos[objParticulas.pasoW].x) - desplazamientoW;
-                var yW = parseFloat(objParticulas.particulasW.pasos[objParticulas.pasoW].y);
+            if (objParticulas.pasoW < objParticulas.particulasW.steps.length) {
+                var xW = parseFloat(objParticulas.particulasW.steps[objParticulas.pasoW].x) - desplazamientoW;
+                var yW = parseFloat(objParticulas.particulasW.steps[objParticulas.pasoW].y);
                 objParticulas.parsW[0].position.setX(xW);
                 objParticulas.parsW[0].position.setY(yW);
                 objParticulas.traysW[0].push({ "x": xW, "y": yW });
@@ -506,6 +530,10 @@ export class ParticulasDosCanales implements FileModelInterface {
         let xP = 1000;//Punto en el que la particula cambiara de color su trayectoria
         
         if (checkbox.checked == true) {//Posiciones de cada particula
+
+            var arrTmp = [];// arreglo que guardara las coordenadas donde se golpeo la pared
+            var lastTouch:any = 0; // variable que tendra la ultima coordenada donde golpeo la pared
+
             for (var i = 0; i < this.trays.length; i++) {
                 
                 if(this.trays.length == 1) {//Si la particula esta aislada
@@ -519,9 +547,12 @@ export class ParticulasDosCanales implements FileModelInterface {
                         if (j < xP) {
                             colorLinea.push(255, 0, 0); // Color de la linea: Rojo
                         } else {
+                            //console.log('Toque una pared, ahora cambiare mi tray a blanco: ');
+                            arrTmp.push({"x":this.trays[i][j].x, "y":this.trays[i][j].y}); // guardamos las coordenadas
                             colorLinea.push(51, 255, 85); // Color de la linea: Blanco
                         }
                     }
+                    //lastTouch = arrTmp[arrTmp.length-1];
                     //Pasamos las posiciones
                     geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
                     // Pasamos el color
@@ -543,6 +574,8 @@ export class ParticulasDosCanales implements FileModelInterface {
                     this.trayso.push(tray);
                 }
             }
+            lastTouch = arrTmp[arrTmp.length-1];
+            console.log("lastTouch: ", lastTouch);
         }
         /***********************Esto es para WtoN*******************************/
         this.traysoW.forEach(function(trayW:any){
@@ -632,24 +665,24 @@ export class ParticulasDosCanales implements FileModelInterface {
                         "</div>";
 
         //Obteniendo los valores de los tiempos para NtoW
-        var TauNW= mySelf.json.NtoW.tiempos[0].valor.toFixed(2);
-        var LoopNW= mySelf.json.NtoW.tiempos[1].valor.toFixed(2);
-        var DirectNW= mySelf.json.NtoW.tiempos[2].valor.toFixed(2);
+        var TauNW= mySelf.json.NtoW.times[0].value.toFixed(2);
+        var LoopNW= mySelf.json.NtoW.times[1].value.toFixed(2);
+        var DirectNW= mySelf.json.NtoW.times[2].value.toFixed(2);
  
         //Obteniendo los valores de los tiempos para NtoW
-        var TauWN= mySelf.json.WtoN.tiempos[0].valor.toFixed(2);
-        var LoopWN= mySelf.json.WtoN.tiempos[1].valor.toFixed(2);
-        var DirectWN= mySelf.json.WtoN.tiempos[2].valor.toFixed(2);
+        var TauWN= mySelf.json.WtoN.times[0].value.toFixed(2);
+        var LoopWN= mySelf.json.WtoN.times[1].value.toFixed(2);
+        var DirectWN= mySelf.json.WtoN.times[2].value.toFixed(2);
  
         //Obteniendo los valores de los golpes para NtoW
-        var SuperiorNW= mySelf.json.NtoW.golpes[0].valor.toFixed(2);
-        var InferiorNW= mySelf.json.NtoW.golpes[1].valor.toFixed(2);
-        var OrigenNW= mySelf.json.NtoW.golpes[2].valor.toFixed(2);
+        var SuperiorNW= mySelf.json.NtoW.hits[0].value.toFixed(2);
+        var InferiorNW= mySelf.json.NtoW.hits[1].value.toFixed(2);
+        var OrigenNW= mySelf.json.NtoW.hits[2].value.toFixed(2);
  
         //Obteniendo los valores de los golpes para NtoW
-        var SuperiorWN= mySelf.json.WtoN.golpes[0].valor.toFixed(2);
-        var InferiorWN= mySelf.json.WtoN.golpes[1].valor.toFixed(2);
-        var OrigenWN= mySelf.json.WtoN.golpes[2].valor.toFixed(2);
+        var SuperiorWN= mySelf.json.WtoN.hits[0].value.toFixed(2);
+        var InferiorWN= mySelf.json.WtoN.hits[1].value.toFixed(2);
+        var OrigenWN= mySelf.json.WtoN.hits[2].value.toFixed(2);
  
         //Total numeroParticulas
         var TotalParticulasNW= mySelf.json.NtoW.particles.total;
@@ -704,17 +737,17 @@ export class ParticulasDosCanales implements FileModelInterface {
                                                 "<th class='resul'>WtoN</th>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>"+mySelf.json.NtoW.tiempos[0].time+"</td>"+//First-passing
+                                                "<td class='resul'>"+mySelf.json.NtoW.times[0].nameTime+"</td>"+//First-passing
                                                 "<td class='resul'><input type='text' id='TauNW' name='fname' readonly size='5' value='"+TauNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='TauWN' name='fname' readonly size='5' value='"+TauWN+"'><br></td>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>"+mySelf.json.NtoW.tiempos[2].time+"</td>"+//Transition
+                                                "<td class='resul'>"+mySelf.json.NtoW.times[2].nameTime+"</td>"+//Transition
                                                 "<td class='resul'><input type='text' id='direcTimeNW'  readonly size='5' value='"+DirectNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='direcTimeWN'  readonly size='5' value='"+DirectWN+"'><br></td>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>"+mySelf.json.NtoW.tiempos[1].time+"</td>"+//Looping
+                                                "<td class='resul'>"+mySelf.json.NtoW.times[1].nameTime+"</td>"+//Looping
                                                 "<td class='resul'><input type='text' id='LoopingTimeNW'  readonly size='5' value='"+LoopNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='LoopingTimeWN'  readonly size='5' value='"+LoopWN+"'><br></td>"+
                                             "</tr>"+
@@ -728,17 +761,17 @@ export class ParticulasDosCanales implements FileModelInterface {
                                                 "<th class='resul'>WtoN</th>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>"+mySelf.json.NtoW.golpes[0].nomPared+"</td>"+//Upper
+                                                "<td class='resul'>"+mySelf.json.NtoW.hits[0].nameBarrier+"</td>"+//Upper
                                                 "<td class='resul'><input type='text' id='SuperiorNW' name='fname' readonly size='5' value='"+SuperiorNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='SuperiorWN' name='fname' readonly size='5' value='"+SuperiorWN+"'><br></td>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>"+mySelf.json.NtoW.golpes[1].nomPared+"</td>"+//Lower
+                                                "<td class='resul'>"+mySelf.json.NtoW.hits[1].nameBarrier+"</td>"+//Lower
                                                 "<td class='resul'><input type='text' id='InferiorNW'  readonly size='5' value='"+InferiorNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='InferiorWN'  readonly size='5' value='"+InferiorWN+"'><br></td>"+
                                             "</tr>"+
                                             "<tr class='resul'>"+
-                                                "<td class='resul'>"+mySelf.json.NtoW.golpes[2].nomPared+"</td>"+//Left
+                                                "<td class='resul'>"+mySelf.json.NtoW.hits[2].nameBarrier+"</td>"+//Left
                                                 "<td class='resul'><input type='text' id='OrigenNW'  readonly size='5' value='"+OrigenNW+"'><br></td>"+
                                                 "<td class='resul'><input type='text' id='OrigenWN'  readonly size='5' value='"+OrigenWN+"'><br></td>"+
                                             "</tr>"+
@@ -783,21 +816,11 @@ export class ParticulasDosCanales implements FileModelInterface {
             //Si el checkbox esta marcado muestra las trayectorias
             $('#Checkpt1'+mySelf.idVisualizador).change(function(){
                 if(check.checked == false){                    
-                    console.log('Eliminare trays')
+                    // console.log('Eliminare trays')
                     for( var i = mySelf.scene.children.length - 1; i >= 20; i--) { 
                         let obj:any = mySelf.scene.children[i];
                         mySelf.scene.remove(obj);
                     }
-                    console.log(mySelf.scene.children.length);
-                    console.log("Geometries in Memory", mySelf.renderer.info.memory.geometries); // Numero de geometrias deberian ser 20
-                    console.log("Active Drawcalls:", mySelf.renderer.info.render.calls); // llamadas al render 30
-                    console.log("Memory Info:", mySelf.renderer.info);
-                } else {
-                    console.log('### Mostrare trays')
-                    console.log(mySelf.scene.children.length);
-                    console.log("Geometries in Memory", mySelf.renderer.info.memory.geometries); // Numero de geometrias = 20 DESPUES CAMBIA
-                    console.log("Active Drawcalls:", mySelf.renderer.info.render.calls); // 20
-                    console.log("Memory Info:", mySelf.renderer.info);
                 }
             }),
       
@@ -857,14 +880,14 @@ export class ParticulasDosCanales implements FileModelInterface {
                 var GolpesNW=[];
                 var GolpesWN=[];
 
-                for (var index = 0; index < this.json.NtoW.golpes.length; index++) {
-                    GolpesNW.push({ "y": this.json.NtoW.golpes[index].valor, "label": this.json.NtoW.golpes[index].nomPared});
-                    GolpesWN.push({ "y": this.json.WtoN.golpes[index].valor, "label": this.json.WtoN.golpes[index].nomPared});
+                for (var index = 0; index < this.json.NtoW.hits.length; index++) {
+                    GolpesNW.push({ "y": this.json.NtoW.hits[index].value, "label": this.json.NtoW.hits[index].nameBarrier});
+                    GolpesWN.push({ "y": this.json.WtoN.hits[index].value, "label": this.json.WtoN.hits[index].nameBarrier});
                 }
                 
-                for (var index = 0; index < this.json.NtoW.tiempos.length; index++) {
-                    TiemposNW.push({ "y": this.json.NtoW.tiempos[index].valor, "label": this.json.NtoW.tiempos[index].time});
-                    TiemposWN.push({ "y": this.json.WtoN.tiempos[index].valor, "label": this.json.WtoN.tiempos[index].time});
+                for (var index = 0; index < this.json.NtoW.times.length; index++) {
+                    TiemposNW.push({ "y": this.json.NtoW.times[index].value, "label": this.json.NtoW.times[index].nameTime});
+                    TiemposWN.push({ "y": this.json.WtoN.times[index].value, "label": this.json.WtoN.times[index].nameTime});
                 }
 
                 var div1 = document.getElementById('chart-1');
