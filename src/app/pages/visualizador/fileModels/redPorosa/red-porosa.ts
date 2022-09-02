@@ -24,8 +24,9 @@ export class RedPorosa implements FileModelInterface {
 
   draw(json: any, c: any): void {
 
+    var props = ["name", "L", "xmb", "xms", "om", "sigma", "cs", "nc", "f", "nt", "bat", "sities", "bonds", "atX", "atY", "atZ", "crgFlag"];
+
     var mySelf = this;
-    //var puntosred = [];
 
     var puntos = json.p;
     /**funcion llamada desde index.js recibe un arreglo con las posiciones y color de cada punto
@@ -40,109 +41,117 @@ export class RedPorosa implements FileModelInterface {
     this.scene.add(group);
     //var colores = json.sitiesColor;
     var puntos = json.sities;
-    var x,y,z,radio,rotacion,radiomax = -1;
-    var mx=-1000,my=-1000,mz=-1000;
-    var minx=1000,miny=1000,minz=1000;
-    for(var i = 0; i < puntos.length; i++){
-      x=puntos[i].x;
-      y=puntos[i].y;
-      z=puntos[i].z;
-      if(x>mx) mx=x;
-      if(x<minx) minx=x;
-      if(y>my) my=y;
-      if(y<miny) miny=y;
-      if(z>mz) mz=z;
-      if(z<minz) minz=z;
-      radio=puntos[i].r;
-      if(radio>radiomax){
-        radiomax=radio;
+    var x, y, z, radio, rotacion, radiomax = -1;
+    var mx = -1000, my = -1000, mz = -1000;
+    var minx = 1000, miny = 1000, minz = 1000;
+    
+    var hasAll = props.every(prop => json.hasOwnProperty(prop));
+    if (!hasAll) {
+      alert('Error: The file does not meet the properties required for "Porous Network"');
+      window.location.reload();
+      throw new Error('The file does not meet the properties required for "Porous Network"');
+    }
+
+    for (var i = 0; i < puntos.length; i++) {
+      x = puntos[i].x;
+      y = puntos[i].y;
+      z = puntos[i].z;
+      if (x > mx) mx = x;
+      if (x < minx) minx = x;
+      if (y > my) my = y;
+      if (y < miny) miny = y;
+      if (z > mz) mz = z;
+      if (z < minz) minz = z;
+      radio = puntos[i].r;
+      if (radio > radiomax) {
+        radiomax = radio;
       }
-      rotacion=puntos[i*5+4];
-      var p = new THREE.SphereGeometry(radio, 10,10);
+      rotacion = puntos[i * 5 + 4];
+      var p = new THREE.SphereGeometry(radio, 10, 10);
       var material;
-      if(puntos[i].color==0){
-        material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
-      }else if(puntos[i].color==1){
-        material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-      }else if(puntos[i].color==2){
-        material = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
+      if (puntos[i].color == 0) {
+        material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+      } else if (puntos[i].color == 1) {
+        material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+      } else if (puntos[i].color == 2) {
+        material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
       }
-      var sphere = new THREE.Mesh( p, material );
+      var sphere = new THREE.Mesh(p, material);
       sphere.position.x = parseInt(x);
       sphere.position.y = parseInt(y);
       sphere.position.z = parseInt(z);
-      this.scene.add( sphere );
+      this.scene.add(sphere);
       mySelf.redporosa.push(sphere);
     }
-  
+
     //var bondscolores = json.bondsColor;
-    if(json.hasOwnProperty('bonds')){
+    if (json.hasOwnProperty('bonds')) {
       var sities = json.sities;
       var bonds = json.bonds;
-      for(var i = 0; i < sities.length; i++){
-        x=sities[i].x + 0.65;
-        y=sities[i].y + 0.65;
-        z=sities[i].z + 0.65;
-        radio=bonds[i].r;
+      for (var i = 0; i < sities.length; i++) {
+        x = sities[i].x + 0.65;
+        y = sities[i].y + 0.65;
+        z = sities[i].z + 0.65;
+        radio = bonds[i].r;
 
         // PRIMER ENLACE
         if (bonds[i].x > 0) {
-          var qx = new THREE.CylinderGeometry(radio,radio,radiomax*2*bonds[i].x,10);
+          var qx = new THREE.CylinderGeometry(radio, radio, radiomax * 2 * bonds[i].x, 10);
           qx.rotateZ(-Math.PI * 0.5);
-          
-          if(bonds[i].color==0){
-            material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
-          }else if(bonds[i].color==1){
-            material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-          }else if(bonds[i].color==2){
-            material = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
+
+          if (bonds[i].color == 0) {
+            material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+          } else if (bonds[i].color == 1) {
+            material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+          } else if (bonds[i].color == 2) {
+            material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
           }
-          var cylinderx = new THREE.Mesh( qx, material );
-          cylinderx.position.x = x + 2*sities[i].r;
+          var cylinderx = new THREE.Mesh(qx, material);
+          cylinderx.position.x = x + 2 * sities[i].r;
           cylinderx.position.y = y;
           cylinderx.position.z = z;
-          this.scene.add( cylinderx );
+          this.scene.add(cylinderx);
           mySelf.redporosa.push(cylinderx);
         }
-        
+
 
         // SEGUNDO ENLACE
         if (bonds[i].y > 0) {
-          var qy = new THREE.CylinderGeometry(radio,radio,radiomax*2*bonds[i].y,10);
+          var qy = new THREE.CylinderGeometry(radio, radio, radiomax * 2 * bonds[i].y, 10);
           qy.rotateY(-Math.PI * 0.5);
-          
-          if(bonds[i].color==0){
-            material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
-          }else if(bonds[i].color==1){
-            material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-          }else if(bonds[i].color==2){
-            material = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
+
+          if (bonds[i].color == 0) {
+            material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+          } else if (bonds[i].color == 1) {
+            material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+          } else if (bonds[i].color == 2) {
+            material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
           }
-          var cylindery = new THREE.Mesh( qy, material );
+          var cylindery = new THREE.Mesh(qy, material);
           cylindery.position.x = x;
-          cylindery.position.y = y + 2*sities[i].r;
+          cylindery.position.y = y + 2 * sities[i].r;
           cylindery.position.z = z;
-          this.scene.add( cylindery );
+          this.scene.add(cylindery);
           mySelf.redporosa.push(cylindery);
         }
 
         // TERCER ENLACE
         if (bonds[i].z > 0) {
-          var qz = new THREE.CylinderGeometry(radio,radio,radiomax*2*bonds[i].z,10);
+          var qz = new THREE.CylinderGeometry(radio, radio, radiomax * 2 * bonds[i].z, 10);
           qz.rotateX(-Math.PI * 0.5);
-          
-          if(bonds[i].color==0){
-            material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
-          }else if(bonds[i].color==1){
-            material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-          }else if(bonds[i].color==2){
-            material = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
+
+          if (bonds[i].color == 0) {
+            material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+          } else if (bonds[i].color == 1) {
+            material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+          } else if (bonds[i].color == 2) {
+            material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
           }
-          var cylinderz = new THREE.Mesh( qz, material );
+          var cylinderz = new THREE.Mesh(qz, material);
           cylinderz.position.x = x;
           cylinderz.position.y = y;
-          cylinderz.position.z = z - 2*sities[i].r;
-          this.scene.add( cylinderz );
+          cylinderz.position.z = z - 2 * sities[i].r;
+          this.scene.add(cylinderz);
           mySelf.redporosa.push(cylinderz);
         }
       }
@@ -167,9 +176,9 @@ export class RedPorosa implements FileModelInterface {
     }
 
     var centro = new THREE.Vector3();
-    centro.x = (mx+minx)/2;
-    centro.y = (my+miny)/2;
-    centro.z = (mz+minz)/2;
+    centro.x = (mx + minx) / 2;
+    centro.y = (my + miny) / 2;
+    centro.z = (mz + minz) / 2;
     mySelf.controls.target = centro;
     animate();
   }
@@ -221,39 +230,39 @@ export class RedPorosa implements FileModelInterface {
 
     $('#menu' + idVisualizador).append(item);
     $('#menu' + idVisualizador).css({ "visibility": "visible", "width": "250" })
-    
+
     //EvenListeners: Se usa Jquery para capturar los eventos
     $('document').ready(
       // Al seleccionar el checkBox llamado Azul se pintara el diagrama de color azul
-      $('#checkAzul').change(function(){
-          var check:any = document.getElementById('checkAzul');
-          if(check.checked) {
-              $('#checkGris').prop("checked",false);
-              mySelf.setBlue(check,0,0,1);
-          }else{
-              mySelf.setBlue(check,0,0,0);
-          }
+      $('#checkAzul').change(function () {
+        var check: any = document.getElementById('checkAzul');
+        if (check.checked) {
+          $('#checkGris').prop("checked", false);
+          mySelf.setBlue(check, 0, 0, 1);
+        } else {
+          mySelf.setBlue(check, 0, 0, 0);
+        }
       }),
       // Al seleccionar el checkBox llamado Gris se pintara el diagrama de color gris
-      $('#checkGris').change(function(){
-          var check:any = document.getElementById('checkGris');
-          if(check.checked) {
-              $('#checkAzul').prop("checked",false);
-              mySelf.setGris(check,1,1,1);
-          }else{
-              mySelf.setGris(check,0,0,0);
-          }
+      $('#checkGris').change(function () {
+        var check: any = document.getElementById('checkGris');
+        if (check.checked) {
+          $('#checkAzul').prop("checked", false);
+          mySelf.setGris(check, 1, 1, 1);
+        } else {
+          mySelf.setGris(check, 0, 0, 0);
+        }
       }),
       // Al seleccionar el checkBox llamado Rotar el diagrama comenzará a girar
-      $('#autoRotar').change(function(){
-          var check:any = document.getElementById('autoRotar');
-          if(check.checked) {
-              mySelf.autoRotar(check);
-          }else{
-              mySelf.autoRotar(check);
-          }
-      })    
-  );
+      $('#autoRotar').change(function () {
+        var check: any = document.getElementById('autoRotar');
+        if (check.checked) {
+          mySelf.autoRotar(check);
+        } else {
+          mySelf.autoRotar(check);
+        }
+      })
+    );
   }//FIN mostrarMenu()
 
   /**recibe desde index.html el RGB del color a convertir en este caso gris y
@@ -262,62 +271,62 @@ export class RedPorosa implements FileModelInterface {
   setBlue(check: any, r: any, g: any, b: any): void {
     var mySelf = this;
     var checkbox = check;
-      var coloraux;
-      if(checkbox.checked==true){
-           mySelf.redporosa.forEach(function(punto:any){
-             coloraux = punto.material.color;
-             if(coloraux.r!=0){coloraux.r =0, coloraux.b=r;}
-             else if(coloraux.g!=0){coloraux.g =0,coloraux.b=g;}
-             else if(coloraux.b!=0){coloraux.b =b;}
-             punto.material.setValues({color : coloraux});
-           });
-      } else {
-            mySelf.redporosa.forEach(function(punto:any){
-              coloraux = punto.material.color;
-              if(coloraux.b==r){coloraux.r =1, coloraux.b=0;}
-              else if(coloraux.b==g){coloraux.g =1,coloraux.b=0;}
-              else if(coloraux.b==b){coloraux.b =1;}
-              punto.material.setValues({color : coloraux});
+    var coloraux;
+    if (checkbox.checked == true) {
+      mySelf.redporosa.forEach(function (punto: any) {
+        coloraux = punto.material.color;
+        if (coloraux.r != 0) { coloraux.r = 0, coloraux.b = r; }
+        else if (coloraux.g != 0) { coloraux.g = 0, coloraux.b = g; }
+        else if (coloraux.b != 0) { coloraux.b = b; }
+        punto.material.setValues({ color: coloraux });
+      });
+    } else {
+      mySelf.redporosa.forEach(function (punto: any) {
+        coloraux = punto.material.color;
+        if (coloraux.b == r) { coloraux.r = 1, coloraux.b = 0; }
+        else if (coloraux.b == g) { coloraux.g = 1, coloraux.b = 0; }
+        else if (coloraux.b == b) { coloraux.b = 1; }
+        punto.material.setValues({ color: coloraux });
 
-            });
-            mySelf.colorsp = {};
-      }
+      });
+      mySelf.colorsp = {};
+    }
   }
 
   setGris(check: any, r: any, g: any, b: any): void {
     var mySelf = this;
     var checkbox = check;
-      var coloraux, caux;
-      if(checkbox.checked==true){
-           mySelf.redporosa.forEach(function(punto: any){
-             var aux = punto.material.color;
-             coloraux  =punto.material.color;
-             if(aux.r==1 && aux.g==0 && aux.b==0){
-               aux.r = r; aux.g = r; aux.b = r;
-             }else if(aux.r==0 && aux.g==1 && aux.b==0){
-               aux.r = g; aux.g = g; aux.b = g;
-             }else if(aux.r==0 && aux.g==0 && aux.b==1){
-               aux.r = b; aux.g = b; aux.b = b;
-             }
-             punto.material.setValues({color : aux});
-             mySelf.colorsp[aux.getHex()] = coloraux;
-           });
-      } else {
-            mySelf.redporosa.forEach(function(punto:any){
-              var aux = punto.material.color;
-              coloraux  =punto.material.color;
-              if(aux.r == r && aux.g == r && aux.b == r){
-                aux.r=1, aux.g=0, aux.b=0;
-              }else if(aux.r == g && aux.g == g && aux.b == g){
-                aux.r=0, aux.g=1, aux.b=0;
-              }else if(aux.r == b && aux.g == b && aux.b == b){
-                aux.r=0, aux.g=0, aux.b=1;
-              }
-              punto.material.setValues({color : aux});
+    var coloraux, caux;
+    if (checkbox.checked == true) {
+      mySelf.redporosa.forEach(function (punto: any) {
+        var aux = punto.material.color;
+        coloraux = punto.material.color;
+        if (aux.r == 1 && aux.g == 0 && aux.b == 0) {
+          aux.r = r; aux.g = r; aux.b = r;
+        } else if (aux.r == 0 && aux.g == 1 && aux.b == 0) {
+          aux.r = g; aux.g = g; aux.b = g;
+        } else if (aux.r == 0 && aux.g == 0 && aux.b == 1) {
+          aux.r = b; aux.g = b; aux.b = b;
+        }
+        punto.material.setValues({ color: aux });
+        mySelf.colorsp[aux.getHex()] = coloraux;
+      });
+    } else {
+      mySelf.redporosa.forEach(function (punto: any) {
+        var aux = punto.material.color;
+        coloraux = punto.material.color;
+        if (aux.r == r && aux.g == r && aux.b == r) {
+          aux.r = 1, aux.g = 0, aux.b = 0;
+        } else if (aux.r == g && aux.g == g && aux.b == g) {
+          aux.r = 0, aux.g = 1, aux.b = 0;
+        } else if (aux.r == b && aux.g == b && aux.b == b) {
+          aux.r = 0, aux.g = 0, aux.b = 1;
+        }
+        punto.material.setValues({ color: aux });
 
-            });
-            mySelf.colorsp = {};
-      }
+      });
+      mySelf.colorsp = {};
+    }
   }
 
   autoRotar(checkbox: any): void {
