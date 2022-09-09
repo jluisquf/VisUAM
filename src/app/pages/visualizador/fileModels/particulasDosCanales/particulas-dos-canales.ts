@@ -41,42 +41,42 @@ export class ParticulasDosCanales implements FileModelInterface {
     // Se crea la escena sobre la que se pintaran las particulas, ademas de la camara
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-    renderer = new THREE.WebGLRenderer({ canvas: this.canvas });
+
+    // Agrega transparencia a la escena para que no se muestre el pantallazo negro
+    renderer = new THREE.WebGLRenderer({ canvas: this.canvas, alpha: true });
+
     //variable que sera usada para identificar el menu principal e indivudual
     dateId = new Date();
     idVisualizador = this.dateId.getTime();
     //Varible usada para cambiar el icono de play a pause y viceversa
     public pausaAnimacion: boolean = false; // Al inicio se pone en False pues no queremos que este pausada.
-    public pasaValidacionTags: boolean = false;
     
+    // Metodo que realiza la validacion de las etiquetas del archivo JSON
     draw(json: any, c: any): void {
-        // Validamos que tenga las etiquetas "NtoW" y "WtoN" para ser visualizado el modelo
-        let NtoW = json.NtoW;
-        let WtoN = json.WtoN;
-        if(NtoW == undefined || WtoN == undefined){
-            console.log("ERROR_TAGS draw();")
-            console.log("NtoW: " + NtoW)
-            console.log("WtoN: " + WtoN)
-            alert("Missing labels required to display the model.");
-            window.location.reload();
-            //this.pasaValidacionTags = false;
-        } else {
-            if(json.NtoW.times == undefined || json.WtoN.times == undefined || json.NtoW.hits == undefined || json.WtoN.hits == undefined){
-                console.log("ERROR_TAGS_TIMES_HITS")
-                alert("Missing labels required to show the statistics.");
+        try{
+            // Validamos que tenga las etiquetas "NtoW" y "WtoN" para ser visualizado el modelo
+            let NtoW = json.NtoW;
+            let WtoN = json.WtoN;
+            if(NtoW == undefined || WtoN == undefined){
+                console.log("ERROR_TAGS");
+                console.log("NtoW: " + NtoW);
+                console.log("WtoN: " + WtoN);
+                alert("Missing labels required to display the model.");
                 window.location.reload();
-                this.scene.remove.apply(this.scene, this.scene.children);
-                this.renderer.clear();
-                //this.pasaValidacionTags = false;
-            }else{
-                //this.pasaValidacionTags = true;
+            } else if(json.NtoW.times == undefined || json.WtoN.times == undefined || json.NtoW.hits == undefined || json.WtoN.hits == undefined){
+                    console.log("ERROR_TAGS_TIMES_HITS");
+                    alert("Missing labels required to show the statistics.");
+                    window.location.reload();
+            }else{ // Si pasa todas las validaciones se ejecuta la función que se encarga de dibujar el formato
                 this.drawValidation();
             }
+        }catch(e){
+            throw new Error("ERROR: labels in model.");
         }
     }
     
     drawValidation(): void {
-        console.log("EJECUTANDO: drawValitation();")
+    //draw(json: any, c: any): void {
         var points: any = [];
         var pointsW: any = [];
         var objParticulas = this.mySelf;
