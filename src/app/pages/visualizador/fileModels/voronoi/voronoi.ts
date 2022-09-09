@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-// BUG: Manda que no existe el material 'color', pero solo hace por unos
-// segundos, después deja de mandar warnings
-// Interface que implementan todos los modelos
+/* BUG: Manda que no existe el material 'color', pero solo hace por unos
+  segundos, después deja de mandar warnings
+  Interface que implementan todos los modelos */
 import { FileModelInterface } from '../file-model-interface';
 import { Router } from '@angular/router';
 
@@ -36,34 +36,66 @@ export class Voronoi implements FileModelInterface{
     
     // Color de fondo de la visualización
     backgroundColor = new THREE.Color( 0xD3D3D3 );
+    backgroundTransparent = new THREE.Color( 0x00D3D3D3 );
 
     // Crear escena y cámara
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
     
     // Crear el canvas
-    public renderer = new THREE.WebGLRenderer({ canvas: this.canvas });
+    public renderer = new THREE.WebGLRenderer({ canvas: this.canvas, alpha: true });
 
     // El diagrama se mueve respecto al centro del cubo
     controls = new OrbitControls(this.camera, this.renderer.domElement);
+
+    // Función para recargar la página y mostrar una alert
+    showAlert(msg: string){
+      alert(msg);
+      window.location.reload();
+    }
 
     // Middleware para saber si los puntos son en 3d o 2d
     draw(json: any, c: any){
         // Dimensión que indica el archivo
         this.dimension = json.d;
-        // Leemos un punto
-        var punto = json.p[0];
+
+        // Verifica que exista el campo dimensión
+        if (this.dimension === undefined){
+            this.showAlert("Field 'd' not specified");
+            return;
+        }
+
+        // Verifica que la dimensión sea 2 o 3
+        if (this.dimension != 2 && this.dimension != 3){
+            this.showAlert(`Dimension ${this.dimension} not supported`);
+            return;
+        }
+
+        // Verifica que exista el campo de los puntos
+        if (json.p === undefined){
+            this.showAlert("Field 'p' not specified");
+            return;
+        } else {
+            // Leemos un punto
+            var punto = json.p[0];
+        }
 
         // Si el punto tiene la coordenada z o tiene la dimensión 3 indicada en
         // el archivo entonces pintar un cubo 3D
-        if (punto.z !== undefined || this.dimension == 3) {
+        if (this.dimension == 3 && punto.z !== undefined) {
             this.draw3d(json, c);
+            return;
+        // Si la coordenada z no está presente pero sí la dimensión 3
+        } else if (this.dimension == 3 && punto.z === undefined){
+            this.showAlert("Dimension 3 given, but z coordinate not given");
+            return;
         // En el caso contrario pintar un plano
         } else if (this.dimension == 2) {
             this.draw2d(json, c);
+            return;
         } else {
-            alert("Necesita indicar la dimensión con el campo 'd'");
-            window.location.reload();
+            this.showAlert("Something very strange has happened");
+            return;
         }
     }
 
@@ -92,11 +124,38 @@ export class Voronoi implements FileModelInterface{
         var mx = -10000, my = -10000, mz = -10000;
         
         // Recorremos todos los puntos
-        puntos.forEach(function (punto:any) {
+        for (let i = 0; i < puntos.length; i++){
+            let punto = puntos[i];
+
             // Convertimos las coordenadas a enteros
-            var px = parseInt(punto.x);
-            var py = parseInt(punto.y);
-            var pz = parseInt(punto.z);
+            var px, py, pz;
+
+            // Verificamos que las coordenadas sean correctas
+            if (punto.x === undefined){
+                mySelf.showAlert("Error parsing x coordinate from some point, please verify your data");
+                this.scene.background = null;
+                break;
+            } else{
+                px = parseInt(punto.x);
+            }
+
+            // Verificamos que las coordenadas sean correctas
+            if (punto.y === undefined){
+                mySelf.showAlert("Error parsing y coordinate from some point, please verify your data");
+                this.scene.background = null;
+                break;
+            } else{
+                py = parseInt(punto.y);
+            }
+
+            // Verificamos que las coordenadas sean correctas
+            if (punto.z === undefined){
+                mySelf.showAlert("Error parsing z coordinate from some point, please verify your data");
+                this.scene.background = null;
+                break;
+            } else{
+                pz = parseInt(punto.z);
+            }
 
             // Los puntos se agrupan con esta propiedad
             var sb = '' + punto.sb
@@ -118,7 +177,7 @@ export class Voronoi implements FileModelInterface{
             if (py > my) my = py;
             if (pz > mz) mz = pz;
 
-        }); // FIN puntos.forEach()
+        }; // FIN puntos.forEach()
 
         // Esto debe cambiar debido al cambio a BufferGeometry
         cs.forEach((csColor) => {
@@ -211,11 +270,38 @@ export class Voronoi implements FileModelInterface{
         
         // Recorremos todos los puntos
         // TODO: optimizar esto usando un for simple y también quitando el if
-        puntos.forEach(function (punto:any) {
+        for (let i = 0; i < puntos.length; i++){
+            let punto = puntos[i];
+
             // Convertimos las coordenadas a enteros
-            var px = parseInt(punto.x);
-            var py = parseInt(punto.y);
-            var pz = 0;
+            var px, py, pz;
+
+            // Verificamos que las coordenadas sean correctas
+            if (punto.x === undefined){
+                mySelf.showAlert("Error parsing x coordinate from some point, please verify your data");
+                this.scene.background = null;
+                break;
+            } else{
+                px = parseInt(punto.x);
+            }
+
+            // Verificamos que las coordenadas sean correctas
+            if (punto.y === undefined){
+                mySelf.showAlert("Error parsing y coordinate from some point, please verify your data");
+                this.scene.background = null;
+                break;
+            } else{
+                py = parseInt(punto.y);
+            }
+
+            pz = 0;
+
+            // Puede pasar que se quiera hacer una visualización en 2D con
+            // puntos 3D, para eso sólo consideramos los puntos en con z=0
+            if (punto.z !== undefined && punto.z > 0){
+                // Saltarse este punto en caso de que si exista la coordenada z
+                continue;
+            }
 
             // Los puntos se agrupan con esta propiedad
             var sb = '' + punto.sb
@@ -238,7 +324,7 @@ export class Voronoi implements FileModelInterface{
             if (py > my) my = py;
             if (pz > mz) mz = pz;
 
-        }); // FIN puntos.forEach()
+        } // FIN for
 
         // Esto debe cambiar debido al cambio a BufferGeometry
         cs.forEach((csColor) => {
