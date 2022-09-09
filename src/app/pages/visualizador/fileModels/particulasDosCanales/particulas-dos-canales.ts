@@ -41,7 +41,10 @@ export class ParticulasDosCanales implements FileModelInterface {
     // Se crea la escena sobre la que se pintaran las particulas, ademas de la camara
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-    renderer = new THREE.WebGLRenderer({ canvas: this.canvas });
+
+    // Agrega transparencia a la escena para que no se muestre el pantallazo negro
+    renderer = new THREE.WebGLRenderer({ canvas: this.canvas, alpha: true });
+
     //variable que sera usada para identificar el menu principal e indivudual
     dateId = new Date();
     idVisualizador = this.dateId.getTime();
