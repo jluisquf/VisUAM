@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FileStorageService } from 'src/app/services/fileStorageService/file-storage.service';
+import { FileStorageService } from 'src/app/services/file-storage-service/file-storage.service';
 
 @Component({
   selector: 'app-visualizador-page',

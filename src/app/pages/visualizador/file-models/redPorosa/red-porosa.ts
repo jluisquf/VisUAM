@@ -100,7 +100,7 @@ export class RedPorosa implements FileModelInterface {
           qx.rotateZ(-Math.PI * 0.5);
 
           if (bonds[i].color == 0) {
-            material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            material = new THREE.MeshBasicMaterial({ color: 0x804000 });
           } else if (bonds[i].color == 1) {
             material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
           } else if (bonds[i].color == 2) {
@@ -121,7 +121,7 @@ export class RedPorosa implements FileModelInterface {
           qy.rotateY(-Math.PI * 0.5);
 
           if (bonds[i].color == 0) {
-            material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            material = new THREE.MeshBasicMaterial({ color: 0x804000 });
           } else if (bonds[i].color == 1) {
             material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
           } else if (bonds[i].color == 2) {
@@ -141,7 +141,7 @@ export class RedPorosa implements FileModelInterface {
           qz.rotateX(-Math.PI * 0.5);
 
           if (bonds[i].color == 0) {
-            material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            material = new THREE.MeshBasicMaterial({ color: 0x804000 });
           } else if (bonds[i].color == 1) {
             material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
           } else if (bonds[i].color == 2) {

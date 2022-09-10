@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { FileStorageService } from 'src/app/services/fileStorageService/file-storage.service';
-import { Particulas } from '../fileModels/particulas/particulas';
-import { RedPorosa } from '../fileModels/redPorosa/red-porosa';
-import { Voronoi } from '../fileModels/voronoi/voronoi';
-import { ParticulasDosCanales } from '../fileModels/particulasDosCanales/particulas-dos-canales';
+import { FileStorageService } from 'src/app/services/file-storage-service/file-storage.service';
+import { Particulas } from '../file-models/particulas/particulas';
+import { RedPorosa } from '../file-models/redPorosa/red-porosa';
+import { Voronoi } from '../file-models/voronoi/voronoi';
+import { ParticulasDosCanales } from '../file-models/particulasDosCanales/particulas-dos-canales';
 
 @Component({
   selector: 'app-canvas',
