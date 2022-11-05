@@ -530,30 +530,29 @@ export class ParticulasDosCanales implements FileModelInterface {
         let xP = 1000;//Punto en el que la particula cambiara de color su trayectoria
         
         if (checkbox.checked == true) {//Posiciones de cada particula
-
-            var arrTmp = [];// arreglo que guardara las coordenadas donde se golpeo la pared
-            var lastTouch:any = 0; // variable que tendra la ultima coordenada donde golpeo la pared
-
+            
             for (var i = 0; i < this.trays.length; i++) {
                 
                 if(this.trays.length == 1) {//Si la particula esta aislada
-                    var geometry = new THREE.BufferGeometry();
+                    // Obtenemos los datos del json
+                    let lastTouchX = mySelf.particulas.lastTouch.x; // obtenemos la coordenada x de la particula aislada
+                    let lastTouchY = mySelf.particulas.lastTouch.y; // obtenemos la coordenada y de la particula aislada
+                    let numStepTouch = mySelf.particulas.numStepTouch; // se obtiene el ultimo paso que toca, este contiene un entero a diferencia de LastTouch es como el xP
                     
+                    var geometry = new THREE.BufferGeometry();
+
                     var colorLinea = [];
                     for (var j = 0; j < this.trays[i].length; j++) {
                         var x = this.trays[i][j].x;
                         var y = this.trays[i][j].y;
                         vertices.push(x, y, 0);
-                        if (j < xP) {
+                        if (j < numStepTouch) {
                             colorLinea.push(255, 0, 0); // Color de la linea: Rojo
                         } else {
-                            //console.log('Toque una pared, ahora cambiare mi tray a blanco: ');
-                            arrTmp.push({"x":this.trays[i][j].x, "y":this.trays[i][j].y}); // guardamos las coordenadas
                             colorLinea.push(51, 255, 85); // Color de la linea: Blanco
                         }
                     }
-                    //lastTouch = arrTmp[arrTmp.length-1];
-                    //Pasamos las posiciones
+
                     geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
                     // Pasamos el color
                     geometry.addAttribute('color', new THREE.Float32BufferAttribute(colorLinea, 3));
@@ -574,8 +573,6 @@ export class ParticulasDosCanales implements FileModelInterface {
                     this.trayso.push(tray);
                 }
             }
-            lastTouch = arrTmp[arrTmp.length-1];
-            console.log("lastTouch: ", lastTouch);
         }
         /***********************Esto es para WtoN*******************************/
         this.traysoW.forEach(function(trayW:any){
@@ -590,6 +587,10 @@ export class ParticulasDosCanales implements FileModelInterface {
             for (var i = 0; i < this.traysW.length; i++) {
                 
                 if(this.traysW.length == 1) {//Si la particula esta aislada
+                    // Obtenemos los datos del json
+                    let lastTouchXWtoN = mySelf.particulasW.lastTouch.x; // obtenemos la coordenada x de la particula aislada
+                    let lastTouchYWtoN = mySelf.particulasW.lastTouch.y; // obtenemos la coordenada y de la particula aislada
+                    let numStepTouchWtoN = mySelf.particulasW.numStepTouch; // se obtiene el ultimo paso que toca, este contiene un entero a diferencia de LastTouch es como el xPW
                     var geometryW = new THREE.BufferGeometry();
                     
                     var colorLineaW = [];
@@ -597,7 +598,7 @@ export class ParticulasDosCanales implements FileModelInterface {
                         var xW = this.traysW[i][j].x;
                         var yW = this.traysW[i][j].y;
                         verticesW.push(xW, yW, 0);
-                        if (j < xPW) {
+                        if (j < numStepTouchWtoN) {
                             // Color de la linea: Rojo
                             colorLineaW.push(255, 0, 0);
                         } else {
@@ -1097,6 +1098,7 @@ export class ParticulasDosCanales implements FileModelInterface {
      */
     aislaParticula(particula:any):any{
         
+        var mySelf = this;
         //Si la particula no existe en el arreglo
         if( particula >= this.particulas.length ){
             //Mensaje de error al ingresar un numero no valido
@@ -1143,6 +1145,7 @@ export class ParticulasDosCanales implements FileModelInterface {
                 object = {};
                 $('#particula'+ particula ).remove();
                 $('#canvas'+particula).remove();
+                mySelf.scene.remove(object);
                 $('#visualizador'+particula).remove();//descomentar si se usa mostrarMenuIndividual
             } else {//Si el usuario cancela sólo retornamos false
                 return false;

@@ -53,7 +53,7 @@ export class CanvasComponent implements OnInit {
         object = new Particulas(json,this.canvas);
         this.muestraGrafica = true;
         break;*/
-      case "Particulas":
+      case "Particles":
         object = new ParticulasDosCanales(json,this.canvas);
         this.muestraGrafica = true;
         break;

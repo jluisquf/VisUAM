@@ -94,7 +94,7 @@ export class MenuComponent implements OnInit {
         /*case "Particulas":
           object = new Particulas(json,this.canvas);
           break;*/
-        case "Particulas":
+        case "Particles":
           object = new ParticulasDosCanales(json,this.canvas);
           break;
         case "PoreNetwork":
