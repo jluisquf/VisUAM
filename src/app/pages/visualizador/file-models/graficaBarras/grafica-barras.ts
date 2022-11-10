@@ -75,9 +75,9 @@ export class GraficaBarras implements FileModelInterface {
                             "<ul class='nav flex-column' id='vor'>" +
                                 "<li class='nav-item'>" +
                                     "<div class='form-check'>" +
-                                        "<input type='checkbox' class='form-check-input' id='checkAzul'>" +
-                                        "<label class='form-check-label' for='checkAzul'><span></span></label>" +
-                                        "<span> Change chart </span>" +
+                                        "<input type='checkbox' class='form-check-input' id='checkPuntos'>" +
+                                        "<label class='form-check-label' for='checkPuntos'><span></span></label>" +
+                                        "<span> Grafica de puntos? </span>" +
                                     "</div>" +
                                 "</li>" +
                             "</ul>" +
@@ -88,5 +88,43 @@ export class GraficaBarras implements FileModelInterface {
         $('#menu' + mySelf.id).append(item);
         $('#menu' + mySelf.id).css({ "visibility": "visible", "width": "250" })
         /******************************************************************************** */
+
+        //Se utiliza Jquery para detectar los cambios en el formulario de check
+        $('document').ready(
+            // Al seleccionar el checkBox llamado Puntos cambiara el tipo de grafica
+            $('#checkPuntos').change(function(){
+                var check:any = document.getElementById('checkPuntos');
+                if(check.checked) {
+                    mySelf.setTipo(!check); // Esto funciona por alguna razón cuando esta activo el check mandara punto
+                }else{
+                    mySelf.setTipo(check); // cuando este desactivado mandara barras el cual nos servir
+                }
+            }),
+        );
+
     }
+
+    //Esta funcion nos ayudara a colocar el tipo de grafico que queremos gracias a los eventos del menu
+    setTipo(checkbox:any):void {
+
+        //Creamos una copia del canvas y del json ya que el canvas será elominado y el json modificado en la copia
+        var newCanvas = this.canvas;
+        var newJson = this.json;
+
+        //llegara el check y dependiendo la posicion modificara el tipo de la grafica ya sea de barras bar o de puntos bubble
+        if (checkbox) {
+            newJson.type = "bar";
+        } else{
+            newJson.type = "bubble";
+        }
+
+        //destruimos el canvas anterior
+        this.chart.render();
+        this.chart.destroy();
+        
+        console.log("La grafica será de tipo:", newJson.type);
+        //dibujamos nuevamente 
+        this.draw(newJson, newCanvas);
+        
+    } // FIN setTipo()
 }
