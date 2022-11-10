@@ -6,6 +6,7 @@ import { Particulas } from '../file-models/particulas/particulas';
 import { RedPorosa } from '../file-models/redPorosa/red-porosa';
 import { Voronoi } from '../file-models/voronoi/voronoi';
 import { ParticulasDosCanales } from '../file-models/particulasDosCanales/particulas-dos-canales';
+import { GraficaBarras } from '../file-models/graficaBarras/grafica-barras';
 
 @Component({
   selector: 'app-canvas',
@@ -59,6 +60,10 @@ export class CanvasComponent implements OnInit {
         break;
       case "PoreNetwork":
         object = new RedPorosa(json,this.canvas);
+        this.muestraGrafica = true;
+        break;
+      case "BarChart":
+        object = new GraficaBarras(json,this.canvas);
         this.muestraGrafica = true;
         break;
       default:
