@@ -3,7 +3,8 @@
         "Inicio":"Home",
         "Que":"What is it?",
         "GrupoTrabajo":"Working Group",
-        "Abrir":"Open viewer!"
+        "Abrir":"Open viewer!",
+        "Ejemplos":"Examples"
     },
     "homePage":{
         "titulo":"Meet the new VISUAM viewer",

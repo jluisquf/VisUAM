@@ -77,3 +77,7 @@ app-header::ng-deep .header__content {
     -webkit-box-shadow: 10px 0px 15px -15px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 0px 15px -15px rgba(0,0,0,0.75);
 }
+
+.download {
+  margin-top: 40px;
+}

@@ -18,6 +18,9 @@
                 <a href="#equipo-trabajo__section" class="navbar__link">{{"header.GrupoTrabajo"|translate}}</a>
             </div>
             <div class="navbar__item">
+                <a href="https://drive.google.com/u/0/uc?id=1iuIW8isH6cMfJhJGwSW189pDCFDRr47e&export=download" class="navbar__link" download="VISUAM_Examples">{{"header.Ejemplos"|translate}}</a>
+            </div>
+            <div class="navbar__item">
                 <select #langSelect class="navbar__link" (change)="cambiaIdioma(langSelect.value)">
                     <option *ngFor="let lang of langs" [selected]="lang == translate.currentLang" [value]="lang">
                         {{lang}} <i class='bx bxs-down-arrow' ></i>
