@@ -73,13 +73,31 @@ export class GraficaBarras implements FileModelInterface {
                         "<h3 class='align-text-top section__subtitle' id='titulo'><span>Graphics Menu</span></h3>" +
                         "<div id = 'particulasMenu' class='particulasMenu' >" +
                             "<ul class='nav flex-column' id='vor'>" +
+
                                 "<li class='nav-item'>" +
                                     "<div class='form-check'>" +
                                         "<input type='checkbox' class='form-check-input' id='checkPuntos'>" +
                                         "<label class='form-check-label' for='checkPuntos'><span></span></label>" +
-                                        "<span> Grafica de puntos? </span>" +
+                                        "<span> Grafica de puntos </span>" +
                                     "</div>" +
                                 "</li>" +
+
+                                "<li class='nav-item'>" +
+                                    "<div class='form-check'>" +
+                                        "<input type='checkbox' class='form-check-input' id='checkLineas'>" +
+                                        "<label class='form-check-label' for='checkLineas'><span></span></label>" +
+                                        "<span> Grafica de Líneas </span>" +
+                                    "</div>" +
+                                "</li>" +
+
+                                "<li class='nav-item'>" +
+                                    "<div class='form-check'>" +
+                                        "<input type='checkbox' class='form-check-input' id='checkPastel'>" +
+                                        "<label class='form-check-label' for='checkPastel'><span></span></label>" +
+                                        "<span> Grafica de Pastel </span>" +
+                                    "</div>" +
+                                "</li>" +
+
                             "</ul>" +
                         "</div>"+
                     "</div>";
@@ -95,9 +113,31 @@ export class GraficaBarras implements FileModelInterface {
             $('#checkPuntos').change(function(){
                 var check:any = document.getElementById('checkPuntos');
                 if(check.checked) {
-                    mySelf.setTipo(!check); // Esto funciona por alguna razón cuando esta activo el check mandara punto
+                    $('#checkLineas').prop("checked",false);
+                    $('#checkPastel').prop("checked",false);
+                    mySelf.setTipo(!check, "puntos"); // Esto funciona por alguna razón cuando esta activo el check mandara punto
                 }else{
-                    mySelf.setTipo(check); // cuando este desactivado mandara barras el cual nos servir
+                    mySelf.setTipo(check, "barras"); // cuando este desactivado mandara barras el cual nos servir
+                }
+            }),
+            $('#checkLineas').change(function(){
+                var check:any = document.getElementById('checkLineas');
+                if(check.checked) {
+                    $('#checkPuntos').prop("checked",false);
+                    $('#checkPastel').prop("checked",false);
+                    mySelf.setTipo(!check, "lineas"); // Esto funciona por alguna razón cuando esta activo el check mandara punto
+                }else{
+                    mySelf.setTipo(check, "barras"); // cuando este desactivado mandara barras el cual nos servir
+                }
+            }),
+            $('#checkPastel').change(function(){
+                var check:any = document.getElementById('checkPastel');
+                if(check.checked) {
+                    $('#checkLineas').prop("checked",false);
+                    $('#checkPuntos').prop("checked",false);
+                    mySelf.setTipo(!check, "pastel"); // Esto funciona por alguna razón cuando esta activo el check mandara punto
+                }else{
+                    mySelf.setTipo(check, "barras"); // cuando este desactivado mandara barras el cual nos servir
                 }
             }),
         );
@@ -105,18 +145,30 @@ export class GraficaBarras implements FileModelInterface {
     }
 
     //Esta funcion nos ayudara a colocar el tipo de grafico que queremos gracias a los eventos del menu
-    setTipo(checkbox:any):void {
+    setTipo(checkbox:any, tipo:string):void {
 
         //Creamos una copia del canvas y del json ya que el canvas será elominado y el json modificado en la copia
         var newCanvas = this.canvas;
         var newJson = this.json;
 
         //llegara el check y dependiendo la posicion modificara el tipo de la grafica ya sea de barras bar o de puntos bubble
-        if (checkbox) {
-            newJson.type = "bar";
-        } else{
-            newJson.type = "bubble";
-        }
+
+        switch (tipo) {
+            case "puntos":
+                newJson.type = "bubble";
+              break;
+            case "lineas":
+                newJson.type = "line";
+              break;
+            case "pastel":
+                newJson.type = "pie";
+              break;
+            case "barras":
+                newJson.type = "bar";
+              break;
+            default:
+              break;
+          }
 
         //destruimos el canvas anterior
         this.chart.render();
