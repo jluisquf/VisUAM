@@ -99,6 +99,7 @@ export class GraficaBarras implements FileModelInterface {
                                 "</li>" +
 
                             "</ul>" +
+                            "<button id='botonDescarga'>Descargar</button>"+
                         "</div>"+
                     "</div>";
 
@@ -139,6 +140,25 @@ export class GraficaBarras implements FileModelInterface {
                 }else{
                     mySelf.setTipo(check, "barras"); // cuando este desactivado mandara barras el cual nos servir
                 }
+            }),
+
+            $('#botonDescarga').click(function(){
+                console.log("Descargando imagen");
+
+                const imageLink = document.createElement('a');
+                const canvasLink = document.getElementById('myCanvas') as HTMLCanvasElement;
+                imageLink.download = 'canvas.png';
+                console.log(canvasLink);
+                imageLink.href = canvasLink.toDataURL('image/png', 1);
+                imageLink.click();
+                // var check:any = document.getElementById('checkPastel');
+                // if(check.checked) {
+                //     $('#checkLineas').prop("checked",false);
+                //     $('#checkPuntos').prop("checked",false);
+                //     mySelf.setTipo(!check, "pastel"); // Esto funciona por alguna razón cuando esta activo el check mandara punto
+                // }else{
+                //     mySelf.setTipo(check, "barras"); // cuando este desactivado mandara barras el cual nos servir
+                // }
             }),
         );
 
