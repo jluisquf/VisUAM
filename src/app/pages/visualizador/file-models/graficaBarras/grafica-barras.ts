@@ -50,7 +50,21 @@ export class GraficaBarras implements FileModelInterface {
                 display: true,
                 text: json.title,
               }
-            }
+            },
+            scales: {
+                y: {
+                  title: {
+                    display: true,
+                    text: 'Cantidad'
+                  }
+                },
+                x: {
+                    title: {
+                      display: true,
+                      text: 'Número de columna'
+                    }
+                },
+              }          
           }
         });
     }
@@ -143,26 +157,21 @@ export class GraficaBarras implements FileModelInterface {
             }),
 
             $('#botonDescarga').click(function(){
-                console.log("Descargando imagen");
-
-                const imageLink = document.createElement('a');
-                const canvasLink = document.getElementById('myCanvas') as HTMLCanvasElement;
-                imageLink.download = 'canvas.png';
-                console.log(canvasLink);
-                imageLink.href = canvasLink.toDataURL('image/png', 1);
-                imageLink.click();
-                // var check:any = document.getElementById('checkPastel');
-                // if(check.checked) {
-                //     $('#checkLineas').prop("checked",false);
-                //     $('#checkPuntos').prop("checked",false);
-                //     mySelf.setTipo(!check, "pastel"); // Esto funciona por alguna razón cuando esta activo el check mandara punto
-                // }else{
-                //     mySelf.setTipo(check, "barras"); // cuando este desactivado mandara barras el cual nos servir
-                // }
+                mySelf.descarga();
             }),
         );
 
     }
+
+    descarga():void {
+        console.log("Descargando imagen");
+        const imageLink = document.createElement('a');
+        const canvasLink = document.getElementById('myCanvas') as HTMLCanvasElement;
+        imageLink.download = 'canvas.png';
+        console.log(canvasLink);
+        imageLink.href = canvasLink.toDataURL('image/png', 1);
+        imageLink.click();
+    } // FIN descarga()
 
     //Esta funcion nos ayudara a colocar el tipo de grafico que queremos gracias a los eventos del menu
     setTipo(checkbox:any, tipo:string):void {
