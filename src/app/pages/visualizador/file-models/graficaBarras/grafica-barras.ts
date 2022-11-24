@@ -27,7 +27,12 @@ export class GraficaBarras implements FileModelInterface {
         for (let i = 0; i < json.p.length; i++) {
             arrXValues.push(json.p[i].x);
             arrYValues.push(json.p[i].y);
-            colors.push(json.p[i].color);
+            
+            if (json.p[i].color == "") {
+                colors.push("blue");    
+            } else {
+                colors.push(json.p[i].color);    
+            }
         }
         var xValues = arrXValues;//["Italy", "France", "Spain", "USA", "Argentina"]; //json.data.labels;
         var yValues = arrYValues;//[55, 49, 44, 24, 15];//json.data.data;
@@ -40,6 +45,7 @@ export class GraficaBarras implements FileModelInterface {
             labels: xValues,
             datasets: [{
               backgroundColor: barColors,
+              label: undefined,
               data: yValues
             }]
           },
@@ -49,6 +55,9 @@ export class GraficaBarras implements FileModelInterface {
               title: {
                 display: true,
                 text: json.title,
+              },
+              legend:{
+                display: false //oculta las etiquetas de los dataset
               }
             },
             scales: {
@@ -113,7 +122,7 @@ export class GraficaBarras implements FileModelInterface {
                                 "</li>" +
 
                             "</ul>" +
-                            "<button id='botonDescarga'>Descargar</button>"+
+                            "<button id='botonDescarga' class='btn btn-primary'>Descargar</button>"+
                         "</div>"+
                     "</div>";
 
