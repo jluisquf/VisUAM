@@ -4,7 +4,7 @@ import Chart from 'chart.js/auto'; // se importa la libreria chart.js
 declare var CanvasJS: any; // otra libreria para graficar
 declare var $: any;
 
-export class GraficaBarras implements FileModelInterface {
+export class Grafica2D implements FileModelInterface {
 
     private chart: any;
 
