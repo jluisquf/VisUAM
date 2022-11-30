@@ -28,8 +28,8 @@ export class Grafica2D implements FileModelInterface {
             arrXValues.push(json.p[i].x);
             arrYValues.push(json.p[i].y);
             
-            if (json.p[i].color == "") {
-                colors.push("blue");    
+            if (json.p[i].hasOwnProperty('color') == false || json.p[i].color == "") {
+                colors.push("red");    
             } else {
                 colors.push(json.p[i].color);    
             }
@@ -38,18 +38,17 @@ export class Grafica2D implements FileModelInterface {
         var yValues = arrYValues;//[55, 49, 44, 24, 15];//json.data.data;
         var barColors = colors;//["red", "green", "blue", "orange", "brown"]; // json.data.backgroundColor;//
         var tipo = json.type; // se obtiene el tipo de grafica [bar, line, ...]
-    
-        this.chart = new Chart(c, {
-          type: tipo,
-          data: {
+
+        const data = {
             labels: xValues,
             datasets: [{
               backgroundColor: barColors,
               label: undefined,
               data: yValues
             }]
-          },
-          options: {
+        }
+
+        const options = {
             responsive: true,
             plugins: {
               title: {
@@ -75,7 +74,68 @@ export class Grafica2D implements FileModelInterface {
                 },
               }          
           }
-        });
+
+
+        const resultado = this.validaJSON(json);
+
+        if (resultado == "correcto") {
+            this.chart = new Chart(c, { type: tipo, data, options});    
+        } else {
+            // alert("La grafica no pertenece a ningun formato conocido por ejemplo: bubble, line, bar o pie");  
+                 console.log("Errores encontrados: " , resultado);
+            // window.location.reload();
+        }
+        
+    }
+
+
+    validaJSON(datosJSON: any): String {
+        
+        var errores: any;
+        errores = this.validaTipo(datosJSON);
+        errores = errores + this.validaPuntos(datosJSON);
+        console.log(errores);
+        return errores;
+    }
+
+    validaTipo(json:any): String {
+        if (json.type == "bar") {
+            return "correcto";    
+        } else if (json.type == "pie"){
+            return "correcto";  
+        } else if (json.type == "line"){
+            return "correcto";  
+        } else if(json.type == "bubble"){
+            return "correcto";  
+        } else {
+           return "error-tipo";
+        }      
+    }
+
+    validaPuntos(json:any): String {
+        let contador = 0;
+
+        if (json.p.length == 0) {
+            contador++;
+        }
+
+        for (let i = 0; i < json.p.length; i++) {
+            console.log("elementos en P", json.p.length);
+
+            if (json.p.length == 0) {
+                contador++;
+            }
+            
+            // if (json.p[i].length == 0) {
+            //     contador++;
+            // }
+        }    
+
+        if (contador > 0) {
+            return "error-datos";
+        } else{
+            return "";
+        }
     }
 
     mostrarMenu(idVisualizador: any): void {
