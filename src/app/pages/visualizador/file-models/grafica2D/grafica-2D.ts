@@ -29,7 +29,7 @@ export class Grafica2D implements FileModelInterface {
             arrYValues.push(json.p[i].y);
             
             if (json.p[i].hasOwnProperty('color') == false || json.p[i].color == "") {
-                colors.push("red");    
+                colors.push("#3B34A6");    
             } else {
                 colors.push(json.p[i].color);    
             }
@@ -76,24 +76,30 @@ export class Grafica2D implements FileModelInterface {
           }
 
 
-        const resultado = this.validaJSON(json);
+        const errores = this.validaJSON(json);
+        let noErrores = 0;
+        for (let i = 0; i < errores.length; i++) {
+            if (errores[i] != "correcto") {
+                noErrores++;
+            }
+        }
 
-        if (resultado == "correcto") {
+        if (noErrores == 0) {
             this.chart = new Chart(c, { type: tipo, data, options});    
         } else {
-            // alert("La grafica no pertenece a ningun formato conocido por ejemplo: bubble, line, bar o pie");  
-                 console.log("Errores encontrados: " , resultado);
+            console.log("Errores encontrados: " , errores);
             // window.location.reload();
         }
         
     }
 
 
-    validaJSON(datosJSON: any): String {
+    validaJSON(datosJSON: any): any {
         
-        var errores: any;
-        errores = this.validaTipo(datosJSON);
-        errores = errores + this.validaPuntos(datosJSON);
+        let errores: any[] = [];
+        errores.push(this.validaTipo(datosJSON)); 
+        errores.push(this.validaPuntos(datosJSON));
+        errores.push(this.validaEncabezados(datosJSON));
         console.log(errores);
         return errores;
     }
@@ -120,7 +126,6 @@ export class Grafica2D implements FileModelInterface {
         }
 
         for (let i = 0; i < json.p.length; i++) {
-            console.log("elementos en P", json.p.length);
 
             if (json.p.length == 0) {
                 contador++;
@@ -134,7 +139,15 @@ export class Grafica2D implements FileModelInterface {
         if (contador > 0) {
             return "error-datos";
         } else{
-            return "";
+            return "correcto";
+        }
+    }
+
+    validaEncabezados(json: any):String{
+        if (json.title == "" || json.xlabel == "" || json.ylabel == "" || json.hasOwnProperty('title') == false || json.hasOwnProperty('xlabel') == false || json.hasOwnProperty('ylabel') == false) {
+            return "error-encabezados";
+        } else{
+            return "correcto";
         }
     }
 
