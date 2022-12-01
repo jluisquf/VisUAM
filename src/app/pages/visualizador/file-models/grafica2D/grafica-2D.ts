@@ -1,5 +1,6 @@
 import { FileModelInterface } from '../file-model-interface';
 import Chart from 'chart.js/auto'; // se importa la libreria chart.js 
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 declare var CanvasJS: any; // otra libreria para graficar
 declare var $: any;
@@ -20,6 +21,42 @@ export class Grafica2D implements FileModelInterface {
 
     draw(json: any, c: any) {
         /* chart.render(); */
+
+        const errores = this.validaJSON(json);
+        let noErrores = 0;
+        for (let i = 0; i < errores.length; i++) {
+            if (errores[i] != "correcto") {
+                noErrores++;
+            }
+        }
+
+        if (noErrores == 0) {
+            switch (json.type) {
+                case "bar":
+                    this.renderChartBar(json, c);
+                    break;
+                case "pie":
+                    this.renderChartPie(json, c);
+                    break;
+                case "line":
+                    this.renderChartLine(json, c);
+                    break;
+                case "bubble":
+                    this.renderChartBubble(json, c);
+                    break;
+                default:
+                    alert("---ERROR---");
+                    break;
+            }
+        } else {
+            alert(`Tipo: ${errores[0]} \nPuntos: ${errores[1]} \nEtiquetas: ${errores[2]}`); 
+            window.location.reload();
+        }
+        
+    }
+
+    renderChartBar(json: any, c: any){
+
         let arrXValues = []; // arreglo que guarda los valores de la etiqueta X
         let arrYValues = []; // arreglo que guarda los valores de la etiqueta Y
         let colors = []; // arreglo que guarda los valores de los colores de las graficas
@@ -75,24 +112,216 @@ export class Grafica2D implements FileModelInterface {
               }          
           }
 
+        this.chart = new Chart(c, { type: tipo, data, options});
 
-        const errores = this.validaJSON(json);
-        let noErrores = 0;
-        for (let i = 0; i < errores.length; i++) {
-            if (errores[i] != "correcto") {
-                noErrores++;
-            }
-        }
-
-        if (noErrores == 0) {
-            this.chart = new Chart(c, { type: tipo, data, options});    
-        } else {
-            console.log("Errores encontrados: " , errores);
-            // window.location.reload();
-        }
-        
     }
 
+    renderChartPie(json: any, c: any){
+
+        let arrXValues = []; // arreglo que guarda los valores de la etiqueta X
+        let arrYValues = []; // arreglo que guarda los valores de la etiqueta Y
+        let colors = []; // arreglo que guarda los valores de los colores de las graficas
+        // Se itera sobre el arreglo de puntos para obtener sus valores
+        for (let i = 0; i < json.p.length; i++) {
+            arrXValues.push(json.p[i].x);
+            arrYValues.push(json.p[i].y);
+            
+            if (json.p[i].hasOwnProperty('color') == false || json.p[i].color == "") {
+                colors.push("#3B34A6");    
+            } else {
+                colors.push(json.p[i].color);    
+            }
+        }
+        var xValues = arrXValues;//["Italy", "France", "Spain", "USA", "Argentina"]; //json.data.labels;
+        var yValues = arrYValues;//[55, 49, 44, 24, 15];//json.data.data;
+        var barColors = colors;//["red", "green", "blue", "orange", "brown"]; // json.data.backgroundColor;//
+        var tipo = json.type; // se obtiene el tipo de grafica [bar, line, ...]
+        let porcentajes: any [] = [];
+        let sumaTotal = 0;
+
+        for (let i = 0; i < yValues.length; i++) {
+            sumaTotal = sumaTotal + Number(yValues[i]) 
+        }
+
+        for (let i = 0; i < yValues.length; i++) {
+            porcentajes.push((yValues[i]*100/sumaTotal).toFixed(2));
+        }
+
+        console.log(porcentajes);
+
+        const data = {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              label: undefined,
+              data: porcentajes
+            }]
+        }
+
+        const options = {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: json.title,
+              },
+              legend:{
+                display: false //oculta las etiquetas de los dataset
+              },
+              datalabels: {
+                /* anchor puede ser "start", "center" o "end" */
+                anchor: "center",
+                formatter: (data: string) => data + "%",
+                color: "black",
+                font: {
+                  family: '"Times New Roman", Times, serif',
+                  size: "16",
+                  weight: "bold",
+                },
+              }
+            },
+            scales: {
+                y: {
+                  title: {
+                    display: true,
+                    text: 'Cantidad'
+                  }
+                },
+                x: {
+                    title: {
+                      display: true,
+                      text: 'Número de columna'
+                    }
+                },
+              }          
+          }
+
+        this.chart = new Chart(c, { plugins: [ChartDataLabels], type: tipo, data, options});
+
+    }
+
+
+    renderChartLine(json: any, c: any){
+
+        let arrXValues = []; // arreglo que guarda los valores de la etiqueta X
+        let arrYValues = []; // arreglo que guarda los valores de la etiqueta Y
+        let colors = []; // arreglo que guarda los valores de los colores de las graficas
+        // Se itera sobre el arreglo de puntos para obtener sus valores
+        for (let i = 0; i < json.p.length; i++) {
+            arrXValues.push(json.p[i].x);
+            arrYValues.push(json.p[i].y);
+            
+            if (json.p[i].hasOwnProperty('color') == false || json.p[i].color == "") {
+                colors.push("#3B34A6");    
+            } else {
+                colors.push(json.p[i].color);    
+            }
+        }
+        var xValues = arrXValues;//["Italy", "France", "Spain", "USA", "Argentina"]; //json.data.labels;
+        var yValues = arrYValues;//[55, 49, 44, 24, 15];//json.data.data;
+        var barColors = colors;//["red", "green", "blue", "orange", "brown"]; // json.data.backgroundColor;//
+        var tipo = json.type; // se obtiene el tipo de grafica [bar, line, ...]
+
+        const data = {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              label: undefined,
+              data: yValues
+            }]
+        }
+
+        const options = {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: json.title,
+              },
+              legend:{
+                display: false //oculta las etiquetas de los dataset
+              }
+            },
+            scales: {
+                y: {
+                  title: {
+                    display: true,
+                    text: 'Cantidad'
+                  }
+                },
+                x: {
+                    title: {
+                      display: true,
+                      text: 'Número de columna'
+                    }
+                },
+              }          
+          }
+
+        this.chart = new Chart(c, { type: tipo, data, options});
+
+    }
+
+    renderChartBubble(json: any, c: any){
+
+        let arrXValues = []; // arreglo que guarda los valores de la etiqueta X
+        let arrYValues = []; // arreglo que guarda los valores de la etiqueta Y
+        let colors = []; // arreglo que guarda los valores de los colores de las graficas
+        // Se itera sobre el arreglo de puntos para obtener sus valores
+        for (let i = 0; i < json.p.length; i++) {
+            arrXValues.push(json.p[i].x);
+            arrYValues.push(json.p[i].y);
+            
+            if (json.p[i].hasOwnProperty('color') == false || json.p[i].color == "") {
+                colors.push("#3B34A6");    
+            } else {
+                colors.push(json.p[i].color);    
+            }
+        }
+        var xValues = arrXValues;//["Italy", "France", "Spain", "USA", "Argentina"]; //json.data.labels;
+        var yValues = arrYValues;//[55, 49, 44, 24, 15];//json.data.data;
+        var barColors = colors;//["red", "green", "blue", "orange", "brown"]; // json.data.backgroundColor;//
+        var tipo = json.type; // se obtiene el tipo de grafica [bar, line, ...]
+
+        const data = {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              label: undefined,
+              data: yValues
+            }]
+        }
+
+        const options = {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: json.title,
+              },
+              legend:{
+                display: false //oculta las etiquetas de los dataset
+              }
+            },
+            scales: {
+                y: {
+                  title: {
+                    display: true,
+                    text: 'Cantidad'
+                  }
+                },
+                x: {
+                    title: {
+                      display: true,
+                      text: 'Número de columna'
+                    }
+                },
+              }          
+          }
+
+        this.chart = new Chart(c, { type: tipo, data, options});
+
+    }
 
     validaJSON(datosJSON: any): any {
         
