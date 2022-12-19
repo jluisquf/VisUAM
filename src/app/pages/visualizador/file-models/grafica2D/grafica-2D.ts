@@ -1,7 +1,7 @@
 import { FileModelInterface } from '../file-model-interface';
 import Chart from 'chart.js/auto'; // se importa la libreria chart.js 
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { Line } from 'three';
+import { Color, Line } from 'three';
 
 declare var CanvasJS: any; // otra libreria para graficar
 declare var $: any;
@@ -59,65 +59,39 @@ export class Grafica2D implements FileModelInterface {
     renderChartBar(json: any, c: any){
 
         let arrXValues = []; // arreglo que guarda los valores de la etiqueta X
-        let arrYValues = []; // arreglo que guarda los valores de la etiqueta Y
-        let colors = [];
-        let arrYValues2= []; // arreglo que guarda los valores de la etiqueta Y
-        let colors2 = []; // arreglo que guarda los valores de los colores de las graficas
-        // Se itera sobre el arreglo de puntos para obtener sus valores
+        let datasetValues = []; // arreglo que guarda los valores de la etiqueta Y
+        let dataObjects = []  // arreglo que guarda los valores de los colores de las graficas
+
+        arrXValues = json.xdata;
 
         for (let i = 0; i < json.p.length; i++) {
-            for (let j = 0; j < json.p[i].length; j++) {
-                if (i < 1) {
-                    arrXValues.push(json.p[i][j].x);
-                    arrYValues.push(json.p[i][j].y);
-                } else {
-                    arrYValues2.push(json.p[i][j].y);
-                }
-                   
-                
-                if (json.p[i][j].hasOwnProperty('color') == false || json.p[i][j].color == "") {
-                    if (i < 1) {
-                        colors.push("#3B34A6"); 
-                    } else {
-                        colors2.push("#3B34A6");
-                    }
-                    
-                        
-                } else {
-                    if (i < 1) {
-                        colors.push(json.p[i][j].color); 
-                    } else {
-                        colors2.push(json.p[i][j].color); 
-                    }
-                    
-                       
-                }
+            datasetValues.push(json.p[i]);
+
+            const datos = {
+                label: datasetValues[i].dataname,
+                data: datasetValues[i].ydata,
+                backgroundColor: datasetValues[i].color,
+                borderColor: datasetValues[i].color,
+                borderWidth: 1
             }
+
+            if (datasetValues[i].hasOwnProperty('color') == false || datasetValues[i].color == "") {
+                console.log("no existe color");
+                
+                datos.backgroundColor = "blue";
+            }
+           
+            
+            dataObjects.push(datos);
         }
+
         
         var xValues = arrXValues;//["Italy", "France", "Spain", "USA", "Argentina"]; //json.data.labels;
-        var yValues = arrYValues;//[55, 49, 44, 24, 15];//json.data.data;
-        var barColors = colors;//["red", "green", "blue", "orange", "brown"]; // json.data.backgroundColor;//
         var tipo = json.type; // se obtiene el tipo de grafica [bar, line, ...]
-        var yValues2 = arrYValues2;//[55, 49, 44, 24, 15];//json.data.data;
-        var barColors2 = colors2;
 
         const data = {
             labels: xValues,
-            datasets: [{
-              backgroundColor: barColors,
-              label: undefined,
-              data: yValues,
-              order: 1
-            },
-            {
-                type: "line",
-                backgroundColor: barColors2,
-                label: undefined,
-                data: yValues2,
-                order: 0
-              }
-            ]
+            datasets: dataObjects      
         }
 
         const options = {
@@ -128,7 +102,7 @@ export class Grafica2D implements FileModelInterface {
                 text: json.title,
               },
               legend:{
-                display: false //oculta las etiquetas de los dataset
+                display: true //oculta las etiquetas de los dataset
               }
             },
             scales: {
@@ -363,7 +337,7 @@ export class Grafica2D implements FileModelInterface {
         let errores: any[] = [];
         errores.push(this.validaTipo(datosJSON)); 
         errores.push(this.validaEncabezados(datosJSON));
-        errores.push(this.validaDatos(datosJSON));
+        //errores.push(this.validaDatos(datosJSON));
         console.log(errores);
         return errores;
     }
