@@ -125,119 +125,44 @@ export class Grafica2D implements FileModelInterface {
 
     }
 
+    /* Asigna color */
+
     renderChartPie(json: any, c: any){
 
         let arrXValues = []; // arreglo que guarda los valores de la etiqueta X
-        let arrYValues = []; // arreglo que guarda los valores de la etiqueta Y
-        let colors = []; // arreglo que guarda los valores de los colores de las graficas
-        // Se itera sobre el arreglo de puntos para obtener sus valores
-        for (let i = 0; i < json.p[0].length; i++) {
-            arrXValues.push(json.p[0][i].x);
-            arrYValues.push(json.p[0][i].y);
-            
-            if (json.p[0][i].hasOwnProperty('color') == false || json.p[0][i].color == "") {
-                colors.push("#3B34A6");    
-            } else {
-                colors.push(json.p[0][i].color);    
+        let datasetValues = []; // arreglo que guarda los valores de la etiqueta Y
+        let dataObjects = []  // arreglo que guarda los valores de los colores de las graficas
+
+        arrXValues = json.xdata;
+
+        for (let i = 0; i < json.p.length; i++) {
+            datasetValues.push(json.p[i]);
+
+            const datos = {
+                label: datasetValues[i].dataname,
+                data: datasetValues[i].ydata,
+                backgroundColor: datasetValues[i].color,
+                borderColor: "white",
+                borderWidth: 1
             }
-        }
-        var xValues = arrXValues;//["Italy", "France", "Spain", "USA", "Argentina"]; //json.data.labels;
-        var yValues = arrYValues;//[55, 49, 44, 24, 15];//json.data.data;
-        var barColors = colors;//["red", "green", "blue", "orange", "brown"]; // json.data.backgroundColor;//
-        var tipo = json.type; // se obtiene el tipo de grafica [bar, line, ...]
-        let porcentajes: any [] = [];
-        let sumaTotal = 0;
 
-        for (let i = 0; i < yValues.length; i++) {
-            sumaTotal = sumaTotal + Number(yValues[i]) 
-        }
-
-        for (let i = 0; i < yValues.length; i++) {
-            porcentajes.push((yValues[i]*100/sumaTotal).toFixed(2));
-        }
-
-        console.log(porcentajes);
-
-        const data = {
-            labels: xValues,
-            datasets: [{
-              backgroundColor: barColors,
-              label: undefined,
-              data: porcentajes
-            }]
-        }
-
-        const options = {
-            responsive: true,
-            plugins: {
-              title: {
-                display: true,
-                text: json.title,
-              },
-              legend:{
-                display: false //oculta las etiquetas de los dataset
-              },
-              datalabels: {
-                /* anchor puede ser "start", "center" o "end" */
-                anchor: "center",
-                formatter: (data: string) => data + "%",
-                color: "black",
-                font: {
-                  family: '"Times New Roman", Times, serif',
-                  size: "16",
-                  weight: "bold",
-                },
-              }
-            },
-            scales: {
-                y: {
-                  title: {
-                    display: true,
-                    text: 'Cantidad'
-                  }
-                },
-                x: {
-                    title: {
-                      display: true,
-                      text: 'Número de columna'
-                    }
-                },
-              }          
-          }
-
-        this.chart = new Chart(c, { plugins: [ChartDataLabels], type: tipo, data, options});
-
-    }
-
-
-    renderChartLine(json: any, c: any){
-
-        let arrXValues = []; // arreglo que guarda los valores de la etiqueta X
-        let arrYValues = []; // arreglo que guarda los valores de la etiqueta Y
-        let colors = []; // arreglo que guarda los valores de los colores de las graficas
-        // Se itera sobre el arreglo de puntos para obtener sus valores
-        for (let i = 0; i < json.p[0].length; i++) {
-            arrXValues.push(json.p[0][i].x);
-            arrYValues.push(json.p[0][i].y);
-            
-            if (json.p[0][i].hasOwnProperty('color') == false || json.p[0][i].color == "") {
-                colors.push("#3B34A6");    
-            } else {
-                colors.push(json.p[0][i].color);    
+            if (datasetValues[i].hasOwnProperty('color') == false || datasetValues[i].color == "") {
+                console.log("no existe color");
+                
+                datos.backgroundColor = "blue";
             }
+           
+            
+            dataObjects.push(datos);
         }
+
+        
         var xValues = arrXValues;//["Italy", "France", "Spain", "USA", "Argentina"]; //json.data.labels;
-        var yValues = arrYValues;//[55, 49, 44, 24, 15];//json.data.data;
-        var barColors = colors;//["red", "green", "blue", "orange", "brown"]; // json.data.backgroundColor;//
         var tipo = json.type; // se obtiene el tipo de grafica [bar, line, ...]
 
         const data = {
             labels: xValues,
-            datasets: [{
-              backgroundColor: barColors,
-              label: undefined,
-              data: yValues
-            }]
+            datasets: dataObjects      
         }
 
         const options = {
@@ -268,37 +193,45 @@ export class Grafica2D implements FileModelInterface {
           }
 
         this.chart = new Chart(c, { type: tipo, data, options});
-
     }
 
-    renderChartBubble(json: any, c: any){
+
+    renderChartLine(json: any, c: any){
 
         let arrXValues = []; // arreglo que guarda los valores de la etiqueta X
-        let arrYValues = []; // arreglo que guarda los valores de la etiqueta Y
-        let colors = []; // arreglo que guarda los valores de los colores de las graficas
-        // Se itera sobre el arreglo de puntos para obtener sus valores
-        for (let i = 0; i < json.p[0].length; i++) {
-            arrXValues.push(json.p[0][i].x);
-            arrYValues.push(json.p[0][i].y);
-            
-            if (json.p[0][i].hasOwnProperty('color') == false || json.p[0][i].color == "") {
-                colors.push("#3B34A6");    
-            } else {
-                colors.push(json.p[0][i].color);    
+        let datasetValues = []; // arreglo que guarda los valores de la etiqueta Y
+        let dataObjects = []  // arreglo que guarda los valores de los colores de las graficas
+
+        arrXValues = json.xdata;
+
+        for (let i = 0; i < json.p.length; i++) {
+            datasetValues.push(json.p[i]);
+
+            const datos = {
+                label: datasetValues[i].dataname,
+                data: datasetValues[i].ydata,
+                backgroundColor: datasetValues[i].color,
+                borderColor: datasetValues[i].color,
+                borderWidth: 1
             }
+
+            if (datasetValues[i].hasOwnProperty('color') == false || datasetValues[i].color == "") {
+                console.log("no existe color");
+                
+                datos.backgroundColor = "blue";
+            }
+           
+            
+            dataObjects.push(datos);
         }
+
+        
         var xValues = arrXValues;//["Italy", "France", "Spain", "USA", "Argentina"]; //json.data.labels;
-        var yValues = arrYValues;//[55, 49, 44, 24, 15];//json.data.data;
-        var barColors = colors;//["red", "green", "blue", "orange", "brown"]; // json.data.backgroundColor;//
         var tipo = json.type; // se obtiene el tipo de grafica [bar, line, ...]
 
         const data = {
             labels: xValues,
-            datasets: [{
-              backgroundColor: barColors,
-              label: undefined,
-              data: yValues
-            }]
+            datasets: dataObjects      
         }
 
         const options = {
@@ -309,7 +242,75 @@ export class Grafica2D implements FileModelInterface {
                 text: json.title,
               },
               legend:{
-                display: false //oculta las etiquetas de los dataset
+                display: true //oculta las etiquetas de los dataset
+              }
+            },
+            scales: {
+                y: {
+                  title: {
+                    display: true,
+                    text: 'Cantidad'
+                  }
+                },
+                x: {
+                    title: {
+                      display: true,
+                      text: 'Número de columna'
+                    }
+                },
+              }          
+          }
+
+        this.chart = new Chart(c, { type: tipo, data, options});
+    }
+
+    renderChartBubble(json: any, c: any){
+
+        let arrXValues = []; // arreglo que guarda los valores de la etiqueta X
+        let datasetValues = []; // arreglo que guarda los valores de la etiqueta Y
+        let dataObjects = []  // arreglo que guarda los valores de los colores de las graficas
+
+        arrXValues = json.xdata;
+
+        for (let i = 0; i < json.p.length; i++) {
+            datasetValues.push(json.p[i]);
+
+            const datos = {
+                label: datasetValues[i].dataname,
+                data: datasetValues[i].ydata,
+                backgroundColor: datasetValues[i].color,
+                borderColor: datasetValues[i].color,
+                borderWidth: 1
+            }
+
+            if (datasetValues[i].hasOwnProperty('color') == false || datasetValues[i].color == "") {
+                console.log("no existe color");
+                
+                datos.backgroundColor = "blue";
+            }
+           
+            
+            dataObjects.push(datos);
+        }
+
+        
+        var xValues = arrXValues;//["Italy", "France", "Spain", "USA", "Argentina"]; //json.data.labels;
+        var tipo = json.type; // se obtiene el tipo de grafica [bar, line, ...]
+
+        const data = {
+            labels: xValues,
+            datasets: dataObjects      
+        }
+
+        const options = {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: json.title,
+              },
+              legend:{
+                display: true //oculta las etiquetas de los dataset
               }
             },
             scales: {
@@ -337,7 +338,7 @@ export class Grafica2D implements FileModelInterface {
         let errores: any[] = [];
         errores.push(this.validaTipo(datosJSON)); 
         errores.push(this.validaEncabezados(datosJSON));
-        //errores.push(this.validaDatos(datosJSON));
+        errores.push(this.validaDatos(datosJSON));
         console.log(errores);
         return errores;
     }
@@ -372,13 +373,8 @@ export class Grafica2D implements FileModelInterface {
         } else {
             let aux = 0;
             for (let i = 0; i < json.p.length; i++) {
-                if (json.p[i].length == 0) {
+                if (json.p[i].hasOwnProperty('ydata') == false || json.p[i].ydata.length == 0) {
                     aux++;
-                }
-                for (let j = 0; j < json.p[i].length; j++) {
-                    if (json.p[i][j].hasOwnProperty('x') == false || json.p[i][j].hasOwnProperty('y') == false ) {
-                        aux++;
-                    }
                 }
             }
 
