@@ -273,14 +273,31 @@ export class Grafica2D implements FileModelInterface {
         arrXValues = json.xdata;
 
         for (let i = 0; i < json.p.length; i++) {
+            let puntos = [];
             datasetValues.push(json.p[i]);
+
+
+            let aux = 0;
+            for (let j = 0; j < json.p[i].ydata.length; j++) {
+                
+
+                const punto = {
+                    x: aux,
+                    y: json.p[i].ydata[j],
+                    r: 10
+                }
+
+                puntos.push(punto);
+                aux++;
+                console.log(aux);
+            }
+
 
             const datos = {
                 label: datasetValues[i].dataname,
-                data: datasetValues[i].ydata,
+                data: puntos,
                 backgroundColor: datasetValues[i].color,
                 borderColor: datasetValues[i].color,
-                borderWidth: 1
             }
 
             if (datasetValues[i].hasOwnProperty('color') == false || datasetValues[i].color == "") {
@@ -405,29 +422,19 @@ export class Grafica2D implements FileModelInterface {
                         "<div id = 'particulasMenu' class='particulasMenu' >" +
                             "<ul class='nav flex-column' id='vor'>" +
 
-                                "<li class='nav-item'>" +
-                                    "<div class='form-check'>" +
-                                        "<input type='checkbox' class='form-check-input' id='checkPuntos'>" +
-                                        "<label class='form-check-label' for='checkPuntos'><span></span></label>" +
-                                        "<span> Grafica de puntos </span>" +
-                                    "</div>" +
-                                "</li>" +
+                                "<select name='select' id='typeOptions'>" +
+                                    "<option value='' disabled >--- Selecciona una opción ---</option>" +
+                                    "<option value='bar' >Barras</option>" +
+                                    "<option value='line'  >Lineas</option>" +
+                                    "<option value='pie' >Pastel</option>" +
+                                    "<option value='bubble' >Puntos</option>" +
+                                "</select>" +
 
-                                "<li class='nav-item'>" +
-                                    "<div class='form-check'>" +
-                                        "<input type='checkbox' class='form-check-input' id='checkLineas'>" +
-                                        "<label class='form-check-label' for='checkLineas'><span></span></label>" +
-                                        "<span> Grafica de Líneas </span>" +
-                                    "</div>" +
-                                "</li>" +
-
-                                "<li class='nav-item'>" +
-                                    "<div class='form-check'>" +
-                                        "<input type='checkbox' class='form-check-input' id='checkPastel'>" +
-                                        "<label class='form-check-label' for='checkPastel'><span></span></label>" +
-                                        "<span> Grafica de Pastel </span>" +
-                                    "</div>" +
-                                "</li>" +
+                                "<div class='form-check'>" +
+                                    "<input type='checkbox' class='form-check-input' id='checkPointY' >" +
+                                    "<label class='form-check-label' for='checkPointY'><span></span></label>" +
+                                    "<span> Ocultar eje Y </span>" +
+                                "</div>" +  
 
                             "</ul>" +
                             "<button id='botonDescarga' class='btn btn-primary'>Descargar</button>"+
@@ -442,35 +449,41 @@ export class Grafica2D implements FileModelInterface {
         //Se utiliza Jquery para detectar los cambios en el formulario de check
         $('document').ready(
             // Al seleccionar el checkBox llamado Puntos cambiara el tipo de grafica
-            $('#checkPuntos').change(function(){
-                var check:any = document.getElementById('checkPuntos');
-                if(check.checked) {
-                    $('#checkLineas').prop("checked",false);
-                    $('#checkPastel').prop("checked",false);
-                    mySelf.setTipo(!check, "puntos"); // Esto funciona por alguna razón cuando esta activo el check mandara punto
-                }else{
-                    mySelf.setTipo(check, "barras"); // cuando este desactivado mandara barras el cual nos servir
+
+            $('#typeOptions').change(function(){
+                let tipo = $("#typeOptions option:selected").val();
+
+                if (tipo == "bar") {
+                    mySelf.setTipo("barras");
+                } else if (tipo == "line") {
+                    mySelf.setTipo("lineas");
+                } else if (tipo == "pie") {
+                    mySelf.setTipo("pastel");
+                } else {
+                    mySelf.setTipo("puntos");
                 }
+                // var check:any = document.getElementById('checkPastel');
+                // if(check.checked) {
+                //     $('#checkLineas').prop("checked",false);
+                //     $('#checkPuntos').prop("checked",false);
+                //     mySelf.setTipo(!check, "pastel"); // Esto funciona por alguna razón cuando esta activo el check mandara punto
+                // }else{
+                //     mySelf.setTipo(check, "barras"); // cuando este desactivado mandara barras el cual nos servir
+                // }
             }),
-            $('#checkLineas').change(function(){
-                var check:any = document.getElementById('checkLineas');
-                if(check.checked) {
-                    $('#checkPuntos').prop("checked",false);
-                    $('#checkPastel').prop("checked",false);
-                    mySelf.setTipo(!check, "lineas"); // Esto funciona por alguna razón cuando esta activo el check mandara punto
-                }else{
-                    mySelf.setTipo(check, "barras"); // cuando este desactivado mandara barras el cual nos servir
+
+            $('#checkPointY').change(function(){
+                var check:any = document.getElementById('checkPointY');
+                // Para ocultar el eje y
+                if(check.checked) { // Si el checkbox está presionado se oculta el eje y
+                    console.log("fui presionado IF quitar eje y"); //comprobar que si entra al if
+                    mySelf.chart.options.scales.y.ticks.display = false;
+                    mySelf.chart.options.scales.y.title.display = false;
+                } else { //cuando se deselecciona se muestra el eje y
+                    mySelf.chart.options.scales.y.ticks.display = true;
+                    mySelf.chart.options.scales.y.title.display = true;
                 }
-            }),
-            $('#checkPastel').change(function(){
-                var check:any = document.getElementById('checkPastel');
-                if(check.checked) {
-                    $('#checkLineas').prop("checked",false);
-                    $('#checkPuntos').prop("checked",false);
-                    mySelf.setTipo(!check, "pastel"); // Esto funciona por alguna razón cuando esta activo el check mandara punto
-                }else{
-                    mySelf.setTipo(check, "barras"); // cuando este desactivado mandara barras el cual nos servir
-                }
+                mySelf.chart.update();
             }),
 
             $('#botonDescarga').click(function(){
@@ -491,7 +504,7 @@ export class Grafica2D implements FileModelInterface {
     } // FIN descarga()
 
     //Esta funcion nos ayudara a colocar el tipo de grafico que queremos gracias a los eventos del menu
-    setTipo(checkbox:any, tipo:string):void {
+    setTipo(tipo:string):void {
 
         //Creamos una copia del canvas y del json ya que el canvas será elominado y el json modificado en la copia
         var newCanvas = this.canvas;
