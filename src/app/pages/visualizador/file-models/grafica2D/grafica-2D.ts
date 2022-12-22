@@ -72,14 +72,16 @@ export class Grafica2D implements FileModelInterface {
                     label: datasetValues[i].dataname,
                     data: datasetValues[i].ydata,
                     backgroundColor: datasetValues[i].color,
-                    borderColor: datasetValues[i].color,
+                    borderColor: "black",
                     borderWidth: 1
                 }
     
                 if (datasetValues[i].hasOwnProperty('color') == false || datasetValues[i].color == "") {
                     console.log("no existe color");
-                    
-                    datos.backgroundColor = "blue";
+                    let newColor = this.generarNuevoColor();
+                    json.p[i].color = newColor;
+                    datos.backgroundColor = newColor;
+                    datos.borderColor = "black";
                 }
                
                 
@@ -103,7 +105,6 @@ export class Grafica2D implements FileModelInterface {
     
                     puntos.push(punto);
                     aux++;
-                    console.log(aux);
                 }
     
     
@@ -116,8 +117,8 @@ export class Grafica2D implements FileModelInterface {
     
                 if (datasetValues[i].hasOwnProperty('color') == false || datasetValues[i].color == "") {
                     console.log("no existe color");
-                    
-                    datos.backgroundColor = "blue";
+                    console.log(this.generarNuevoColor());
+                    datos.backgroundColor = this.generarNuevoColor();
                 }
                
                 
@@ -130,12 +131,13 @@ export class Grafica2D implements FileModelInterface {
 
         const data = {
             labels: xValues,
-            datasets: dataObjects      
+            datasets: dataObjects,
         }
 
         const options = {
             responsive: true,
             plugins: {
+                
               title: {
                 display: true,
                 text: json.title,
@@ -154,8 +156,13 @@ export class Grafica2D implements FileModelInterface {
                 x: {
                     title: {
                       display: true,
-                      text: 'Número de columna'
-                    }
+                      text: 'Número de columna',
+                      
+                    },
+                    ticks: {
+                        maxRotation: 0,
+                        minRotation: 0
+                      }
                 },
               }          
           }
@@ -163,311 +170,19 @@ export class Grafica2D implements FileModelInterface {
         this.chart = new Chart(c, { type: tipo, data, options});
 
 
-        
-        for(let i=1;i<this.json.p.length;i++){
-            let cadena = "checkPointGraphic" + i;
-            let data = document.getElementById(cadena);
-            console.log(cadena)
-            console.log(data)
-            this.chart.hide(i);
-        }
-            
-
     }
 
-    // renderChartBar(json: any, c: any){
-
-    //     let arrXValues = []; // arreglo que guarda los valores de la etiqueta X
-    //     let datasetValues = []; // arreglo que guarda los valores de la etiqueta Y
-    //     let dataObjects = []  // arreglo que guarda los valores de los colores de las graficas
-
-    //     arrXValues = json.xdata;
-
-    //     for (let i = 0; i < json.p.length; i++) {
-    //         datasetValues.push(json.p[i]);
-
-    //         const datos = {
-    //             label: datasetValues[i].dataname,
-    //             data: datasetValues[i].ydata,
-    //             backgroundColor: datasetValues[i].color,
-    //             borderColor: datasetValues[i].color,
-    //             borderWidth: 1
-    //         }
-
-    //         if (datasetValues[i].hasOwnProperty('color') == false || datasetValues[i].color == "") {
-    //             console.log("no existe color");
-                
-    //             datos.backgroundColor = "blue";
-    //         }
-           
-            
-    //         dataObjects.push(datos);
-    //     }
-
-        
-    //     var xValues = arrXValues;//["Italy", "France", "Spain", "USA", "Argentina"]; //json.data.labels;
-    //     var tipo = json.type; // se obtiene el tipo de grafica [bar, line, ...]
-
-    //     const data = {
-    //         labels: xValues,
-    //         datasets: dataObjects      
-    //     }
-
-    //     const options = {
-    //         responsive: true,
-    //         plugins: {
-    //           title: {
-    //             display: true,
-    //             text: json.title,
-    //           },
-    //           legend:{
-    //             display: true //oculta las etiquetas de los dataset
-    //           }
-    //         },
-    //         scales: {
-    //             y: {
-    //               title: {
-    //                 display: true,
-    //                 text: 'Cantidad'
-    //               }
-    //             },
-    //             x: {
-    //                 title: {
-    //                   display: true,
-    //                   text: 'Número de columna'
-    //                 }
-    //             },
-    //           }          
-    //       }
-
-    //     this.chart = new Chart(c, { type: tipo, data, options});
-
-    // }
-
-    // /* Asigna color */
-
-    // renderChartPie(json: any, c: any){
-
-    //     let arrXValues = []; // arreglo que guarda los valores de la etiqueta X
-    //     let datasetValues = []; // arreglo que guarda los valores de la etiqueta Y
-    //     let dataObjects = []  // arreglo que guarda los valores de los colores de las graficas
-
-    //     arrXValues = json.xdata;
-
-    //     for (let i = 0; i < json.p.length; i++) {
-    //         datasetValues.push(json.p[i]);
-
-    //         const datos = {
-    //             label: datasetValues[i].dataname,
-    //             data: datasetValues[i].ydata,
-    //             backgroundColor: datasetValues[i].color,
-    //             borderColor: "white",
-    //             borderWidth: 1
-    //         }
-
-    //         if (datasetValues[i].hasOwnProperty('color') == false || datasetValues[i].color == "") {
-    //             console.log("no existe color");
-                
-    //             datos.backgroundColor = "blue";
-    //         }
-           
-            
-    //         dataObjects.push(datos);
-    //     }
-
-        
-    //     var xValues = arrXValues;//["Italy", "France", "Spain", "USA", "Argentina"]; //json.data.labels;
-    //     var tipo = json.type; // se obtiene el tipo de grafica [bar, line, ...]
-
-    //     const data = {
-    //         labels: xValues,
-    //         datasets: dataObjects      
-    //     }
-
-    //     const options = {
-    //         responsive: true,
-    //         plugins: {
-    //           title: {
-    //             display: true,
-    //             text: json.title,
-    //           },
-    //           legend:{
-    //             display: false //oculta las etiquetas de los dataset
-    //           }
-    //         },
-    //         scales: {
-    //             y: {
-    //               title: {
-    //                 display: true,
-    //                 text: 'Cantidad'
-    //               }
-    //             },
-    //             x: {
-    //                 title: {
-    //                   display: true,
-    //                   text: 'Número de columna'
-    //                 }
-    //             },
-    //           }          
-    //       }
-
-    //     this.chart = new Chart(c, { type: tipo, data, options});
-    // }
-
-
-    // renderChartLine(json: any, c: any){
-
-    //     let arrXValues = []; // arreglo que guarda los valores de la etiqueta X
-    //     let datasetValues = []; // arreglo que guarda los valores de la etiqueta Y
-    //     let dataObjects = []  // arreglo que guarda los valores de los colores de las graficas
-
-    //     arrXValues = json.xdata;
-
-    //     for (let i = 0; i < json.p.length; i++) {
-    //         datasetValues.push(json.p[i]);
-
-    //         const datos = {
-    //             label: datasetValues[i].dataname,
-    //             data: datasetValues[i].ydata,
-    //             backgroundColor: datasetValues[i].color,
-    //             borderColor: datasetValues[i].color,
-    //             borderWidth: 1
-    //         }
-
-    //         if (datasetValues[i].hasOwnProperty('color') == false || datasetValues[i].color == "") {
-    //             console.log("no existe color");
-                
-    //             datos.backgroundColor = "blue";
-    //         }
-           
-            
-    //         dataObjects.push(datos);
-    //     }
-
-        
-    //     var xValues = arrXValues;//["Italy", "France", "Spain", "USA", "Argentina"]; //json.data.labels;
-    //     var tipo = json.type; // se obtiene el tipo de grafica [bar, line, ...]
-
-    //     const data = {
-    //         labels: xValues,
-    //         datasets: dataObjects      
-    //     }
-
-    //     const options = {
-    //         responsive: true,
-    //         plugins: {
-    //           title: {
-    //             display: true,
-    //             text: json.title,
-    //           },
-    //           legend:{
-    //             display: true //oculta las etiquetas de los dataset
-    //           }
-    //         },
-    //         scales: {
-    //             y: {
-    //               title: {
-    //                 display: true,
-    //                 text: 'Cantidad'
-    //               }
-    //             },
-    //             x: {
-    //                 title: {
-    //                   display: true,
-    //                   text: 'Número de columna'
-    //                 }
-    //             },
-    //           }          
-    //       }
-
-    //     this.chart = new Chart(c, { type: tipo, data, options});
-    // }
-
-    // renderChartBubble(json: any, c: any){
-
-    //     let arrXValues = []; // arreglo que guarda los valores de la etiqueta X
-    //     let datasetValues = []; // arreglo que guarda los valores de la etiqueta Y
-    //     let dataObjects = []  // arreglo que guarda los valores de los colores de las graficas
-
-    //     arrXValues = json.xdata;
-
-    //     for (let i = 0; i < json.p.length; i++) {
-    //         let puntos = [];
-    //         datasetValues.push(json.p[i]);
-
-
-    //         let aux = 0;
-    //         for (let j = 0; j < json.p[i].ydata.length; j++) {
-                
-
-    //             const punto = {
-    //                 x: aux,
-    //                 y: json.p[i].ydata[j],
-    //                 r: 10
-    //             }
-
-    //             puntos.push(punto);
-    //             aux++;
-    //             console.log(aux);
-    //         }
-
-
-    //         const datos = {
-    //             label: datasetValues[i].dataname,
-    //             data: puntos,
-    //             backgroundColor: datasetValues[i].color,
-    //             borderColor: datasetValues[i].color,
-    //         }
-
-    //         if (datasetValues[i].hasOwnProperty('color') == false || datasetValues[i].color == "") {
-    //             console.log("no existe color");
-                
-    //             datos.backgroundColor = "blue";
-    //         }
-           
-            
-    //         dataObjects.push(datos);
-    //     }
-
-        
-    //     var xValues = arrXValues;//["Italy", "France", "Spain", "USA", "Argentina"]; //json.data.labels;
-    //     var tipo = json.type; // se obtiene el tipo de grafica [bar, line, ...]
-
-    //     const data = {
-    //         labels: xValues,
-    //         datasets: dataObjects      
-    //     }
-
-    //     const options = {
-    //         responsive: true,
-    //         plugins: {
-    //           title: {
-    //             display: true,
-    //             text: json.title,
-    //           },
-    //           legend:{
-    //             display: true //oculta las etiquetas de los dataset
-    //           }
-    //         },
-    //         scales: {
-    //             y: {
-    //               title: {
-    //                 display: true,
-    //                 text: 'Cantidad'
-    //               }
-    //             },
-    //             x: {
-    //                 title: {
-    //                   display: true,
-    //                   text: 'Número de columna'
-    //                 }
-    //             },
-    //           }          
-    //       }
-
-    //     this.chart = new Chart(c, { type: tipo, data, options});
-
-    // }
+    generarNuevoColor(){
+        var simbolos, color;
+        simbolos = "0123456789ABCDEF";
+        color = "#";
+    
+        for(var i = 0; i < 6; i++){
+            color = color + simbolos[Math.floor(Math.random() * 16)];
+        }
+        console.log(color);
+        return color;
+    }
 
     validaJSON(datosJSON: any): any {
         
@@ -571,7 +286,7 @@ export class Grafica2D implements FileModelInterface {
                     item = item +
                     "<li class='nav-item'>"+
                         "<div class='form-check'>" +
-                            "<input type='checkbox' class='form-check-input' id='checkPointGraphic"+i+"' value="+i+">" +
+                            "<input type='checkbox' checked='true' class='form-check-input' id='checkPointGraphic"+i+"' value="+i+">" +
                             "<label class='form-check-label' for='checkPointGraphic"+i+"'><span></span></label>" +
                             "<span> Mostrar dataset "+i+"</span>" +
                         "</div>" +    
@@ -609,21 +324,12 @@ export class Grafica2D implements FileModelInterface {
                 } else {
                     mySelf.setTipo("puntos");
                 }
-                // var check:any = document.getElementById('checkPastel');
-                // if(check.checked) {
-                //     $('#checkLineas').prop("checked",false);
-                //     $('#checkPuntos').prop("checked",false);
-                //     mySelf.setTipo(!check, "pastel"); // Esto funciona por alguna razón cuando esta activo el check mandara punto
-                // }else{
-                //     mySelf.setTipo(check, "barras"); // cuando este desactivado mandara barras el cual nos servir
-                // }
             }),
 
             $('#checkPointY').change(function(){
                 var check:any = document.getElementById('checkPointY');
                 // Para ocultar el eje y
                 if(check.checked) { // Si el checkbox está presionado se oculta el eje y
-                    console.log("fui presionado IF quitar eje y"); //comprobar que si entra al if
                     mySelf.chart.options.scales.y.ticks.display = false;
                     mySelf.chart.options.scales.y.title.display = false;
                 } else { //cuando se deselecciona se muestra el eje y
@@ -648,11 +354,23 @@ export class Grafica2D implements FileModelInterface {
                         mySelf.chart.options.plugins.legend.display = true;
                         mySelf.chart.show(j);
                     } else { //cuando se deselecciona se muestra el dataset 0
-                        mySelf.chart.options.plugins.legend.display = false;
+                        mySelf.chart.options.plugins.legend.display = true;
                         mySelf.chart.hide(j);
                     }
                 })
             );
+        }
+
+      
+    }
+
+    actualizaGraficas(){
+
+        for (let i = 0; i < this.json.p.length; i++) {
+            var check:any = document.getElementById('checkPointGraphic'+i);
+            if (check.checked == false) {
+                this.chart.hide(i);
+            }
         }
     }
 
@@ -699,6 +417,8 @@ export class Grafica2D implements FileModelInterface {
         console.log("La grafica será de tipo:", newJson.type);
         //dibujamos nuevamente 
         this.draw(newJson, newCanvas);
+
+        this.actualizaGraficas();
         
     } // FIN setTipo()
 }
