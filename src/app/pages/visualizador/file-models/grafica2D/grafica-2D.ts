@@ -35,15 +35,19 @@ export class Grafica2D implements FileModelInterface {
             switch (json.type) {
                 case "bar":
                     this.renderChart(json, c, "bar");
+                    this.graficaCanvas(json, c, "bar");
                     break;
                 case "pie":
                     this.renderChart(json, c, "pie");
+                    this.graficaCanvas(json, c, "pie");
                     break;
                 case "line":
                     this.renderChart(json,  c, "line");
+                    this.graficaCanvas(json, c, "line");
                     break;
                 case "bubble":
                     this.renderChart(json, c, "bubble");
+                    this.graficaCanvas(json, c, "bubble");
                     break;
                 default:
                     alert("---ERROR---");
@@ -312,6 +316,8 @@ export class Grafica2D implements FileModelInterface {
         $('document').ready(
             // Al seleccionar el checkBox llamado Puntos cambiara el tipo de grafica
 
+            //this.graficaCanvas(),
+
             $('#typeOptions').change(function(){
                 let tipo = $("#typeOptions option:selected").val();
 
@@ -421,4 +427,51 @@ export class Grafica2D implements FileModelInterface {
         this.actualizaGraficas();
         
     } // FIN setTipo()
+
+
+    graficaCanvas(json: any, c: any, type: any){
+        console.log("Cargando grafica canvas");
+            let canvas2 = document.getElementById("chartContainer");
+
+
+            let dataPrueba = [
+                { label: "banana", y: 18 },
+                { label: "orange", y: 29 },
+                { label: "apple", y: 40 },                                    
+                { label: "mango", y: 34 },
+                { label: "grape", y: 24 }
+            ];
+
+            let data = [];
+
+            for (let i = 0; i < json.xdata.length; i++) {
+                const datos = {
+                    label: json.xdata[i],
+                    y: 1
+                }
+                
+            }
+
+
+
+            var chart = new CanvasJS.Chart(canvas2, {
+        
+              title:{
+                text: "Fruits sold in First Quarter"              
+              },
+              data: [//array of dataSeries              
+                { //dataSeries object
+        
+                 /*** Change type "column" to "bar", "area", "line" or "pie"***/
+                 type: "column",
+                 dataPoints: dataPrueba
+               }
+               ]
+             });
+        
+            chart.render();
+
+
+    }
+
 }
