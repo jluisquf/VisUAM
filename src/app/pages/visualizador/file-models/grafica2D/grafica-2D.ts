@@ -9,6 +9,7 @@ declare var $: any;
 export class Grafica2D implements FileModelInterface {
 
     private chart: any;
+    private chartCanvas: any;
 
     constructor(public json: any, public canvas: any) {
         this.json = json;
@@ -35,7 +36,7 @@ export class Grafica2D implements FileModelInterface {
             switch (json.type) {
                 case "bar":
                     this.renderChart(json, c, "bar");
-                    this.graficaCanvas(json, c, "bar");
+                    this.graficaCanvas(json, c, "column");
                     break;
                 case "pie":
                     this.renderChart(json, c, "pie");
@@ -54,7 +55,7 @@ export class Grafica2D implements FileModelInterface {
                     break;
             }
         } else {
-            alert(`Tipo: ${errores[0]} \nEtiquetas: ${errores[1]} \nDatos: ${errores[2]}`); 
+            alert(`Tipo: ${errores[0]} \nEtiquetas: ${errores[1]} \nDatos: ${errores[2]}\nEtiqueta eje X: ${errores[3]}`); 
             window.location.reload();
         }
         
@@ -194,6 +195,7 @@ export class Grafica2D implements FileModelInterface {
         errores.push(this.validaTipo(datosJSON)); 
         errores.push(this.validaEncabezados(datosJSON));
         errores.push(this.validaDatos(datosJSON));
+        errores.push(this.validaEjeX(datosJSON));
         console.log(errores);
         return errores;
     }
@@ -239,6 +241,18 @@ export class Grafica2D implements FileModelInterface {
                 return "correcto";
             }
         }
+    }
+
+    validaEjeX(json: any):String{
+        for (let i = 0; i < json.xdata.length; i++) {
+            if (json.xdata[i].length > 20) {
+                console.log("Valor en eje x muy largo");    
+                return "error-datos"
+            }
+            
+        }
+
+        return "correcto";
     }
 
     mostrarMenu(idVisualizador: any): void {
@@ -363,7 +377,22 @@ export class Grafica2D implements FileModelInterface {
                         mySelf.chart.options.plugins.legend.display = true;
                         mySelf.chart.hide(j);
                     }
-                })
+                }),
+
+                //Para la nueva grafica canvas
+                $('#checkPointGraphic'+j).change(function(){ //funcion para ocultar las graficas
+                    var check:any = document.getElementById('checkPointGraphic'+j);
+                    // Para quitar de gráficas del canvas 
+                    if(check.checked) { // Si el checkbox está presionado se ocultan los dataset0
+                        console.log("fui presionado IF quitar grafica "+j); //comprobar que si entra al if
+                        mySelf.chartCanvas.options.data[j].visible = true;
+                        mySelf.chartCanvas.options.data[j].showInLegend = true;
+                    } else { //cuando se deselecciona se muestra el dataset 0
+                        mySelf.chartCanvas.options.data[j].visible = false;
+                        mySelf.chartCanvas.options.data[j].showInLegend = false;
+                    }
+                    mySelf.chartCanvas.render();
+                }),
             );
         }
 
@@ -376,6 +405,8 @@ export class Grafica2D implements FileModelInterface {
             var check:any = document.getElementById('checkPointGraphic'+i);
             if (check.checked == false) {
                 this.chart.hide(i);
+                this.chartCanvas.options.data[i].visible = false;
+                this.chartCanvas.options.data[i].showInLegend = false;
             }
         }
     }
@@ -425,51 +456,97 @@ export class Grafica2D implements FileModelInterface {
         this.draw(newJson, newCanvas);
 
         this.actualizaGraficas();
+        this.chartCanvas.render();
+        
         
     } // FIN setTipo()
 
 
     graficaCanvas(json: any, c: any, type: any){
         console.log("Cargando grafica canvas");
-            let canvas2 = document.getElementById("chartContainer");
+        let canvas2 = document.getElementById("chartContainer");
 
+        let arrXValues = []; // arreglo que guarda los valores de la etiqueta X
+        let datasetValues = []; // arreglo que guarda los valores de la etiqueta Y
+        let dataObjects = []  // arreglo que guarda los valores de los colores de las graficas
 
-            let dataPrueba = [
-                { label: "banana", y: 18 },
-                { label: "orange", y: 29 },
-                { label: "apple", y: 40 },                                    
-                { label: "mango", y: 34 },
-                { label: "grape", y: 24 }
-            ];
-
-            let data = [];
-
-            for (let i = 0; i < json.xdata.length; i++) {
-                const datos = {
-                    label: json.xdata[i],
-                    y: 1
+        if (type == "column" || type == "pie" || type == "line") {
+            for (let i = 0; i < json.p.length; i++) {
+                let datasets;
+                let datapoint = [];
+                for (let j = 0; j < json.xdata.length; j++) {
+                    
+                    const dato = {
+                        label: json.xdata[j], 
+                        y: json.p[i].ydata[j]
+                    }
+                    datapoint.push(dato);
+                    
                 }
-                
+                datasets ={
+                    type: type,
+                    dataPoints: datapoint
+                }
+                dataObjects.push(datasets);
             }
+        } else if (type == "bubble") {
+            for (let i = 0; i < json.p.length; i++) {
+                let datasets;
+                let datapoint = [];
+                for (let j = 0; j < json.xdata.length; j++) {
+                    
+                    const dato = {
+                        label: json.xdata[j], 
+                        y: json.p[i].ydata[j],
+                        X: j +1,
+                        z: 1
+
+                    }
+                    datapoint.push(dato);
+                    
+                }
+                datasets ={
+                    type: type,
+                    dataPoints: datapoint
+                }
+                dataObjects.push(datasets);
+            }
+        } else {
+            for (let i = 0; i < json.p.length; i++) {
+                let datasets;
+                let datapoint = [];
+                for (let j = 0; j < json.xdata.length; j++) {
+                    
+                    const dato = {
+                        indexLabel: json.xdata[j], 
+                        y: json.p[i].ydata[j],
+
+                    }
+                    datapoint.push(dato);
+                    
+                }
+                datasets ={
+                    type: type,
+                    showInLegend: true,
+			        legendText: "{indexLabel}",
+                    dataPoints: datapoint
+                }
+                dataObjects.push(datasets);
+            }
+        }
 
 
 
-            var chart = new CanvasJS.Chart(canvas2, {
-        
-              title:{
-                text: "Fruits sold in First Quarter"              
-              },
-              data: [//array of dataSeries              
-                { //dataSeries object
-        
-                 /*** Change type "column" to "bar", "area", "line" or "pie"***/
-                 type: "column",
-                 dataPoints: dataPrueba
-               }
-               ]
-             });
-        
-            chart.render();
+        this.chartCanvas = new CanvasJS.Chart(canvas2, {
+    
+            title:{
+            text: json.title              
+            },
+            exportEnabled: true,
+            data: dataObjects
+            });
+    
+        this.chartCanvas.render();
 
 
     }
