@@ -82,7 +82,6 @@ export class Grafica2D implements FileModelInterface {
                 }
     
                 if (datasetValues[i].hasOwnProperty('color') == false || datasetValues[i].color == "") {
-                    console.log("no existe color");
                     let newColor = this.generarNuevoColor();
                     json.p[i].color = newColor;
                     datos.backgroundColor = newColor;
@@ -121,8 +120,6 @@ export class Grafica2D implements FileModelInterface {
                 }
     
                 if (datasetValues[i].hasOwnProperty('color') == false || datasetValues[i].color == "") {
-                    console.log("no existe color");
-                    console.log(this.generarNuevoColor());
                     datos.backgroundColor = this.generarNuevoColor();
                 }
                
@@ -185,7 +182,6 @@ export class Grafica2D implements FileModelInterface {
         for(var i = 0; i < 6; i++){
             color = color + simbolos[Math.floor(Math.random() * 16)];
         }
-        console.log(color);
         return color;
     }
 
@@ -210,14 +206,14 @@ export class Grafica2D implements FileModelInterface {
         } else if(json.type == "bubble"){
             return "correcto";  
         } else {
-           return "error-tipo";
+           return "El tipo de grafica que se encuentra en el JSON no es valido";
         }      
     }
 
 
     validaEncabezados(json: any):String{
         if (json.title == "" || json.xlabel == "" || json.ylabel == "" || json.hasOwnProperty('title') == false || json.hasOwnProperty('xlabel') == false || json.hasOwnProperty('ylabel') == false) {
-            return "error-encabezados";
+            return "No se encuentra valor en los encabezados o no existe la propiedad";
         } else{
             return "correcto";
         }
@@ -236,7 +232,7 @@ export class Grafica2D implements FileModelInterface {
             }
 
             if (aux > 0) {
-                return "error-datos";
+                return "Los datos (X, Y) estan incompletos o no son correctos";
             } else {
                 return "correcto";
             }
@@ -246,8 +242,7 @@ export class Grafica2D implements FileModelInterface {
     validaEjeX(json: any):String{
         for (let i = 0; i < json.xdata.length; i++) {
             if (json.xdata[i].length > 20) {
-                console.log("Valor en eje x muy largo");    
-                return "error-datos"
+                return "El tamaño en los valroes X es mayor de lo permitido"
             }
             
         }
@@ -315,12 +310,12 @@ export class Grafica2D implements FileModelInterface {
             }
 
             item = item +
-                    "</ul>"+
-                "</div>"+
-                "<button id='botonDescarga' class='btn btn-primary'>Descargar</button>"+
-            "</div>";
+                "</ul>"+
+                    "</div>"+
+                        "<button id='botonDescarga' class='btn btn-primary' style='display: none;'>Descargar</button>"+
+                    "</div>";
+        
                 
-
 
         $('#menu' + mySelf.id).append(item);
         $('#menu' + mySelf.id).css({ "visibility": "visible", "width": "250" })
@@ -357,6 +352,7 @@ export class Grafica2D implements FileModelInterface {
                     mySelf.chart.options.scales.y.title.display = true;
                 }
                 mySelf.chart.update();
+                mySelf.chartCanvas.render();
             }),
 
             $('#botonDescarga').click(function(){
@@ -370,7 +366,6 @@ export class Grafica2D implements FileModelInterface {
                     var check:any = document.getElementById('checkPointGraphic'+j);
                     // Para quitar de gráficas del canvas 
                     if(check.checked) { // Si el checkbox está presionado se ocultan los dataset0
-                        console.log("fui presionado IF quitar grafica "+j); //comprobar que si entra al if
                         mySelf.chart.options.plugins.legend.display = true;
                         mySelf.chart.show(j);
                     } else { //cuando se deselecciona se muestra el dataset 0
@@ -384,7 +379,6 @@ export class Grafica2D implements FileModelInterface {
                     var check:any = document.getElementById('checkPointGraphic'+j);
                     // Para quitar de gráficas del canvas 
                     if(check.checked) { // Si el checkbox está presionado se ocultan los dataset0
-                        console.log("fui presionado IF quitar grafica "+j); //comprobar que si entra al if
                         mySelf.chartCanvas.options.data[j].visible = true;
                         mySelf.chartCanvas.options.data[j].showInLegend = true;
                     } else { //cuando se deselecciona se muestra el dataset 0
@@ -412,11 +406,9 @@ export class Grafica2D implements FileModelInterface {
     }
 
     descarga():void {
-        console.log("Descargando imagen");
         const imageLink = document.createElement('a');
         const canvasLink = document.getElementById('myCanvas') as HTMLCanvasElement;
         imageLink.download = 'canvas.png';
-        console.log(canvasLink);
         imageLink.href = canvasLink.toDataURL('image/png', 1);
         imageLink.click();
     } // FIN descarga()
@@ -447,9 +439,25 @@ export class Grafica2D implements FileModelInterface {
               break;
           }
 
-        //destruimos el canvas anterior
+        let contenedorChart = document.getElementById("myCanvas");
+        let contenedorCanvas = document.getElementById("chartContainer");
+        let botonDescarga = document.getElementById("botonDescarga");
+
+        if ((tipo == "puntos" || tipo == "lineas" || tipo == "barras") && (contenedorChart != undefined && contenedorCanvas != undefined && botonDescarga != undefined)) {
+            contenedorChart.style.display = "none";
+            contenedorCanvas.style.display = "block";
+            botonDescarga.style.display = "none";
+            console.log("Soy de puntos lineas o barras");
+        } else if ( tipo == "pastel" && contenedorChart != undefined && contenedorCanvas != undefined && botonDescarga != undefined ) {
+            contenedorCanvas.style.display = "none";
+            contenedorChart.style.display = "block";
+            botonDescarga.style.display = "block";
+            console.log("Soy de pastel");
+        }
+        
+
         this.chart.render();
-        this.chart.destroy();
+        this.chart.destroy();    
         
         console.log("La grafica será de tipo:", newJson.type);
         //dibujamos nuevamente 
@@ -457,7 +465,6 @@ export class Grafica2D implements FileModelInterface {
 
         this.actualizaGraficas();
         this.chartCanvas.render();
-        
         
     } // FIN setTipo()
 
