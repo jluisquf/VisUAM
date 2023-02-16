@@ -192,7 +192,7 @@ export class Grafica2D implements FileModelInterface {
         errores.push(this.validaEncabezados(datosJSON));
         errores.push(this.validaDatos(datosJSON));
         errores.push(this.validaEjeX(datosJSON));
-        console.log(errores);
+        //console.log(errores);
         return errores;
     }
 
@@ -342,17 +342,19 @@ export class Grafica2D implements FileModelInterface {
             }),
 
             $('#checkPointY').change(function(){
-                var check:any = document.getElementById('checkPointY');
-                // Para ocultar el eje y
-                if(check.checked) { // Si el checkbox está presionado se oculta el eje y
-                    mySelf.chart.options.scales.y.ticks.display = false;
-                    mySelf.chart.options.scales.y.title.display = false;
-                } else { //cuando se deselecciona se muestra el eje y
-                    mySelf.chart.options.scales.y.ticks.display = true;
-                    mySelf.chart.options.scales.y.title.display = true;
-                }
-                mySelf.chart.update();
-                mySelf.chartCanvas.render();
+                
+                mySelf.actualizaGraficas();
+                // var check:any = document.getElementById('checkPointY');
+                // // Para ocultar el eje y
+                // if(check.checked) { // Si el checkbox está presionado se oculta el eje y
+                //     mySelf.chart.options.scales.y.ticks.display = false;
+                //     mySelf.chart.options.scales.y.title.display = false;
+                // } else { //cuando se deselecciona se muestra el eje y
+                //     mySelf.chart.options.scales.y.ticks.display = true;
+                //     mySelf.chart.options.scales.y.title.display = true;
+                // }
+                // mySelf.chart.update();
+                // mySelf.chartCanvas.render();
             }),
 
             $('#botonDescarga').click(function(){
@@ -403,6 +405,24 @@ export class Grafica2D implements FileModelInterface {
                 this.chartCanvas.options.data[i].showInLegend = false;
             }
         }
+
+        var check:any = document.getElementById('checkPointY');
+            // Para ocultar el eje y
+            if(check.checked) { // Si el checkbox está presionado se oculta el eje y
+                this.chart.options.scales.y.ticks.display = false;
+                this.chart.options.scales.y.title.display = false;
+
+                this.chartCanvas.options.axisY.labelFontSize = 0;
+            } else { //cuando se deselecciona se muestra el eje y
+                this.chart.options.scales.y.ticks.display = true;
+                this.chart.options.scales.y.title.display = true;
+
+                this.chartCanvas.options.axisY.labelFontSize = 20;
+            }
+
+            //console.log(this.chartCanvas.options);
+            this.chart.update();
+            this.chartCanvas.render();
     }
 
     descarga():void {
@@ -444,22 +464,22 @@ export class Grafica2D implements FileModelInterface {
         let botonDescarga = document.getElementById("botonDescarga");
 
         if ((tipo == "puntos" || tipo == "lineas" || tipo == "barras") && (contenedorChart != undefined && contenedorCanvas != undefined && botonDescarga != undefined)) {
-            contenedorChart.style.display = "none";
+            contenedorChart.classList.add("oculto");
             contenedorCanvas.style.display = "block";
             botonDescarga.style.display = "none";
-            console.log("Soy de puntos lineas o barras");
+            //console.log("Soy de puntos lineas o barras");
         } else if ( tipo == "pastel" && contenedorChart != undefined && contenedorCanvas != undefined && botonDescarga != undefined ) {
             contenedorCanvas.style.display = "none";
-            contenedorChart.style.display = "block";
+            contenedorChart.classList.remove("oculto");
             botonDescarga.style.display = "block";
-            console.log("Soy de pastel");
+            //console.log("Soy de pastel");
         }
         
 
         this.chart.render();
         this.chart.destroy();    
         
-        console.log("La grafica será de tipo:", newJson.type);
+        //console.log("La grafica será de tipo:", newJson.type);
         //dibujamos nuevamente 
         this.draw(newJson, newCanvas);
 
@@ -470,7 +490,7 @@ export class Grafica2D implements FileModelInterface {
 
 
     graficaCanvas(json: any, c: any, type: any){
-        console.log("Cargando grafica canvas");
+        //console.log("Cargando grafica canvas");
         let canvas2 = document.getElementById("chartContainer");
 
         let arrXValues = []; // arreglo que guarda los valores de la etiqueta X
@@ -548,6 +568,12 @@ export class Grafica2D implements FileModelInterface {
     
             title:{
             text: json.title              
+            },
+            axisY:{
+                labelFontSize: 20
+            },
+            axisX:{
+                labelFontSize: 20
             },
             exportEnabled: true,
             data: dataObjects

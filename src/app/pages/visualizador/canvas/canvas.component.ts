@@ -64,6 +64,14 @@ export class CanvasComponent implements OnInit {
         break;
       case "Chart2D":
         object = new Grafica2D(json,this.canvas);
+        var canvas = document.getElementById("myCanvas");
+        if (canvas != undefined) {
+          canvas.classList.remove("canvas");
+          canvas.classList.add("canvas2");
+          canvas.classList.add("oculto");
+          
+        }
+        
         this.muestraGrafica = true;
         break;
       default:
