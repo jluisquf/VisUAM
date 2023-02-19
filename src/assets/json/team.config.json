@@ -77,6 +77,15 @@
                 "facebook": "https://www.facebook.com/luisantonio.valdovinosbarrera/",
                 "github": "https://github.com/luis-barrera"
             }
+        },
+        {
+            "nombre": "Luis Alfredo Pérez Mendoza",
+            "rutaImg": "/assets/img/LuisPerez.jpeg",
+            "redes": {
+                "instagram": "https://www.instagram.com/luis_zerosow7",
+                "facebook": "https://www.facebook.com/black.zero.7777",
+                "github": "https://github.com/LuisPerez1923"
+            }
         }
     ]
 }
