@@ -145,7 +145,7 @@ export class Grafica2D implements FileModelInterface {
                 text: json.title,
               },
               legend:{
-                display: true //oculta las etiquetas de los dataset
+                display: false //oculta las etiquetas de los dataset
               }
             },
             scales: {
