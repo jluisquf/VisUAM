@@ -266,22 +266,22 @@ export class Grafica2D implements FileModelInterface {
         $('.menu__default').after(contenedor);
 
         var item =  "<div id = 'particulasMenu'" + "class='particulasMenu' >" +
-                        "<h3 class='align-text-top section__subtitle' id='titulo'><span>Graphics Menu</span></h3>" +
+                        "<h3 class='align-text-top section__subtitle' id='titulo'><span>2D Graphics Menu</span></h3>" +
                         "<div id = 'particulasMenu' class='particulasMenu' >" +
                             "<ul class='nav flex-column' id='vor'>" +
 
                                 "<select name='select' id='typeOptions'>" +
-                                    "<option value='' disabled >--- Selecciona una opción ---</option>" +
-                                    "<option value='bar' >Barras</option>" +
-                                    "<option value='line'  >Lineas</option>" +
-                                    "<option value='pie' >Pastel</option>" +
-                                    "<option value='bubble' >Puntos</option>" +
+                                    "<option value='' disabled >---Sselect an option ---</option>" +
+                                    "<option value='bar' >Bar</option>" +
+                                    "<option value='line'  >Line</option>" +
+                                    "<option value='pie' >Pie</option>" +
+                                    "<option value='bubble' >Bubble</option>" +
                                 "</select>" +
 
                                 "<div class='form-check'>" +
                                     "<input type='checkbox' class='form-check-input' id='checkPointY' >" +
                                     "<label class='form-check-label' for='checkPointY'><span></span></label>" +
-                                    "<span> Ocultar eje Y </span>" +
+                                    "<span> Hide Y axis </span>" +
                                 "</div>";
 
             for (let i = 0; i < json.p.length; i++) {
@@ -292,7 +292,7 @@ export class Grafica2D implements FileModelInterface {
                         "<div class='form-check'>" +
                             "<input type='checkbox' checked='true' class='form-check-input' id='checkPointGraphic"+i+"' value="+i+">" +
                             "<label class='form-check-label' for='checkPointGraphic"+i+"'><span></span></label>" +
-                            "<span> Mostrar dataset "+i+"</span>" +
+                            "<span> Show dataset "+i+"</span>" +
                         "</div>" +    
                     "</li>"
                 } else {
@@ -301,7 +301,7 @@ export class Grafica2D implements FileModelInterface {
                         "<div class='form-check'>" +
                             "<input type='checkbox' checked='true' class='form-check-input' id='checkPointGraphic"+i+"' value="+i+">" +
                             "<label class='form-check-label' for='checkPointGraphic"+i+"'><span></span></label>" +
-                            "<span> Mostrar dataset "+i+"</span>" +
+                            "<span> Show dataset "+i+"</span>" +
                         "</div>" +    
                     "</li>"
                 }
