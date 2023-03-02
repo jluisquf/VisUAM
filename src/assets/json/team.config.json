@@ -86,6 +86,15 @@
                 "facebook": "https://www.facebook.com/black.zero.7777",
                 "github": "https://github.com/LuisPerez1923"
             }
+        },
+        {
+            "nombre": "Victor Aldhair Castañeda Pinacho",
+            "rutaImg": "/assets/img/Aldhair.JPG",
+            "redes": {
+                "instagram": "https://www.instagram.com/aldhair_yayattrs/",
+                "facebook": "https://www.facebook.com/AldhairYaya",
+                "github": "https://github.com/AldhairCP"
+            }
         }
     ]
 }
