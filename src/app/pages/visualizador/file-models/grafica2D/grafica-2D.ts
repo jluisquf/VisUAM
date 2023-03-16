@@ -241,7 +241,7 @@ export class Grafica2D implements FileModelInterface {
 
     validaEjeX(json: any):String{
         for (let i = 0; i < json.xdata.length; i++) {
-            if (json.xdata[i].length > 20) {
+            if (json.xdata[i].length > 30) {
                 return "El tamaño en los valroes X es mayor de lo permitido"
             }
             
@@ -505,13 +505,14 @@ export class Grafica2D implements FileModelInterface {
                     
                     const dato = {
                         label: json.xdata[j], 
-                        y: json.p[i].ydata[j]
+                        y: json.p[i].ydata[j],                                                
                     }
                     datapoint.push(dato);
                     
                 }
                 datasets ={
                     type: type,
+                    legendText: json.p[i].dataname,
                     dataPoints: datapoint
                 }
                 dataObjects.push(datasets);
@@ -546,8 +547,7 @@ export class Grafica2D implements FileModelInterface {
                     
                     const dato = {
                         indexLabel: json.xdata[j], 
-                        y: json.p[i].ydata[j],
-
+                        y: json.p[i].ydata[j]                 
                     }
                     datapoint.push(dato);
                     
@@ -555,7 +555,7 @@ export class Grafica2D implements FileModelInterface {
                 datasets ={
                     type: type,
                     showInLegend: true,
-			        legendText: "{indexLabel}",
+			        legendText: json.p[i].dataname,
                     dataPoints: datapoint
                 }
                 dataObjects.push(datasets);
