@@ -23,9 +23,9 @@
         },
         "main":{
             "titulo":"¿Qué es VisUAM?",
-            "subtitulo":"Visualiza desde un JSON",
-            "parrafo1":"Visualiza los formatos disponibles leyendo los datos desde un archivo JSON.",
-            "parrafo2":"Al tener todos los datos en un archivo json se facilita su lectura, ademas de que este formato está bien estructurado y facil de comprender.",
+            "subtitulo":"Visualiza desde un VSM",
+            "parrafo1":"Visualiza los formatos disponibles leyendo los datos desde un archivo VSM.",
+            "parrafo2":"Al tener todos los datos en un archivo VSM se facilita su lectura, ademas de que este formato está bien estructurado y facil de comprender.",
             "subtitulo2":"Modelar Resultados",
             "parrafo3":"El obtener resultados de sus investigaciones y/o practicas en ocasiones requiere de una interpretación visual para hacer más sencilla su comprensión.",
             "parrafo4":"No basta con solo ver gráficas de sus datos, la interpretación visual es importante.",
@@ -35,7 +35,7 @@
         },
         "banner":{
             "titulo":"Empieza a usar el visualizador Ya!",
-            "parrafo":"Los miembros de la UAM pueden enviar sus resultados con la estructura del archivo JSON acordada para poder utilizar el sitio.",
+            "parrafo":"Los miembros de la UAM pueden enviar sus resultados con la estructura del archivo VSM acordada para poder utilizar el sitio.",
             "link":"Abrir Visualizador"
         }
     },
@@ -57,14 +57,14 @@
     },
     "menu":{
         "titulo":"Bienvenido!",
-        "parrafo":"Para comenzar a utilizar el visualizador utiliza el botón Abrir 'Archivo' y selecciona un archivo de formato JSON válido...",
+        "parrafo":"Para comenzar a utilizar el visualizador utiliza el botón Abrir 'Archivo' y selecciona un archivo de formato VSM válido...",
         "parrafo2":"Seleccione un archivo para continuar...",
         "boton":"Abrir Archivo",
         "otroArchivo":"Cerrar visualizador"
     },
     "visualizador":{
         "titulo":"VISUAM",
-        "parrafo":"Para comenzar a utilizar el visualizador utiliza el botón 'Abrir Archivo' y seleciona un archivo de formato JSON válido para continuar...",
+        "parrafo":"Para comenzar a utilizar el visualizador utiliza el botón 'Abrir Archivo' y seleciona un archivo de formato VSM válido para continuar...",
         "boton":"Abrir Archivo"
     },
     "voronoi":{

@@ -23,9 +23,9 @@
         },
         "main":{
             "titulo":"What is VisUAM?",
-            "subtitulo":"View from a JSON",
-            "parrafo1":"Views the available formats by reading data from a JSON file.",
-            "parrafo2":"Having all the data in a json file makes it easy to read, and this format is well structured and easy to understand.",
+            "subtitulo":"View from a VSM",
+            "parrafo1":"Views the available formats by reading data from a VSM file.",
+            "parrafo2":"Having all the data in a VSM file makes it easy to read, and this format is well structured and easy to understand.",
             "subtitulo2":"Modeling Results",
             "parrafo3":"Obtaining results from your research and/or practice sometimes requires a visual interpretation to make it easier to understand.",
             "parrafo4":"It is not enough to just look at graphs of your data, visual interpretation is important.",
@@ -35,7 +35,7 @@
         },
         "banner":{
             "titulo":"Start using the visualizer now!",
-            "parrafo":"UAM members can submit their results with the agreed JSON file structure in order to use the site.",
+            "parrafo":"UAM members can submit their results with the agreed VSM file structure in order to use the site.",
             "link":"Open Visualizer"
         }
     },
@@ -57,14 +57,14 @@
     },
     "menu":{
         "titulo":"Welcome!",
-        "parrafo":"To start using the viewer use the Open 'File' button and select a valid JSON format file...",
+        "parrafo":"To start using the viewer use the Open 'File' button and select a valid VSM format file...",
         "parrafo2":"Select a file to continue...",
         "boton":"Open file",
         "otroArchivo":"Close viewer"
     },
     "visualizador":{
         "titulo":"VISUAM",
-        "parrafo":"To start using the viewer use the Open 'File' button and select a valid JSON format file to continue...",
+        "parrafo":"To start using the viewer use the Open 'File' button and select a valid VSM format file to continue...",
         "boton":"Open File"
     },
     "voronoi":{
