@@ -3,12 +3,12 @@
         "Inicio":"Inicio",
         "Que":"¿Qué es?",
         "GrupoTrabajo":"Grupo de trabajo",
-        "Abrir":"Abrir visualizador!"
+        "Abrir":"Abrir visualizador"
     },
     "homePage":{
         "titulo":"Conoce el nuevo visualizador VISUAM",
-        "parrafo":"Visualiza algunos de los formatos disponibles: Red porosa, Partículas y Voronoi.",
-        "link":"Comienza ahora!",
+        "parrafo":"Visualiza algunos de los formatos disponibles: Red porosa, Partículas, Voronoi y Gráficos 2D.",
+        "link":"¡Comienza ahora!",
         "features":{
             "subtitulo1":"Visualiza",
             "parrafo1":"Conseguir una visualización de resultados es importante porque ayuda a comprender estos datos complejos en forma que es fácil de entender para el ser humano.",
@@ -17,7 +17,7 @@
             "parrafo2":"No dejes la interpretación de tus datos a un lado, ya que esta explica el sentido de tus resultados y en base a esto sacar conclusiones.",
             "boton2":"",
             "subtitulo3":"Analiza",
-            "parrafo3":"Procesa la información recabada para ver como se relacionan los elementos involucrados.",
+            "parrafo3":"Procesa la información recabada para ver cómo se relacionan los elementos involucrados.",
             "boton3":""
         },
         "main":{
@@ -33,7 +33,7 @@
             "parrafo6":"Nuestro formato de particulas cuenta con esta posibilidad de ver gráficos de barras y de pastel."
         },
         "banner":{
-            "titulo":"Empieza a usar el visualizador Ya!",
+            "titulo":"Empieza a usar el visualizador ¡Ya!",
             "parrafo":"Los miembros de la UAM pueden enviar sus resultados con la estructura del archivo JSON acordada para poder utilizar el sitio.",
             "link":"Abrir Visualizador"
         }
@@ -52,10 +52,10 @@
         "Inicio":"Inicio",
         "Que":"¿Qué es?",
         "GrupoTrabajo":"Grupo de trabajo",
-        "Abrir":"Abrir visualizador!"
+        "Abrir":"Abrir visualizador"
     },
     "menu":{
-        "titulo":"Bienvenido!",
+        "titulo":"¡Bienvenido!",
         "parrafo":"Para comenzar a utilizar el visualizador utiliza el botón Abrir 'Archivo' y selecciona un archivo de formato JSON válido...",
         "parrafo2":"Seleccione un archivo para continuar...",
         "boton":"Abrir Archivo",
@@ -86,5 +86,9 @@
         "btnAceptar":"Aceptar",
         "subtitulo":"Tiempos",
         "btnGrafica":"Generar Gráfica"
+    },
+    "botones":{
+        "texto1":"¡Da clic aquí!"
     }
+
 }

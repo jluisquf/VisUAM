@@ -3,11 +3,11 @@
         "Inicio":"Home",
         "Que":"What is it?",
         "GrupoTrabajo":"Working Group",
-        "Abrir":"Open viewer!"
+        "Abrir":"Open viewer"
     },
     "homePage":{
         "titulo":"Meet the new VISUAM viewer",
-        "parrafo":"View some of the available formats: Porous Network, Particles and Voronoi.",
+        "parrafo":"View some of the available formats: Porous Network, Particles, Voronoi and  2D Graphics.",
         "link":"Start now!",
         "features":{
             "subtitulo1":"Visualize",
@@ -52,7 +52,7 @@
         "Inicio":"Home",
         "Que":"What is it?",
         "GrupoTrabajo":"Working Group",
-        "Abrir":"Open viewer!"
+        "Abrir":"Open viewer"
     },
     "menu":{
         "titulo":"Welcome!",
@@ -86,5 +86,8 @@
         "btnAceptar":"Accept",
         "subtitulo":"Times",
         "btnGrafica":"Generate Chart"
+    },
+    "botones":{
+        "texto1":"Click Here!"
     }
 }
