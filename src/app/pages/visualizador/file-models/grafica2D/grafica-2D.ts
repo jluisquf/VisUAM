@@ -292,7 +292,7 @@ export class Grafica2D implements FileModelInterface {
                         "<div class='form-check'>" +
                             "<input type='checkbox' checked='true' class='form-check-input' id='checkPointGraphic"+i+"' value="+i+">" +
                             "<label class='form-check-label' for='checkPointGraphic"+i+"'><span></span></label>" +
-                            "<span> Show dataset "+i+"</span>" +
+                            "<span> Dataset: "+json.p[i].dataname+"</span>" +
                         "</div>" +    
                     "</li>"
                 } else {
@@ -301,7 +301,7 @@ export class Grafica2D implements FileModelInterface {
                         "<div class='form-check'>" +
                             "<input type='checkbox' checked='true' class='form-check-input' id='checkPointGraphic"+i+"' value="+i+">" +
                             "<label class='form-check-label' for='checkPointGraphic"+i+"'><span></span></label>" +
-                            "<span> Show dataset "+i+"</span>" +
+                            "<span> Dataset: "+json.p[i].dataname+"</span>" +
                         "</div>" +    
                     "</li>"
                 }
