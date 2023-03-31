@@ -30,7 +30,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## VisUAM Interface 
 
-In Image 1, the VisUAM homepage is shown, accessed through the URL [URL proyect](http://palancar.izt.uam.mx:4010/)
+In Image 1, the VisUAM homepage is shown, accessed through the URL [VisUAM](http://palancar.izt.uam.mx:4010/)
 
 Next, the different visual elements of VisUAM are explained, such as buttons, text boxes, etc.
 ```
@@ -48,7 +48,7 @@ Next, the different visual elements of VisUAM are explained, such as buttons, te
 
 When you click on the "Start Now" or "Open Viewer" button, the interface of the viewer is displayed (see Image 2).
 
-![image 2.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 2.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image2VisUAM.jpg)
 
 <sub>Image 2. Page to open documents.</sub>
 
@@ -59,11 +59,11 @@ In this interface, we can observe two buttons:
 7.- "Open Document" button: allows you to open the file explorer to load the .vsm file that you want to interpret/visualize.
 8.- "Menu" button: displays a menu (which varies depending on the .vsm file loaded in the viewer), as shown in Image 3. If you click on the "Menu" button without loading a .vsm file, you can see that a welcome popup window opens and displays an "Open Document" button (see Image 4). 
 ```
-![image 3.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 3.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image3VisUAM.jpg)
 
 <sub>Image 3. Example of the menu for Voronoi.</sub>
 
-![image 4.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 4.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image4VisUAM.jpg)
 
 <sub>Image 4. Menu button without loading a VSM file.</sub>
 
@@ -71,18 +71,23 @@ In this interface, we can observe two buttons:
 
 This section describes how to perform a visualization using VisUAM.
 
+![GoToVisUAM](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/GoToVisUAM.JPG)
+![OpenVIew](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/OpenView.JPG)
+![VSMFile](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/VSMFile.JPG)
+![ReadyView](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/ReadyView.JPG)
+
 VisUAM Formats
 
 Currently, VisUAM supports 4 types of visualization:
 ```
-2D Graphics.
-Porous networks.
-Voronoi diagrams.
-Particle diffusion.
+- 2D Graphics.
+- Porous networks.
+- Voronoi diagrams.
+- Particle diffusion.
 ```
 VisUAM can recognize input data for different applications (different visual elements) as long as they follow the basic structure of the VSM format, which is shown in Image 5.
 
-![image 5.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 5.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image5VisUAM.jpg)
 
 <sub>Image 5. Base format (VSM).</sub>
 
@@ -93,7 +98,7 @@ Each supported format may have its own properties (tags) specific to the applica
 
 In Image 6, we can see an example of the contents of a VSM file to generate 2D graphics. To describe it, we will use tags in red to indicate the meaning of each of its components.
 
-![image 6.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 6.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image6VisUAM.jpg)
 
 <sub>Image 6. 2D Graphics format.</sub>
 ```
@@ -111,13 +116,13 @@ Label / Description
 
 In Image 7, we can see the visualization of an example of 2D Graphics.
 
-![image 7.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 7.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image7VisUAM.jpg)
 
 <sub>Image 7. Visualization of 2D Graphics.</sub>
 
 Clicking on the Menu button will give us the options shown in Image 8.
 
-![image 8.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 8.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image8VisUAM.jpg)
 
 <sub>Image 8. Menu for 2D Graphics.</sub>
 ```
@@ -131,7 +136,7 @@ Label / Description
 
 In Image 6, we can see an example of the content of the VSM file to generate a porous network. To describe it, we will use labels in red to indicate the meaning of each of the elements that compose it.
 
-![image 9.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 9.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image9VisUAM.jpg)
 
 <sub>Image 9 - Porous Network Format.</sub>
 ```
@@ -153,13 +158,13 @@ Label / Description
 ```
 In Image 10, we can observe the visualization of an example of porous networks.
 
-![image 10.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 10.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image10VisUAM.jpg)
 
 <sub>Image 10. Visualization of a Pore Network</sub>
 
 When clicking on the Menu button, we will have the options shown in Image 11.
 
-![image 11.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 11.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image11VisUAM.jpg)
 
 <sub>Image 11. Menu for Porous Network.</sub>
 ```
@@ -174,7 +179,7 @@ Description
 
 In Image 12, we can observe an example of the contents of a VSM file to generate a Voronoi Diagram. To describe it, we will use red labels to indicate the meaning of each of its components.
 
-![image 12.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 12.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image12VisUAM.jpg)
 
 <sub>Image 12. Voronoi Diagram Format.</sub>
 
@@ -191,13 +196,13 @@ Label / Description
 ```
 In Image 12, we can see the visualization of an example of a 3D Voronoi diagram.
 
-![image 13.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 13.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image13VisUAM.jpg)
 
 <sub>Image 13. Visualization of 3D Voronoi diagram</sub>
 
 When you click on the Menu button, you will see the options shown in Image 14.
 
-![image 14.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 14.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image14VisUAM.jpg)
 
 <sub>Image 14. 3D Voronoi diagram menu.</sub>
 ```
@@ -211,7 +216,7 @@ Label / Description
 
 To visualize the particle diffusion animation, it is necessary to have the following structure in the VSM file. In Image 15, we can observe the basic structure for the animation. As we can see, it includes the name tag, the type of animation, as well as two tags referring to the direction of the flow in which diffusion takes place.
 
-![image 15.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 15.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image15VisUAM.jpg)
 
 <sub>Image 15. Particle Diffusion Format.</sub>
 ```
@@ -223,7 +228,7 @@ Label / Description
 - WtoN:  Diffusion from the widest to the narrowest part of the channel.
 Each of these labels has a sub-label from 4 to 18.
 ```
-![image 16.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 16.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image16VisUAM.jpg)
 
 <sub>Image 16. Particle Diffusion Format.</sub>
 ```
@@ -259,13 +264,13 @@ The times of interest are:
 ```
 In Image 17, we can observe the visualization of an example of particle diffusion. By clicking on the menu button, we will have the options shown in Image 18.
 
-![image 17.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 17.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image17VisUAM.jpg)
 
 <sub>Image 17. Visualization of particle diffusion.</sub>
   
 By clicking on the menu button, we will have the options shown in Image 18.
   
-![image 18.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 18.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image18VisUAM.JPG)
   
 <sub>Image 18. Particle diffusion menu.</sub>
 ```
@@ -282,7 +287,7 @@ Label / Description
 ```
 The 2D graphs that can be generated on the statistics are shown in Image 19.
 
-![image 19.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/homePage.jpg)
+![image 19.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image19VisUAM.JPG)
 
 <sub>Image 19. Bar graph of statistical data from trajectory analysis.</sub>
 
