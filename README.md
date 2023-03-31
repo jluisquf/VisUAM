@@ -300,7 +300,7 @@ Preconditions:
  
 Download from the project link in Github (https://github.com/jluisquf/VisUAM.git) the project code, either through a git clone or by downloading the ZIP file, for this example we will obtain the project code by a git clone.
 
-![image 20.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image20VisUAM.JPG)
+![image 20.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image20VisUAM.jpg)
 
 <sub>Image 20. Project on GitHub.</sub>
 
@@ -310,7 +310,7 @@ Download project in terminal (shell)
 2. Execute the command git clone <Project link> (Image 21). The “git clone” command downloads the Project to our computer.
 3. Execute the command cd VisUAM. The “git clone” command generates the folder VisUAM.
 ```
-![image 21.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image21VisUAM.JPG)
+![image 21.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image21VisUAM.jpg)
 
 <sub>Image 21. Terminal for running commands.</sub>
 
@@ -320,13 +320,13 @@ Once you have the project code you will proceed to download the dependencies wit
 ```
 npm i 
 ```
-![image 22.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image22VisUAM.JPG)
+![image 22.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image22VisUAM.jpg)
 
 <sub>Image 22. Terminal for running commands.</sub>
 
 Finally you will run the command ng serve to create a virtual server on your local machine and host it on port 4200 (image 23).
 
-![image 23.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image23VisUAM.JPG)
+![image 23.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image23VisUAM.jpg)
 
 <sub>Image 23. Terminal for running commands.</sub>
 
@@ -342,7 +342,7 @@ Preconditions:
 -have installed Angular
 Download from the project link in Github (https://github.com/jluisquf/VisUAM.git) the project code, either through a git clone or by downloading the ZIP file, for the example we will obtain the project code by a git clone.
 
-![image 24.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image20VisUAM.JPG)
+![image 24.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image20VisUAM.jpg)
 
 <sub>Image 24. Project on GitHub.</sub>
 
@@ -350,7 +350,7 @@ Download the project from the repository found on github (image 24).
 ```
 1. Copy the project link
 ```
-![image 25.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image25VisUAM.JPG)
+![image 25.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image25VisUAM.jpg)
 
 <sub>Image 25. Terminal for running commands.</sub>
 
@@ -358,7 +358,7 @@ The “grit clone” command donwloads the project into our computer
 ```
 2. Execute the command: “git clone [project link]”
 ```
-![image 26.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image26VisUAM.JPG)
+![image 26.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image26VisUAM.jpg)
 
 <sub>Image 26. Terminal for running commands.</sub>
 ```
@@ -371,7 +371,7 @@ npm i
  
 Finally you will run the ng build command to compile our application which will be stored in the dist folder.
 
-![image 27.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image27VisUAM.JPG)
+![image 27.](https://github.com/jluisquf/VisUAM/blob/master/src/assets/img/Image27VisUAM.jpg)
 
 <sub>Image 27. Terminal for running commands.</sub>
 ```
