@@ -274,18 +274,41 @@ export class RedPorosa implements FileModelInterface {
     var coloraux;
     if (checkbox.checked == true) {
       mySelf.redporosa.forEach(function (punto: any) {
+        //console.log(punto);
         coloraux = punto.material.color;
-        if (coloraux.r != 0) { coloraux.r = 0, coloraux.b = r; }
-        else if (coloraux.g != 0) { coloraux.g = 0, coloraux.b = g; }
-        else if (coloraux.b != 0) { coloraux.b = b; }
+        // if (coloraux.r != 0) { coloraux.r = 0, coloraux.b = r; }
+        // else if (coloraux.g != 0) { coloraux.g = 0, coloraux.b = g; }
+        // else if (coloraux.b != 0) { coloraux.b = b; }
+        if (punto.geometry.type != "CylinderGeometry") {
+          coloraux.r = 0;
+          coloraux.g = 0;
+          coloraux.b = 1;
+        }
         punto.material.setValues({ color: coloraux });
       });
     } else {
+      let puntos = this.json.sities;
+      let auxNum = 0;
       mySelf.redporosa.forEach(function (punto: any) {
         coloraux = punto.material.color;
-        if (coloraux.b == r) { coloraux.r = 1, coloraux.b = 0; }
-        else if (coloraux.b == g) { coloraux.g = 1, coloraux.b = 0; }
-        else if (coloraux.b == b) { coloraux.b = 1; }
+        // if (coloraux.b == r) { coloraux.r = 1, coloraux.b = 0; }
+        // else if (coloraux.b == g) { coloraux.g = 1, coloraux.b = 0; }
+        // else if (coloraux.b == b) { coloraux.b = 1; }
+
+        if (punto.geometry.type != "CylinderGeometry" && puntos[auxNum].color == 0) {
+          coloraux.r = 1;
+          coloraux.g = 0;
+          coloraux.b = 0;
+        } else if (punto.geometry.type != "CylinderGeometry" && puntos[auxNum].color == 1) {
+          coloraux.r = 0;
+          coloraux.g = 1;
+          coloraux.b = 0;
+        } else if (punto.geometry.type != "CylinderGeometry" && puntos[auxNum].color == 2) {
+          coloraux.r = 0;
+          coloraux.g = 0;
+          coloraux.b = 1;
+        }
+        auxNum++;
         punto.material.setValues({ color: coloraux });
 
       });
@@ -301,29 +324,53 @@ export class RedPorosa implements FileModelInterface {
       mySelf.redporosa.forEach(function (punto: any) {
         var aux = punto.material.color;
         coloraux = punto.material.color;
-        if (aux.r == 1 && aux.g == 0 && aux.b == 0) {
-          aux.r = r; aux.g = r; aux.b = r;
-        } else if (aux.r == 0 && aux.g == 1 && aux.b == 0) {
-          aux.r = g; aux.g = g; aux.b = g;
-        } else if (aux.r == 0 && aux.g == 0 && aux.b == 1) {
-          aux.r = b; aux.g = b; aux.b = b;
+        // if (aux.r == 1 && aux.g == 0 && aux.b == 0) {
+        //   aux.r = r; aux.g = r; aux.b = r;
+        // } else if (aux.r == 0 && aux.g == 1 && aux.b == 0) {
+        //   aux.r = g; aux.g = g; aux.b = g;
+        // } else if (aux.r == 0 && aux.g == 0 && aux.b == 1) {
+        //   aux.r = b; aux.g = b; aux.b = b;
+        // }
+
+        if (punto.geometry.type != "CylinderGeometry") {
+          coloraux.r = 0.55;
+          coloraux.g = 0.55;
+          coloraux.b = 0.55;
         }
-        punto.material.setValues({ color: aux });
-        mySelf.colorsp[aux.getHex()] = coloraux;
+        punto.material.setValues({ color: coloraux });
+        // punto.material.setValues({ color: aux });
+        // mySelf.colorsp[aux.getHex()] = coloraux;
       });
     } else {
+      let puntos = this.json.sities;
+      let auxNum = 0;
       mySelf.redporosa.forEach(function (punto: any) {
-        var aux = punto.material.color;
+        // var aux = punto.material.color;
+        // coloraux = punto.material.color;
+        // if (aux.r == r && aux.g == r && aux.b == r) {
+        //   aux.r = 1, aux.g = 0, aux.b = 0;
+        // } else if (aux.r == g && aux.g == g && aux.b == g) {
+        //   aux.r = 0, aux.g = 1, aux.b = 0;
+        // } else if (aux.r == b && aux.g == b && aux.b == b) {
+        //   aux.r = 0, aux.g = 0, aux.b = 1;
+        // }
+        // punto.material.setValues({ color: aux });
         coloraux = punto.material.color;
-        if (aux.r == r && aux.g == r && aux.b == r) {
-          aux.r = 1, aux.g = 0, aux.b = 0;
-        } else if (aux.r == g && aux.g == g && aux.b == g) {
-          aux.r = 0, aux.g = 1, aux.b = 0;
-        } else if (aux.r == b && aux.g == b && aux.b == b) {
-          aux.r = 0, aux.g = 0, aux.b = 1;
+        if (punto.geometry.type != "CylinderGeometry" && puntos[auxNum].color == 0) {
+          coloraux.r = 1;
+          coloraux.g = 0;
+          coloraux.b = 0;
+        } else if (punto.geometry.type != "CylinderGeometry" && puntos[auxNum].color == 1) {
+          coloraux.r = 0;
+          coloraux.g = 1;
+          coloraux.b = 0;
+        } else if (punto.geometry.type != "CylinderGeometry" && puntos[auxNum].color == 2) {
+          coloraux.r = 0;
+          coloraux.g = 0;
+          coloraux.b = 1;
         }
-        punto.material.setValues({ color: aux });
-
+        auxNum++;
+        punto.material.setValues({ color: coloraux });
       });
       mySelf.colorsp = {};
     }
