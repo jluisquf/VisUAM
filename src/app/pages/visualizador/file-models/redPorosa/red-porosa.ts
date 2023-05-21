@@ -274,16 +274,15 @@ export class RedPorosa implements FileModelInterface {
     var coloraux;
     if (checkbox.checked == true) {
       mySelf.redporosa.forEach(function (punto: any) {
-        //console.log(punto);
         coloraux = punto.material.color;
         // if (coloraux.r != 0) { coloraux.r = 0, coloraux.b = r; }
         // else if (coloraux.g != 0) { coloraux.g = 0, coloraux.b = g; }
         // else if (coloraux.b != 0) { coloraux.b = b; }
-        if (punto.geometry.type != "CylinderGeometry") {
+        //if (punto.geometry.type != "CylinderGeometry") { //En caso de que solamente se quieran colorear las esperas quitar este comentario
           coloraux.r = 0;
           coloraux.g = 0;
           coloraux.b = 1;
-        }
+        //}
         punto.material.setValues({ color: coloraux });
       });
     } else {
@@ -307,6 +306,10 @@ export class RedPorosa implements FileModelInterface {
           coloraux.r = 0;
           coloraux.g = 0;
           coloraux.b = 1;
+        }else{
+          coloraux.r = 0.5019607843137255;
+          coloraux.g = 0.25098039215686274;
+          coloraux.b = 0;
         }
         auxNum++;
         punto.material.setValues({ color: coloraux });
@@ -324,19 +327,12 @@ export class RedPorosa implements FileModelInterface {
       mySelf.redporosa.forEach(function (punto: any) {
         var aux = punto.material.color;
         coloraux = punto.material.color;
-        // if (aux.r == 1 && aux.g == 0 && aux.b == 0) {
-        //   aux.r = r; aux.g = r; aux.b = r;
-        // } else if (aux.r == 0 && aux.g == 1 && aux.b == 0) {
-        //   aux.r = g; aux.g = g; aux.b = g;
-        // } else if (aux.r == 0 && aux.g == 0 && aux.b == 1) {
-        //   aux.r = b; aux.g = b; aux.b = b;
-        // }
 
-        if (punto.geometry.type != "CylinderGeometry") {
+        //if (punto.geometry.type != "CylinderGeometry") {
           coloraux.r = 0.55;
           coloraux.g = 0.55;
           coloraux.b = 0.55;
-        }
+        //}
         punto.material.setValues({ color: coloraux });
         // punto.material.setValues({ color: aux });
         // mySelf.colorsp[aux.getHex()] = coloraux;
@@ -345,16 +341,6 @@ export class RedPorosa implements FileModelInterface {
       let puntos = this.json.sities;
       let auxNum = 0;
       mySelf.redporosa.forEach(function (punto: any) {
-        // var aux = punto.material.color;
-        // coloraux = punto.material.color;
-        // if (aux.r == r && aux.g == r && aux.b == r) {
-        //   aux.r = 1, aux.g = 0, aux.b = 0;
-        // } else if (aux.r == g && aux.g == g && aux.b == g) {
-        //   aux.r = 0, aux.g = 1, aux.b = 0;
-        // } else if (aux.r == b && aux.g == b && aux.b == b) {
-        //   aux.r = 0, aux.g = 0, aux.b = 1;
-        // }
-        // punto.material.setValues({ color: aux });
         coloraux = punto.material.color;
         if (punto.geometry.type != "CylinderGeometry" && puntos[auxNum].color == 0) {
           coloraux.r = 1;
@@ -368,6 +354,10 @@ export class RedPorosa implements FileModelInterface {
           coloraux.r = 0;
           coloraux.g = 0;
           coloraux.b = 1;
+        } else {
+          coloraux.r = 0.5019607843137255;
+          coloraux.g = 0.25098039215686274;
+          coloraux.b = 0;
         }
         auxNum++;
         punto.material.setValues({ color: coloraux });
