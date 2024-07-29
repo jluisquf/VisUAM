@@ -30,7 +30,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 # VisUAM Interface 
 
-In Image 1, the VisUAM homepage is shown, accessed through the URL [VisUAM](http://palancar.izt.uam.mx:4010/)
+ VISUAM can now be accessed at http://palancar.izt.uam.mx:4010/ (see Image 1). Please note that it is currently accessible via HTTP [VisUAM](http://palancar.izt.uam.mx:4010/).
 
 Next, the different visual elements of VisUAM are explained, such as buttons, text boxes, etc.
 ```
